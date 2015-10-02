@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.shape.*?>
 <?import java.lang.*?>
@@ -56,7 +59,7 @@
                   </Lighting>
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#858373" height="40.0" stroke="BLACK" strokeType="INSIDE" width="40.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="40.0" stroke="BLACK" strokeType="INSIDE" width="40.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                <effect>
                   <Lighting>
                      <bumpInput>
@@ -1153,23 +1156,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle fill="#dd1f06" radius="19.0" stroke="#fff200" strokeType="INSIDE" strokeWidth="4.0" translateX="1.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
-               <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
-               </effect>
-            </Circle>
-            <Circle fill="#dd1f06" radius="19.0" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
+            <Circle fill="#dd1f06" radius="19.0" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1329,7 +1316,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="19.0" stroke="#fbff00" strokeType="INSIDE" strokeWidth="4.0" translateX="1.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
+            <Circle radius="19.0" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1362,22 +1349,6 @@
                </effect>
             </Circle>
             <Circle radius="19.0" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="7" GridPane.rowIndex="7">
-               <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
-               </effect>
-            </Circle>
-            <Circle radius="19.0" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="8" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1457,7 +1428,64 @@
                   </InnerShadow>
                </effect>
             </Circle>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@redpiecefin.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.rowIndex="6">
+               <image>
+                  <Image url="@blackpiecefin.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
    </center>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Separator prefWidth="200.0" />
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="100.0" text="Player 1 Has Taken:" textAlignment="CENTER">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="100.0" text="0 Checkers" textAlignment="CENTER" />
+            <Separator prefHeight="17.0" prefWidth="100.0" />
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="100.0" text="Player 2 Has Taken:" textAlignment="CENTER">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="100.0" text="0 Checkers" textAlignment="CENTER" />
+            <Separator prefWidth="200.0" />
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="100.0" text="It Is" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="100.0" text="Player 1's Turn" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0" />
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Submit Move" textAlignment="CENTER" />
+         </children>
+      </VBox>
+   </right>
+   <top>
+      <Label prefHeight="32.0" prefWidth="170.0" text="Player 1" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+   </top>
+   <bottom>
+      <Label prefHeight="32.0" prefWidth="170.0" text="Player 2" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+   </bottom>
 </BorderPane>
