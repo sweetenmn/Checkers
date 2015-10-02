@@ -1475,11 +1475,16 @@
       </VBox>
    </right>
    <top>
-      <Label prefHeight="32.0" prefWidth="170.0" text="Player 1" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Label>
+      <Pane>
+         <children>
+            <Label layoutX="144.0" prefHeight="32.0" prefWidth="170.0" text="Player 1" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Button layoutX="371.0" layoutY="3.0" mnemonicParsing="false" text="New Game" />
+         </children>
+      </Pane>
    </top>
    <bottom>
       <Label prefHeight="32.0" prefWidth="170.0" text="Player 2" BorderPane.alignment="CENTER">
