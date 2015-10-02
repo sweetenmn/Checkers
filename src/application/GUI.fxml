@@ -1438,6 +1438,11 @@
                   <Image url="@blackpiecefin.png" />
                </image>
             </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="8">
+               <image>
+                  <Image url="@blankblackpiece.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
    </center>
