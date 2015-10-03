@@ -9,37 +9,37 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="424.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="checkersGUI.Controller">
    <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="360.0" prefWidth="120.0" BorderPane.alignment="CENTER">
          <children>
             <Separator prefWidth="200.0" />
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="100.0" text="Player 1 Has Taken:" textAlignment="CENTER">
+            <Label alignment="CENTER" prefHeight="39.0" prefWidth="182.0" text="Player 1 Has Taken:" textAlignment="CENTER">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="100.0" text="0 Checkers" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="39.0" prefWidth="163.0" text="0 Checkers" textAlignment="CENTER" />
             <Separator prefHeight="17.0" prefWidth="100.0" />
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="100.0" text="Player 2 Has Taken:" textAlignment="CENTER">
+            <Label alignment="CENTER" prefHeight="39.0" prefWidth="132.0" text="Player 2 Has Taken:" textAlignment="CENTER">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
-            <Separator prefWidth="200.0" />
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="100.0" text="0 Checkers" textAlignment="CENTER" />
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="100.0" text="It Is" textAlignment="CENTER">
+            <Label alignment="CENTER" prefHeight="39.0" prefWidth="136.0" text="0 Checkers" textAlignment="CENTER" />
+            <Separator prefHeight="12.0" prefWidth="120.0" />
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="145.0" text="It Is" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="100.0" text="Player 1's Turn" textAlignment="CENTER">
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="138.0" text="Player 1's Turn" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
             <Separator prefWidth="200.0" />
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Submit Move" textAlignment="CENTER" />
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" text="Submit Move" textAlignment="CENTER" />
          </children>
       </VBox>
    </right>
@@ -51,19 +51,19 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Button layoutX="371.0" layoutY="3.0" mnemonicParsing="false" text="New Game" />
+            <Button layoutX="382.0" layoutY="2.0" mnemonicParsing="false" text="New Game" />
          </children>
       </Pane>
    </top>
    <bottom>
-      <Label prefHeight="32.0" prefWidth="170.0" text="Player 2" BorderPane.alignment="CENTER">
+      <Label prefHeight="32.0" prefWidth="196.0" text="Player 2" BorderPane.alignment="CENTER">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
    </bottom>
-   <left>
-      <GridPane gridLinesVisible="true" BorderPane.alignment="CENTER">
+   <center>
+      <GridPane fx:id="checkerboard" gridLinesVisible="true" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="NEVER" minWidth="45.0" prefWidth="45.0" />
           <ColumnConstraints hgrow="NEVER" minWidth="45.0" prefWidth="45.0" />
@@ -431,7 +431,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
                <effect>
                   <Lighting>
@@ -466,7 +467,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="6">
                <effect>
                   <Lighting>
@@ -477,7 +479,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="4">
                <effect>
                   <Lighting>
@@ -488,7 +491,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <effect>
                   <Lighting>
@@ -499,7 +503,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <effect>
                   <Lighting>
@@ -510,7 +515,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <effect>
                   <Lighting>
@@ -521,7 +527,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <effect>
                   <Lighting>
@@ -532,7 +539,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.rowIndex="2">
                <effect>
                   <Lighting>
@@ -543,7 +551,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="2">
                <effect>
                   <Lighting>
@@ -554,7 +563,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
                <effect>
                   <Lighting>
@@ -565,7 +575,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <effect>
                   <Lighting>
@@ -576,7 +587,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0">
                <effect>
                   <Lighting>
@@ -587,7 +599,8 @@
                         <Light.Distant />
                      </light>
                   </Lighting>
-               </effect></Rectangle>
+               </effect>
+            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="1">
                <effect>
                   <Lighting>
@@ -840,7 +853,7 @@
                   </Lighting>
                </effect>
             </Rectangle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="7" GridPane.rowIndex="1">
                <effect>
                   <InnerShadow>
                      <input>
@@ -856,7 +869,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <effect>
                   <InnerShadow>
                      <input>
@@ -872,7 +885,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="2">
+            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="2">
                <effect>
                   <InnerShadow>
                      <input>
@@ -888,7 +901,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <effect>
                   <InnerShadow>
                      <input>
@@ -904,7 +917,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="4">
+            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="4">
                <effect>
                   <InnerShadow>
                      <input>
@@ -920,7 +933,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="6">
+            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="6">
                <effect>
                   <InnerShadow>
                      <input>
@@ -936,7 +949,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.rowIndex="2">
+            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow>
                      <input>
@@ -952,7 +965,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow>
                      <input>
@@ -968,7 +981,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow>
                      <input>
@@ -984,7 +997,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
+            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1000,7 +1013,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1016,7 +1029,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.rowIndex="6">
+            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1032,7 +1045,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1048,7 +1061,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="5">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1064,7 +1077,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1080,7 +1093,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
+            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="7">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1096,7 +1109,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
+            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1112,7 +1125,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
+            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="5">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1128,7 +1141,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="5" GridPane.rowIndex="7">
+            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="7">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1144,7 +1157,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
+            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="7" GridPane.rowIndex="5">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1160,7 +1173,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="7" GridPane.rowIndex="7">
+            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="7" GridPane.rowIndex="7">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1176,7 +1189,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
+            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="6" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1192,7 +1205,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0">
+            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1208,7 +1221,7 @@
                   </InnerShadow>
                </effect>
             </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <effect>
                   <InnerShadow>
                      <input>
@@ -1226,5 +1239,5 @@
             </Circle>
          </children>
       </GridPane>
-   </left>
+   </center>
 </BorderPane>
