@@ -29,7 +29,9 @@ public class Controller {
 	Button submitMove;
 	
 	@FXML
-	TextField ipAddress = new TextField("Enter enemy IP Address");
+	TextField host = new TextField("Enter Host");
+	@FXML
+	TextField port = new TextField("Enter Port Number");
 	@FXML
 	TextField p1Name = new TextField("Enter your name");
 	@FXML
@@ -52,7 +54,8 @@ public class Controller {
 		VBox popupVBox = new VBox();
 		popupVBox.getChildren().add(p1Name);
 		popupVBox.getChildren().add(p2Name);
-		popupVBox.getChildren().add(ipAddress);
+		popupVBox.getChildren().add(host);
+		popupVBox.getChildren().add(port);
 		popupVBox.getChildren().add(connect);
 		Popup popup = new Popup();
         popup.getContent().addAll(popupVBox);
