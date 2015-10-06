@@ -26,7 +26,7 @@ public class Controller {
 	@FXML
 	Button connect = new Button("Connect");
 	@FXML
-	Button submit = new Button();
+	Button submitMove;
 	
 	@FXML
 	TextField ipAddress = new TextField("Enter enemy IP Address");
@@ -35,16 +35,16 @@ public class Controller {
 	@FXML
 	TextField p2Name = new TextField("Enter your enemy's name");
 	
+	Board board;
 	
 	@FXML
 	public void initialize(){
-		Board board = new Board(checkerboard);
+		board = new Board(checkerboard);
 		board.setUp();
 	}
 	@FXML
 	public void popUp(){
 		/*Pops up a series of textfields and "connect" button.
-		 * Users will enter their name and the name of their opponent.
 		 * The user will input the ip address and then press the connect button.
 		 * The connect button's method should then hide the textfield and button from view and push the screen.
 		 * I think the getIP should be linked to the "connect" button.
@@ -69,14 +69,18 @@ public class Controller {
         });
         	
     }
-	
-	
 	@FXML
 	public void getIP(){
 		//Connected to the New Game button, or activated upon initialization.
 		//Will ask for the other user's IP Address or *MAYBE* ask if the player
 		//wants to keep playing with their partner.
 		//If they do, use previous IP Address. Else, add a new one.
+		
+	}
+	
+	@FXML
+	public void submove(){
+		board.move();
 	}
 	
 	@FXML

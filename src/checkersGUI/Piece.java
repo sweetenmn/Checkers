@@ -1,5 +1,6 @@
 package checkersGUI;
 
+import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -9,10 +10,16 @@ public class Piece {
 	private Image image;
 	private int player;
 	private Pane pane;
+	private int column;
+	private int row;
+	private boolean clicked;
 	
-	public Piece(int player, Pane pane){
+	public Piece(int player, Pane pane, int x, int y){
 		this.player = player;
 		this.pane = pane;
+		column = x;
+		row = y;
+		clicked = false;
 	}
 	
 	public void createChip(){
@@ -30,7 +37,10 @@ public class Piece {
 		pane.getChildren().add(chip);		
 	}
 	
+	@FXML
 	public void handleClick(){
+		System.out.println("clicked piece");
+		clicked = true;
 		//talk to the rules/player in game package
 		//FIRST if player # in piece matches player click (and no other pieces are active--if so, cancel?)
 		//THEN check for legal moves. if so, highlight possible/mandatory
@@ -42,8 +52,23 @@ public class Piece {
 		//if there's a jump get the coord of the jumped and then on submit move erase that pane
 	}
 	
+	public boolean isLegal(Square square){
+		return (Math.abs(column - square.getColumn()) == 1 && Math.abs(row - square.getRow()) == 1);
+			
+	}
 	
+	public boolean isClicked(){
+		return clicked;
+	}
 	
+	public void clear(){
+		pane.getChildren().clear();
+		pane.setVisible(false);
+		clicked = false;
+	}
 	
-	
+	public int getPlayer(){
+		return player;
+	}
+
 }
