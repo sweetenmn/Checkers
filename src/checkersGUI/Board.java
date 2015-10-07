@@ -10,16 +10,18 @@ public class Board {
 	GridPane checkerboard;
 	ArrayList<Piece> pieces;
 	ArrayList<Square> squares;
+	int oldX;
+	int oldY;
+	int newX;
+	int newY;
 	
 	public Board(GridPane grid){
 		checkerboard = grid;
 		pieces = new ArrayList<Piece>();
 		squares = new ArrayList<Square>();
-		
 	}
 	
 	public void setUp(){
-
 		addSquares();
 		addChips(1, 0);
 		addChips(2, 5);
@@ -70,45 +72,21 @@ public class Board {
 			
 		}
 	}
-	@FXML
-	public void move(){
-		boolean stopping = false;
-		for (int i = pieces.size() - 1; i >= 0 && !stopping; i--){
-			Piece oldPiece = pieces.get(i);
-			if (oldPiece.isClicked()){
-				for (Square s: squares){
-					if (oldPiece.isLegal(s) && s.isClicked()){
-						oldPiece.clear();
-						s.clear();
-						Pane pane = new Pane();
-						Piece piece = new Piece(oldPiece.getPlayer(), pane, s.getColumn(), s.getRow());
-						piece.addToBoard();
-						checkerboard.add(pane, s.getColumn(), s.getRow());
-						pieces.remove(i);
-						pieces.add(piece);
-						stopping = true;
-					}
-				}
-				
-			}
-		}
-		
-		
-	}
+
 	
-	public void movePiece(int xOrigin, int yOrigin, int xDestin, int yDestin){
+	public void movePiece(){
 		boolean stopping = false;
 		for (int i = pieces.size() - 1; i >= 0 && !stopping; i--){
 			Piece oldPiece = pieces.get(i);
-			if (oldPiece.getColumn() == xOrigin && oldPiece.getRow() == yOrigin){
+			if (oldPiece.getColumn() == oldX && oldPiece.getRow() == oldY){
 				for (Square s: squares){
-					if (oldPiece.isLegal(s) && s.getColumn() == xDestin && s.getRow() == yDestin){
+					if (oldPiece.isLegal(s) && s.getColumn() == newX && s.getRow() == newY){
 						oldPiece.clear();
 						s.clear();
 						Pane pane = new Pane();
-						Piece piece = new Piece(oldPiece.getPlayer(), pane, xDestin, yDestin);
+						Piece piece = new Piece(oldPiece.getPlayer(), pane, newX, newY);
 						piece.addToBoard();
-						checkerboard.add(pane, xDestin, yDestin);
+						checkerboard.add(pane, newX, newY);
 						pieces.remove(i);
 						pieces.add(piece);
 						stopping = true;
@@ -139,19 +117,23 @@ public class Board {
 				
 			}
 		}
-		return oldX + ":" + oldY + ":" + newX + ":" + newY;
+		return (oldX + ":" + oldY + ":" + newX + ":" + newY).trim();
 	}
 	
 	private String getString(int x){
 		return Integer.toString(x);
+	
 	}
+	
 	public void setMove(String msg){
-		String[] values = msg.split(":");
-		int xOrg = Integer.getInteger(values[0]);
-		int yOrg = Integer.getInteger(values[1]);
-		int xDest = Integer.getInteger(values[2]);
-		int yDest = Integer.getInteger(values[3]);
-		movePiece(xOrg, yOrg, xDest, yDest);
+		if (msg.length() > 3){
+			String[] values = msg.split(":");
+			oldX = Integer.valueOf(values[0]);
+			oldY = Integer.valueOf(values[1]);
+			newX = Integer.valueOf(values[2]);
+			newY = Integer.valueOf(values[3]);
+			movePiece();
+		} 
 		
 	}
 	

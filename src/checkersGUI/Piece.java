@@ -39,17 +39,8 @@ public class Piece {
 	
 	@FXML
 	public void handleClick(){
-		System.out.println("clicked piece");
 		clicked = true;
-		//talk to the rules/player in game package
-		//FIRST if player # in piece matches player click (and no other pieces are active--if so, cancel?)
-		//THEN check for legal moves. if so, highlight possible/mandatory
-		//add list of legal destinations to arraylist. add panes to those cells in the grid
-		//need to create destination square and origin square classes probably
-		//add event handlers if panes get clicked move the piece--origin gets changed to a "reset" method
-		//obviously the "game" package is going to need a coords system
-		//clear the array list on submit move
-		//if there's a jump get the coord of the jumped and then on submit move erase that pane
+
 	}
 	
 	public boolean isLegal(Square square){

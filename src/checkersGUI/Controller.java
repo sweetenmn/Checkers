@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -17,7 +18,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -43,7 +43,6 @@ public class Controller {
 	@FXML
 	Label playerTurn = new Label();
 	
-	
 	@FXML
 	TextField host = new TextField("Enter Host");
 	@FXML
@@ -58,13 +57,13 @@ public class Controller {
 		submitMove.setOnAction(event -> sendmove());
 		new Thread(() -> {
 	            try {
-	                Server s = new Server(Integer.getInteger(port.getText()));
+	                Server s = new Server(8888);
 	                s.listen();
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
-	        }
-	        ).start();
+	        
+		}).start();
 	    
 		new Thread(() -> {
 			for (;;) {
@@ -104,7 +103,6 @@ public class Controller {
         connect.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-                 getIP();
                  p1.setText(p1Name.getText());
                  p2.setText(p2Name.getText());
                  playerTurn.setText(p1.getText() + "'s Turn");
@@ -114,22 +112,9 @@ public class Controller {
 	}
 	
 	
-	@FXML
-	public void getIP(){
-		//Connected to the New Game button, or activated upon initialization.
-		//Will ask for the other user's IP Address or *MAYBE* ask if the player
-		//wants to keep playing with their partner.
-		//If they do, use previous IP Address. Else, add a new one.
-	}
-	
-/*	@FXML
-	public void submove(){
-		board.move();
-	}*/
-	
 	void sendmove() {
 		try {
-			sendTo(host.getText(), Integer.parseInt(this.port.getText()), board.getMove());
+			sendTo("localhost", Integer.parseInt("8888"), board.getMove());
 		} catch (NumberFormatException nfe) {
 			badNews(String.format("\"%s\" is not an integer", this.port.getText()));
 		}

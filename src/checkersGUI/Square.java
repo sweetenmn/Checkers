@@ -25,7 +25,9 @@ public class Square {
 	public int getColumn(){return column;}
 	public int getRow(){return row;}
 	@FXML
-	public void click(){clicked = true;}
+	public void click(){
+		clicked = true;
+		}
 	public boolean isClicked(){return clicked;}
 	
 	public void clear(){
