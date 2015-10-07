@@ -4,10 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -37,11 +35,11 @@ public class Controller {
 	Board board;
 	
 	@FXML
-	Label p1 = new Label();
+	Label p1;
 	@FXML
-	Label p2 = new Label();
+	Label p2;
 	@FXML
-	Label playerTurn = new Label();
+	Label playerTurn;
 	
 	@FXML
 	TextField host = new TextField("Enter Host");
@@ -114,7 +112,8 @@ public class Controller {
 	
 	void sendmove() {
 		try {
-			sendTo("localhost", Integer.parseInt("8888"), board.getMove());
+			sendTo(host.getText(), 8888, board.getMove());
+			turnUpdate();
 		} catch (NumberFormatException nfe) {
 			badNews(String.format("\"%s\" is not an integer", this.port.getText()));
 		}

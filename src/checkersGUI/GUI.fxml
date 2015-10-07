@@ -33,7 +33,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="138.0" text="Player 1's Turn" textAlignment="CENTER">
+            <Label fx:id="playerTurn" alignment="CENTER" prefHeight="40.0" prefWidth="138.0" text="Player 1's Turn" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -46,7 +46,7 @@
    <top>
       <Pane>
          <children>
-            <Label layoutX="144.0" prefHeight="32.0" prefWidth="170.0" text="Player 1" BorderPane.alignment="CENTER">
+            <Label fx:id="p1" layoutX="144.0" prefHeight="32.0" prefWidth="170.0" text="Player 1" BorderPane.alignment="CENTER">
                <font>
                   <Font size="22.0" />
                </font>
@@ -56,7 +56,7 @@
       </Pane>
    </top>
    <bottom>
-      <Label prefHeight="32.0" prefWidth="196.0" text="Player 2" BorderPane.alignment="CENTER">
+      <Label fx:id="p2" prefHeight="32.0" prefWidth="196.0" text="Player 2" BorderPane.alignment="CENTER">
          <font>
             <Font size="22.0" />
          </font>
