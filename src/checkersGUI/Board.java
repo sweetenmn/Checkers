@@ -93,6 +93,66 @@ public class Board {
 			}
 		}
 		
+		
+	}
+	
+	public void movePiece(int xOrigin, int yOrigin, int xDestin, int yDestin){
+		boolean stopping = false;
+		for (int i = pieces.size() - 1; i >= 0 && !stopping; i--){
+			Piece oldPiece = pieces.get(i);
+			if (oldPiece.getColumn() == xOrigin && oldPiece.getRow() == yOrigin){
+				for (Square s: squares){
+					if (oldPiece.isLegal(s) && s.getColumn() == xDestin && s.getRow() == yDestin){
+						oldPiece.clear();
+						s.clear();
+						Pane pane = new Pane();
+						Piece piece = new Piece(oldPiece.getPlayer(), pane, xDestin, yDestin);
+						piece.addToBoard();
+						checkerboard.add(pane, xDestin, yDestin);
+						pieces.remove(i);
+						pieces.add(piece);
+						stopping = true;
+					}
+				}
+				
+			}
+		}
+		
+	}
+	
+	public String getMove(){
+		String oldX = "";
+		String oldY = "";
+		String newX = "";
+		String newY = "";
+		for (int i = pieces.size() - 1; i >= 0; i--){
+			Piece oldPiece = pieces.get(i);
+			if (oldPiece.isClicked()){
+				for (Square s: squares){
+					if (oldPiece.isLegal(s) && s.isClicked()){
+						oldX = getString(oldPiece.getColumn());
+						oldY = getString(oldPiece.getRow());
+						newX = getString(s.getColumn());
+						newY = getString(s.getRow());
+					}
+				}
+				
+			}
+		}
+		return oldX + ":" + oldY + ":" + newX + ":" + newY;
+	}
+	
+	private String getString(int x){
+		return Integer.toString(x);
+	}
+	public void setMove(String msg){
+		String[] values = msg.split(":");
+		int xOrg = Integer.getInteger(values[0]);
+		int yOrg = Integer.getInteger(values[1]);
+		int xDest = Integer.getInteger(values[2]);
+		int yDest = Integer.getInteger(values[3]);
+		movePiece(xOrg, yOrg, xDest, yDest);
+		
 	}
 	
 			

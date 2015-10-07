@@ -61,6 +61,9 @@ public class Piece {
 		return clicked;
 	}
 	
+	public int getColumn(){return column;}
+	public int getRow(){return row;}
+	
 	public void clear(){
 		pane.getChildren().clear();
 		pane.setVisible(false);
