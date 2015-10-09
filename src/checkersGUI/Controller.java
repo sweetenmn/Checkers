@@ -3,6 +3,7 @@ package checkersGUI;
 import server_connection.Server;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -20,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import server_connection.Server;
 
 public class Controller {
 	@FXML

@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+
+//This may need to be separated into board setup and piece movement. I tried to do 
+//this, but was unsuccessful.
 public class Board {
 	GridPane checkerboard;
 	ArrayList<Piece> pieces;
@@ -95,7 +98,7 @@ public class Board {
 						Pane pane = new Pane();
 						Piece piece = new Piece(oldPiece.getPlayer(), pane, newX, newY);
 						piece.addToBoard();
-						checkerboard.add(pane, newX, newY);
+						Platform.runLater(() -> checkerboard.add(pane, newX, newY));
 						pieces.remove(i);
 						pieces.add(piece);
 						done=true;
