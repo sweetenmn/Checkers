@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 
+
 //This may need to be separated into board setup and piece movement. I tried to do 
 //this, but was unsuccessful.
 public class Board {
@@ -61,7 +62,7 @@ public class Board {
 			for (int row = 0; row < 8; row++){
 				Pane pane = new Pane();
 				Square square = new Square(pane, column, row);
-				pane.setOnMouseClicked(k -> square.click());
+				pane.setOnMouseClicked(k -> square.handleClick());
 				if (row % 2 != 0){
 					if (column % 2 != 0){
 						checkerboard.add(pane, column, row);

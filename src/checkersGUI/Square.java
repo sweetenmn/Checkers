@@ -3,7 +3,7 @@ package checkersGUI;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 
-public class Square {
+public class Square implements Square_Piece{
 	
 	private Pane pane;
 	private int column;
@@ -20,14 +20,17 @@ public class Square {
 	
 	@FXML
 	private void setUp(){
-		this.pane.setOnMouseClicked(k -> click());
+		this.pane.setOnMouseClicked(k -> handleClick());
 	}
+	
 	public int getColumn(){return column;}
 	public int getRow(){return row;}
+	
 	@FXML
-	public void click(){
+	public void handleClick(){
 		clicked = true;
 		}
+	
 	public boolean isClicked(){return clicked;}
 	
 	public void clear(){

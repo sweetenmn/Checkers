@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public class Piece {
+public class Piece implements Square_Piece{
 	private ImageView chip;
 	private Image image;
 	private int player;
@@ -43,8 +43,9 @@ public class Piece {
 
 	}
 	
+	//This may need to be moved to Rules.
 	public boolean isLegal(Square square){
-		return (Math.abs(column - square.getColumn()) == 1 && Math.abs(row - square.getRow()) == 1);
+		return (Math.abs(column - square.getColumn()) == 1 && row - square.getRow() == 1);
 			
 	}
 	
@@ -64,8 +65,10 @@ public class Piece {
 	public int getPlayer(){
 		return player;
 	}
+	
 	public void unclick(){
 		clicked = false;
 	}
+
 
 }
