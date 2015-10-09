@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -118,13 +117,6 @@ public class Board {
 	//of the two images.
 	//might have a helper for actually doing it?
 	
-	public void swap(GridPane grid, Pane x, Pane y){
-		for (Node p: grid.getChildren()){
-			int originX = GridPane.getColumnIndex(x);
-		}
-	 
-		
-	}
 	
 	public String getMove(){
 		String oldX = "";
