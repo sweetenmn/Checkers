@@ -9,7 +9,7 @@ public class Piece {
 	private ImageView chip;
 	private Image image;
 	private int player;
-	private Pane pane;
+	public Pane pane;
 	private int column;
 	private int row;
 	private boolean clicked;

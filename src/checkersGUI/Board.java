@@ -2,7 +2,9 @@ package checkersGUI;
 
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -18,6 +20,7 @@ public class Board {
 	public Board(GridPane grid){
 		checkerboard = grid;
 		pieces = new ArrayList<Piece>();
+		//get legal squares
 		squares = new ArrayList<Square>();
 	}
 	
@@ -49,6 +52,7 @@ public class Board {
 		}
 		
 	}
+	
 	@FXML
 	public void addSquares(){
 		for (int column = 0; column < 8; column++){
@@ -73,14 +77,18 @@ public class Board {
 		}
 	}
 
-	
+	@FXML
 	public void movePiece(){
 		boolean stopping = false;
 		boolean done = false;
+		//change to pieces of whoever's turn it is and change to looking
+		//at most recent clicks-- intermediary class that goes through and
+		//unclicks all the other pieces every third click or something
 		for (int i = pieces.size() - 1; i >= 0 && !stopping; i--){
 			Piece oldPiece = pieces.get(i);
 			if (oldPiece.getColumn() == oldX && oldPiece.getRow() == oldY){
-				for (int j = squares.size() - 1; i >= 0 && !done; j--){
+				//change to array of legal squares
+				for (int j = squares.size() - 1; j >= 0 && !done; j--){
 					Square s = squares.get(j);
 					if (s.getColumn() == newX && s.getRow() == newY){
 						oldPiece.clear();
@@ -96,6 +104,7 @@ public class Board {
 					} else {
 						s.clear();
 					}
+					
 				}
 				
 			} else {
@@ -105,11 +114,26 @@ public class Board {
 		
 	}
 	
+	//Once we get interface going, have a method that will swap locations
+	//of the two images.
+	//might have a helper for actually doing it?
+	
+	public void swap(GridPane grid, Pane x, Pane y){
+		for (Node p: grid.getChildren()){
+			int originX = GridPane.getColumnIndex(x);
+		}
+	 
+		
+	}
+	
 	public String getMove(){
 		String oldX = "";
 		String oldY = "";
 		String newX = "";
 		String newY = "";
+		//no
+		//this is why it moves the wrong things, need better way to talk about
+		//when we will be moving a piece
 		for (int i = pieces.size() - 1; i >= 0; i--){
 			Piece oldPiece = pieces.get(i);
 			if (oldPiece.isClicked()){
@@ -134,14 +158,14 @@ public class Board {
 	
 	public void setMove(String msg){
 		if (msg.length() > 3){
-			System.out.println(oldX);
+			System.out.println("old x: " + oldX);
 			String[] values = msg.split(":");
 			oldX = Integer.valueOf(values[0]);
 			oldY = Integer.valueOf(values[1]);
 			newX = Integer.valueOf(values[2]);
 			newY = Integer.valueOf(values[3]);
-			System.out.println(oldX);
-			movePiece();
+			System.out.println("new oldX: " + oldX);
+			Platform.runLater(() -> movePiece());
 		} 
 		
 	}
