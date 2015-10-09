@@ -76,11 +76,13 @@ public class Board {
 	
 	public void movePiece(){
 		boolean stopping = false;
+		boolean done = false;
 		for (int i = pieces.size() - 1; i >= 0 && !stopping; i--){
 			Piece oldPiece = pieces.get(i);
 			if (oldPiece.getColumn() == oldX && oldPiece.getRow() == oldY){
-				for (Square s: squares){
-					if (oldPiece.isLegal(s) && s.getColumn() == newX && s.getRow() == newY){
+				for (int j = squares.size() - 1; i >= 0 && !done; j--){
+					Square s = squares.get(j);
+					if (s.getColumn() == newX && s.getRow() == newY){
 						oldPiece.clear();
 						s.clear();
 						Pane pane = new Pane();
@@ -89,10 +91,15 @@ public class Board {
 						checkerboard.add(pane, newX, newY);
 						pieces.remove(i);
 						pieces.add(piece);
-						stopping = true;
+						done=true;
+						stopping=true;
+					} else {
+						s.clear();
 					}
 				}
 				
+			} else {
+				oldPiece.unclick();
 			}
 		}
 		
@@ -127,11 +134,13 @@ public class Board {
 	
 	public void setMove(String msg){
 		if (msg.length() > 3){
+			System.out.println(oldX);
 			String[] values = msg.split(":");
 			oldX = Integer.valueOf(values[0]);
 			oldY = Integer.valueOf(values[1]);
 			newX = Integer.valueOf(values[2]);
 			newY = Integer.valueOf(values[3]);
+			System.out.println(oldX);
 			movePiece();
 		} 
 		

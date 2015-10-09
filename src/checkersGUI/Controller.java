@@ -67,6 +67,7 @@ public class Controller {
 			for (;;) {
 				try {
 					String msg = messages.take();
+					System.out.println("taken: " + msg);
 					Platform.runLater(() -> {board.setMove(msg);});
 				} catch (Exception e) {
 					badNews(e.getMessage());
@@ -123,6 +124,7 @@ public class Controller {
 		new Thread(() -> {
 			try {
 				Socket target = new Socket(host, port);
+				System.out.println(message);
 				send(target, message);
 				receive(target);
 				target.close();
@@ -144,6 +146,7 @@ public class Controller {
 		while (sockin.ready()) {
 			try {
 				String msg = sockin.readLine();
+				System.out.println("message r " + msg);
 				messages.put(msg);
 			} catch (Exception e) {
 				Platform.runLater(() -> badNews(e.getMessage()));

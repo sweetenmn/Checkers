@@ -58,11 +58,14 @@ public class Piece {
 	public void clear(){
 		pane.getChildren().clear();
 		pane.setVisible(false);
-		clicked = false;
+		unclick();
 	}
 	
 	public int getPlayer(){
 		return player;
+	}
+	public void unclick(){
+		clicked = false;
 	}
 
 }
