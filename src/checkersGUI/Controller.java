@@ -1,6 +1,9 @@
 package checkersGUI;
 
+import server_connection.Server;
+
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -18,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import server_connection.Server;
 
 public class Controller {
 	@FXML
@@ -55,7 +59,7 @@ public class Controller {
 		submitMove.setOnAction(event -> sendmove());
 		new Thread(() -> {
 	            try {
-	                Server s = new Server(8888);
+	                Server s = new Server(8888, board);
 	                s.listen();
 	            } catch (IOException e) {
 	                e.printStackTrace();

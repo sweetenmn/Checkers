@@ -1,4 +1,5 @@
 package server_connection;
+import checkersGUI.Board;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,16 +8,20 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+import javafx.application.Platform;
 
-	public static void main(String[] args) throws IOException {
-		Server s = new Server(Integer.parseInt(args[0]));
+public class Server {
+	private Board board;
+
+	public static void main(String[] args, Board board) throws IOException {
+		Server s = new Server(Integer.parseInt(args[0]), board);
 		s.listen();
 	}
 	
 	private ServerSocket accepter;
 
-	public Server(int port) throws IOException {
+	public Server(int port, Board board) throws IOException {
+		this.board = board;
 		accepter = new ServerSocket(port);
 		System.out.println("Server: IP address: " + accepter.getInetAddress() + " (" + port + ")");
 	}
@@ -42,12 +47,12 @@ public class Server {
 	            PrintWriter writer = new PrintWriter(socket.getOutputStream());
 	            String msg = getMessage();
 	            System.out.println("Server: Received [" + msg + "]");
+	            Platform.runLater(() -> board.setMove(msg));
 	            echoAndClose(writer, msg);
 	        } catch (IOException ioe) {
 	            ioe.printStackTrace();
 	        } 
 	    }
-	    
 	    
 	    private void echoAndClose(PrintWriter writer, String msg) throws IOException {
             writer.print(msg);
@@ -61,9 +66,10 @@ public class Server {
             StringBuilder sb = new StringBuilder();
             while (!responses.ready()){}
             while (responses.ready()) {
-                sb.append(responses.readLine() + '\n');
+                sb.append(responses.readLine());
             }
 	    	return sb.toString();
 	    }
 	}
 }
+
