@@ -48,7 +48,6 @@ public class Server {
 	        } 
 	    }
 	    
-	    
 	    private void echoAndClose(PrintWriter writer, String msg) throws IOException {
             writer.print(msg);
             writer.flush();
@@ -67,3 +66,4 @@ public class Server {
 	    }
 	}
 }
+
