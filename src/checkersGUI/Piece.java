@@ -45,7 +45,7 @@ public class Piece implements Square_Piece{
 	
 	//This may need to be moved to Rules.
 	public boolean isLegal(Square square){
-		return (Math.abs(column - square.getColumn()) == 1 && row - square.getRow() == 1);
+		return (Math.abs(column - square.getColumn()) == 1 && Math.abs(row - square.getRow()) == 1);
 			
 	}
 	
