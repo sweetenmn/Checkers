@@ -1,20 +1,18 @@
 package checkersGUI;
 
 import java.util.ArrayList;
-
+import game.Cell;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-
-
-//This may need to be separated into board setup and piece movement. I tried to do 
-//this, but was unsuccessful.
 public class Board {
 	GridPane checkerboard;
 	ArrayList<Piece> pieces;
 	ArrayList<Square> squares;
+	Cell lastPieceClicked;
+	Cell lastSquareClicked;
 	int oldX;
 	int oldY;
 	int newX;
@@ -28,17 +26,18 @@ public class Board {
 	}
 	
 	public void setUp(){
-		addSquares();
-		addChips(1, 0);
-		addChips(2, 5);
+		addChips(0, 0, 8);
+		addChips(1, 0, 3);
+		addChips(2, 5, 8);
 	}
 	
-	public void addChips(int player, int rowIndex){
+	public void addChips(int state, int rowStart, int rowEnd){
 		for (int column = 0; column < 8; column++){
-			for (int row = rowIndex; row < rowIndex + 3; row++){
+			for (int row = rowStart; row < rowEnd; row++){
 				Pane pane = new Pane();
-				Piece piece = new Piece(player, pane, column, row);
-				piece.addToBoard();
+				Piece piece = new Piece(state, pane, column, row);
+				Cell cell = new Cell(state, pane, column, row);
+				cell.addToBoard(this);
 				if (row % 2 != 0){
 					if (column % 2 != 0){
 						checkerboard.add(pane, column, row);
@@ -56,48 +55,28 @@ public class Board {
 		
 	}
 	
-	@FXML
-	public void addSquares(){
-		for (int column = 0; column < 8; column++){
-			for (int row = 0; row < 8; row++){
-				Pane pane = new Pane();
-				Square square = new Square(pane, column, row);
-				pane.setOnMouseClicked(k -> square.handleClick());
-				if (row % 2 != 0){
-					if (column % 2 != 0){
-						checkerboard.add(pane, column, row);
-						squares.add(square);
-					}
-				} else {
-					if (column % 2 == 0){
-						checkerboard.add(pane, column, row);
-						squares.add(square);
-						
-					}
-				}
-			}
-			
-		}
+	public void setLastPieceClicked(Cell cell){
+		lastPieceClicked = cell;
 	}
-
+	
+	public void setLastSquareClicked(Cell cell){
+		lastSquareClicked= cell;
+	}
+/*
 	@FXML
 	public void movePiece(){
 		boolean stopping = false;
 		boolean done = false;
-		//change to pieces of whoever's turn it is and change to looking
-		//at most recent clicks-- intermediary class that goes through and
-		//unclicks all the other pieces every third click or something
 		for (int i = pieces.size() - 1; i >= 0 && !stopping; i--){
 			Piece oldPiece = pieces.get(i);
 			if (oldPiece.getColumn() == oldX && oldPiece.getRow() == oldY){
-				//change to array of legal squares
 				for (int j = squares.size() - 1; j >= 0 && !done; j--){
 					Square s = squares.get(j);
 					if (s.getColumn() == newX && s.getRow() == newY){
 						oldPiece.clear();
 						s.clear();
 						Pane pane = new Pane();
-						Piece piece = new Piece(oldPiece.getPlayer(), pane, newX, newY);
+						Piece piece = new Piece(oldPiece.getState(), pane, newX, newY);
 						piece.addToBoard();
 						Platform.runLater(() -> checkerboard.add(pane, newX, newY));
 						pieces.remove(i);
@@ -107,20 +86,22 @@ public class Board {
 					} else {
 						s.clear();
 					}
-					
 				}
-				
 			} else {
 				oldPiece.unclick();
 			}
-		}
+		}		
+	}*/
+	
+	public void movePiece(){
+		lastPieceClicked.eraseFrom(checkerboard);
+		lastSquareClicked.eraseFrom(checkerboard);
 		
 	}
 	
 	//Once we get interface going, have a method that will swap locations
 	//of the two images.
 	//might have a helper for actually doing it?
-	
 	
 	public String getMove(){
 		String oldX = "";
@@ -141,7 +122,6 @@ public class Board {
 						newY = getString(s.getRow());
 					}
 				}
-				
 			}
 		}
 		return (oldX + ":" + oldY + ":" + newX + ":" + newY).trim();
@@ -149,26 +129,16 @@ public class Board {
 	
 	private String getString(int x){
 		return Integer.toString(x);
-	
 	}
 	
 	public void setMove(String msg){
 		if (msg.length() > 3){
-			System.out.println("old x: " + oldX);
 			String[] values = msg.split(":");
 			oldX = Integer.valueOf(values[0]);
 			oldY = Integer.valueOf(values[1]);
 			newX = Integer.valueOf(values[2]);
 			newY = Integer.valueOf(values[3]);
-			System.out.println("new oldX: " + oldX);
-			Platform.runLater(() -> movePiece());
-		} 
-		
+		//	Platform.runLater(() -> movePiece());
+		} 		
 	}
-	
-			
-	
-	
-	
-	
 }

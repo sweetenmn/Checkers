@@ -60,9 +60,11 @@ public class Piece implements Square_Piece{
 		pane.getChildren().clear();
 		pane.setVisible(false);
 		unclick();
+		
+		
 	}
 	
-	public int getPlayer(){
+	public int getState(){
 		return player;
 	}
 	

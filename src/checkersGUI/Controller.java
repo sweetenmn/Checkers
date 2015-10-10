@@ -21,7 +21,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import server_connection.Server;
 
 public class Controller {
 	@FXML
