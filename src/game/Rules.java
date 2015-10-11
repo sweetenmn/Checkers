@@ -7,7 +7,8 @@ public class Rules {
 	//Maybe just change Rules() to isKing? and isKing to kinged.
 	public boolean isLegal(Cell origin, Cell destination){
 		if(origin.getState() == CellState.RED_KING || origin.getState() == CellState.BLACK_KING){
-			return Math.abs(destination.getColumn() - origin.getColumn()) == 1 && Math.abs(destination.getRow() - origin.getRow()) == 1;
+			return Math.abs(destination.getColumn() - origin.getColumn()) == 1 && 
+					Math.abs(destination.getRow() - origin.getRow()) == 1;
 		} else {
 			return LegalMoves(origin, destination);
 		}
