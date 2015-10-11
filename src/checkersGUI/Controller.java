@@ -45,9 +45,7 @@ public class Controller {
 	Label playerTurn;
 	
 	@FXML
-	TextField host = new TextField("Enter Host");
-	@FXML
-	TextField port = new TextField("Enter Port Number");
+	TextField host = new TextField("Enter IP Address");
 	
 	ArrayBlockingQueue<String> messages = new ArrayBlockingQueue<>(20);
 	
@@ -60,7 +58,6 @@ public class Controller {
 			for (;;) {
 				try {
 					String msg = messages.take();
-					System.out.println("taken: " + msg);
 					Platform.runLater(() -> {board.handleMessage(msg);});
 				} catch (Exception e) {
 					badNews(e.getMessage());
@@ -78,16 +75,10 @@ public class Controller {
 	
 	@FXML
 	public void popUp(){
-		/*Pops up a series of textfields and "connect" button.
-		 * The user will input the ip address and then press the connect button.
-		 * The connect button's method should then hide the textfield and button from view and push the screen.
-		 * I think the getIP should be linked to the "connect" button.
-		*/
 		VBox popupVBox = new VBox();
 		popupVBox.getChildren().add(p1Name);
 		popupVBox.getChildren().add(p2Name);
 		popupVBox.getChildren().add(host);
-		popupVBox.getChildren().add(port);
 		popupVBox.getChildren().add(connect);
 		Popup popup = new Popup();
         popup.getContent().addAll(popupVBox);
@@ -121,10 +112,9 @@ public class Controller {
 			sendTo(host.getText(), 8888, board.getMove());
 			turnUpdate();
 		} catch (NumberFormatException nfe) {
-			badNews(String.format("\"%s\" is not an integer", this.port.getText()));
+			badNews(this.host.getText() + " is not a valid IP Address");
 		
 		}
-		
 	}
 	
 	void sendTo(String host, int port, String message) {

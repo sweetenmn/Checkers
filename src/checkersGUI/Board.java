@@ -3,6 +3,7 @@ package checkersGUI;
 import java.util.ArrayList;
 
 import game.Cell;
+import game.CellState;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -22,13 +23,12 @@ public class Board {
 	}
 	
 	public void setUp(){
-		addChips(Cell.EMPTY, 0, 8);
-		addChips(Cell.RED, 0, 3);
-		addChips(Cell.BLACK, 5, 8);
+		addChips(CellState.EMPTY, 0, 8);
+		addChips(CellState.RED, 0, 3);
+		addChips(CellState.BLACK, 5, 8);
 	}
 	
-
-	public void addChips(int state, int rowStart, int rowEnd){
+	public void addChips(CellState state, int rowStart, int rowEnd){
 		for (int column = 0; column < 8; column++){
 			for (int row = rowStart; row < rowEnd; row++){
 				Pane pane = new Pane();
@@ -62,18 +62,22 @@ public class Board {
 	
 
 	public void movePiece(){
-		lastPieceClicked.eraseFrom(checkerboard);
-		lastSquareClicked.eraseFrom(checkerboard);
-		cells.remove(lastPieceClicked);
-		cells.remove(lastSquareClicked);
+		removeCell(lastPieceClicked);
+		removeCell(lastSquareClicked);
 		Pane destPane = new Pane();
 		Pane originPane = new Pane();
 		Cell newPiece = new Cell(lastPieceClicked.getState(), destPane, lastSquareClicked.getColumn(), lastSquareClicked.getRow());
-		Cell newSquare = new Cell(Cell.EMPTY, originPane, lastPieceClicked.getColumn(), lastPieceClicked.getRow());
+		Cell newSquare = new Cell(CellState.EMPTY, originPane, lastPieceClicked.getColumn(), lastPieceClicked.getRow());
 		newPiece.addToBoard(this);
 		newSquare.addToBoard(this);
 		addPane(newPiece, destPane, newPiece.getColumn(), newPiece.getRow());
 		addPane(newSquare, originPane, newSquare.getColumn(), newSquare.getRow());
+	}
+	
+	//used for deletion
+	public void removeCell(Cell cell){
+		cells.remove(cell);
+		cell.eraseFrom(checkerboard);
 	}
 	
 	public String getMove(){
@@ -101,17 +105,18 @@ public class Board {
 			oldY = Integer.valueOf(values[1]);
 			newX = Integer.valueOf(values[2]);
 			newY = Integer.valueOf(values[3]);
-			setMovement();
+			setMovement(oldX, oldY, newX, newY);
 			movePiece();
 		} 		
 	}
 	
-	private void setMovement(){
+	public void setMovement(int xOrg, int yOrg, int xDest, int yDest){
+		//have a type param as well
 		for (Cell c: cells){
-			if (c.getColumn() == oldX && c.getRow() == oldY){
+			if (c.getColumn() == xOrg && c.getRow() == yOrg){
 				setLastPieceClicked(c);
 			} 
-			if (c.getColumn() == newX && c.getRow() == newY){
+			if (c.getColumn() == xDest && c.getRow() == yDest){
 				setLastSquareClicked(c);
 			}
 		}
