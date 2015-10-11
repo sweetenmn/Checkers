@@ -101,17 +101,17 @@ public class Board {
 			oldY = Integer.valueOf(values[1]);
 			newX = Integer.valueOf(values[2]);
 			newY = Integer.valueOf(values[3]);
-			setMovement();
+			setMovement(oldX, oldY, newX, newY);
 			movePiece();
 		} 		
 	}
 	
-	private void setMovement(){
+	public void setMovement(int xOrg, int yOrg, int xDest, int yDest){
 		for (Cell c: cells){
-			if (c.getColumn() == oldX && c.getRow() == oldY){
+			if (c.getColumn() == xOrg && c.getRow() == yOrg){
 				setLastPieceClicked(c);
 			} 
-			if (c.getColumn() == newX && c.getRow() == newY){
+			if (c.getColumn() == xDest && c.getRow() == yDest){
 				setLastSquareClicked(c);
 			}
 		}
