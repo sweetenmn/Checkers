@@ -1,6 +1,15 @@
 package game;
 
 public class Rules {
+	private static boolean isKing;
+	
+	public Rules(boolean kinged){
+		isKing = kinged;		
+	}
+	
+	public boolean isLegal(Cell origin, Cell destination){
+		return Math.abs(destination.getColumn() - origin.getColumn()) == 1 && Math.abs(destination.getRow() - origin.getRow()) == 1;
+	}
 	
 	//for getting legal moves
 	
@@ -30,4 +39,7 @@ public class Rules {
 	 * A player wins when the other cannot make a move.
 	 * 
 	 */
+	
+	
+	
 }

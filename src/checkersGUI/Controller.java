@@ -21,7 +21,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import server_connection.Server;
 
 public class Controller {
 	@FXML
@@ -56,23 +55,13 @@ public class Controller {
 	public void initialize(){
 		board = new Board(checkerboard);
 		board.setUp();
-		submitMove.setOnAction(event -> sendmove());
-		new Thread(() -> {
-	            try {
-	                Server s = new Server(8888, board);
-	                s.listen();
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        
-		}).start();
-	    
+		submitMove.setOnAction(event -> sendmove());	    
 		new Thread(() -> {
 			for (;;) {
 				try {
 					String msg = messages.take();
 					System.out.println("taken: " + msg);
-					Platform.runLater(() -> {board.setMove(msg);});
+					Platform.runLater(() -> {board.handleMessage(msg);});
 				} catch (Exception e) {
 					badNews(e.getMessage());
 				}
@@ -109,9 +98,21 @@ public class Controller {
                  p1.setText(p1Name.getText());
                  p2.setText(p2Name.getText());
                  playerTurn.setText(p1.getText() + "'s Turn");
-                 popup.hide();    
+                 popup.hide();
+                 createServer();
             }
         });
+	}
+	
+	private void createServer(){
+		new Thread(() -> {
+            try {
+                Server s = new Server(8888, board, host.getText());
+                s.listen();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+		}).start();
 	}
 	
 	
@@ -121,14 +122,15 @@ public class Controller {
 			turnUpdate();
 		} catch (NumberFormatException nfe) {
 			badNews(String.format("\"%s\" is not an integer", this.port.getText()));
+		
 		}
+		
 	}
 	
 	void sendTo(String host, int port, String message) {
 		new Thread(() -> {
 			try {
 				Socket target = new Socket(host, port);
-				System.out.println(message);
 				send(target, message);
 				receive(target);
 				target.close();
@@ -150,7 +152,6 @@ public class Controller {
 		while (sockin.ready()) {
 			try {
 				String msg = sockin.readLine();
-				System.out.println("message r " + msg);
 				messages.put(msg);
 			} catch (Exception e) {
 				Platform.runLater(() -> badNews(e.getMessage()));

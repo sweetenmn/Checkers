@@ -1,18 +1,16 @@
 package checkersGUI;
 
 import java.util.ArrayList;
-import javafx.application.Platform;
-import javafx.fxml.FXML;
+
+import game.Cell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-
-//This may need to be separated into board setup and piece movement. I tried to do 
-//this, but was unsuccessful.
 public class Board {
 	GridPane checkerboard;
-	ArrayList<Piece> pieces;
-	ArrayList<Square> squares;
+	ArrayList<Cell> cells;
+	Cell lastPieceClicked;
+	Cell lastSquareClicked;
 	int oldX;
 	int oldY;
 	int newX;
@@ -20,153 +18,102 @@ public class Board {
 	
 	public Board(GridPane grid){
 		checkerboard = grid;
-		pieces = new ArrayList<Piece>();
-		//get legal squares
-		squares = new ArrayList<Square>();
+		cells = new ArrayList<Cell>();
 	}
 	
 	public void setUp(){
-		addSquares();
-		addChips(1, 0);
-		addChips(2, 5);
+		addChips(Cell.EMPTY, 0, 8);
+		addChips(Cell.RED, 0, 3);
+		addChips(Cell.BLACK, 5, 8);
 	}
 	
-	public void addChips(int player, int rowIndex){
-		for (int column = 0; column < 8; column++){
-			for (int row = rowIndex; row < rowIndex + 3; row++){
-				Pane pane = new Pane();
-				Piece piece = new Piece(player, pane, column, row);
-				piece.addToBoard();
-				if (row % 2 != 0){
-					if (column % 2 != 0){
-						checkerboard.add(pane, column, row);
-						pieces.add(piece);
-					}
-				} else {
-					if (column % 2 == 0){
-						checkerboard.add(pane, column, row);
-						pieces.add(piece);
-					}
-				}
-			}
-			
-		}
-		
-	}
-	
-	@FXML
-	public void addSquares(){
-		for (int column = 0; column < 8; column++){
-			for (int row = 0; row < 8; row++){
-				Pane pane = new Pane();
-				Square square = new Square(pane, column, row);
-				pane.setOnMouseClicked(k -> square.click());
-				if (row % 2 != 0){
-					if (column % 2 != 0){
-						checkerboard.add(pane, column, row);
-						squares.add(square);
-					}
-				} else {
-					if (column % 2 == 0){
-						checkerboard.add(pane, column, row);
-						squares.add(square);
-						
-					}
-				}
-			}
-			
-		}
-	}
 
-	@FXML
-	public void movePiece(){
-		boolean stopping = false;
-		boolean done = false;
-		//change to pieces of whoever's turn it is and change to looking
-		//at most recent clicks-- intermediary class that goes through and
-		//unclicks all the other pieces every third click or something
-		for (int i = pieces.size() - 1; i >= 0 && !stopping; i--){
-			Piece oldPiece = pieces.get(i);
-			if (oldPiece.getColumn() == oldX && oldPiece.getRow() == oldY){
-				//change to array of legal squares
-				for (int j = squares.size() - 1; j >= 0 && !done; j--){
-					Square s = squares.get(j);
-					if (s.getColumn() == newX && s.getRow() == newY){
-						oldPiece.clear();
-						s.clear();
-						Pane pane = new Pane();
-						Piece piece = new Piece(oldPiece.getPlayer(), pane, newX, newY);
-						piece.addToBoard();
-						Platform.runLater(() -> checkerboard.add(pane, newX, newY));
-						pieces.remove(i);
-						pieces.add(piece);
-						done=true;
-						stopping=true;
-					} else {
-						s.clear();
+	public void addChips(int state, int rowStart, int rowEnd){
+		for (int column = 0; column < 8; column++){
+			for (int row = rowStart; row < rowEnd; row++){
+				Pane pane = new Pane();
+				Cell cell = new Cell(state, pane, column, row);
+				cell.addToBoard(this);
+				if (row % 2 != 0){
+					if (column % 2 != 0){
+						addPane(cell, pane, column, row);
 					}
-					
+				} else {
+					if (column % 2 == 0){
+						addPane(cell, pane, column, row);
+					}
 				}
-				
-			} else {
-				oldPiece.unclick();
 			}
 		}
-		
 	}
 	
-	//Once we get interface going, have a method that will swap locations
-	//of the two images.
-	//might have a helper for actually doing it?
+	private void addPane(Cell cell, Pane pane, int column, int row){
+		checkerboard.add(pane, column, row);
+		cells.add(cell);
+	}
 	
+	public void setLastPieceClicked(Cell cell){
+		lastPieceClicked = cell;
+	}
+	
+	public void setLastSquareClicked(Cell cell){
+		lastSquareClicked = cell;
+	}
+	
+
+	public void movePiece(){
+		lastPieceClicked.eraseFrom(checkerboard);
+		lastSquareClicked.eraseFrom(checkerboard);
+		cells.remove(lastPieceClicked);
+		cells.remove(lastSquareClicked);
+		Pane destPane = new Pane();
+		Pane originPane = new Pane();
+		Cell newPiece = new Cell(lastPieceClicked.getState(), destPane, lastSquareClicked.getColumn(), lastSquareClicked.getRow());
+		Cell newSquare = new Cell(Cell.EMPTY, originPane, lastPieceClicked.getColumn(), lastPieceClicked.getRow());
+		newPiece.addToBoard(this);
+		newSquare.addToBoard(this);
+		addPane(newPiece, destPane, newPiece.getColumn(), newPiece.getRow());
+		addPane(newSquare, originPane, newSquare.getColumn(), newSquare.getRow());
+	}
 	
 	public String getMove(){
 		String oldX = "";
 		String oldY = "";
 		String newX = "";
 		String newY = "";
-		//no
-		//this is why it moves the wrong things, need better way to talk about
-		//when we will be moving a piece
-		for (int i = pieces.size() - 1; i >= 0; i--){
-			Piece oldPiece = pieces.get(i);
-			if (oldPiece.isClicked()){
-				for (Square s: squares){
-					if (oldPiece.isLegal(s) && s.isClicked()){
-						oldX = getString(oldPiece.getColumn());
-						oldY = getString(oldPiece.getRow());
-						newX = getString(s.getColumn());
-						newY = getString(s.getRow());
-					}
-				}
-				
-			}
+		if (lastPieceClicked.isLegal(lastSquareClicked)){
+			oldX = getString(lastPieceClicked.getColumn());
+			oldY = getString(lastPieceClicked.getRow());
+			newX = getString(lastSquareClicked.getColumn());
+			newY = getString(lastSquareClicked.getRow());
 		}
 		return (oldX + ":" + oldY + ":" + newX + ":" + newY).trim();
 	}
 	
 	private String getString(int x){
 		return Integer.toString(x);
-	
 	}
 	
-	public void setMove(String msg){
+	public void handleMessage(String msg){
 		if (msg.length() > 3){
-			System.out.println("old x: " + oldX);
 			String[] values = msg.split(":");
 			oldX = Integer.valueOf(values[0]);
 			oldY = Integer.valueOf(values[1]);
 			newX = Integer.valueOf(values[2]);
 			newY = Integer.valueOf(values[3]);
-			System.out.println("new oldX: " + oldX);
-			Platform.runLater(() -> movePiece());
-		} 
-		
+			setMovement();
+			movePiece();
+		} 		
 	}
 	
-			
-	
-	
-	
-	
+	private void setMovement(){
+		for (Cell c: cells){
+			if (c.getColumn() == oldX && c.getRow() == oldY){
+				setLastPieceClicked(c);
+			} 
+			if (c.getColumn() == newX && c.getRow() == newY){
+				setLastSquareClicked(c);
+			}
+		}
+	}
 }
