@@ -126,7 +126,6 @@ public class Controller {
 				target.close();
 			} catch (Exception e) {
 				Platform.runLater(() -> badNews(e.getMessage()));
-				e.printStackTrace();
 			}
 		}).start();
 	}

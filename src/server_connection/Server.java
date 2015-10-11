@@ -25,14 +25,12 @@ public class Server {
 		this.board = board;
 		this.host = host;
 		accepter = new ServerSocket(port);
-		System.out.println("Server: IP address: " + accepter.getInetAddress() + " (" + port + ")");
 	}
 
 	public void listen() throws IOException {
 		for (;;) {
 			Socket s = accepter.accept();
 			SocketEchoThread echoer = new SocketEchoThread(s);
-			System.out.println("Server: Connection accepted from " + s.getInetAddress());
 			echoer.start();
 		}
 	}
