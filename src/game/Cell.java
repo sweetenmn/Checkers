@@ -1,6 +1,7 @@
 package game;
 
 import checkersGUI.Board;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,46 +12,46 @@ import javafx.scene.layout.Pane;
 
 public class Cell {
 	
-	protected static int STATE;
-	private static int EMPTY = 0;
-	private static int RED = 1; // p1
-	private static int BLACK = 2; // p2
+	protected int state;
+	public static final int EMPTY = 1;
+	public static final int RED = 2; // p1
+	public static final int BLACK = 3; // p2
 	private int column;
 	private int row;
 	private Rules rules;
-	private boolean clicked = false;
 	protected boolean kinged = false;
 	protected Pane pane;
 	protected Image image;
 	protected ImageView checker;
-	CellState state;
 	
 	public Cell(int state, Pane pane, int x, int y){
-		STATE = state;
+		this.state = state;
 		column = x;
 		row = y;
 		this.pane = pane;
 	}
 	
 	private void createImage(Board board){
-		if (STATE == RED){
+		System.out.println(String.valueOf(this.state));
+		if (this.state == RED){
 			image = new Image("redchip.png");
-		} else if (STATE == BLACK){
+		} else if (this.state == BLACK){
 			image = new Image("blackchip.png");
-		} else if (STATE == EMPTY){
+		} else if (this.state == EMPTY){
 			image = new Image("emptychip.png");
 		}
 		checker = new ImageView(image);
-		checker.setOnMouseClicked(k -> new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-            	if (STATE == RED || STATE == BLACK){
-            		board.setLastPieceClicked(Cell.this);
-            	} else {
-            		board.setLastSquareClicked(Cell.this);
-            	}
-            }
-        });
+		if (this.state == RED || this.state == BLACK){
+			checker.setOnMouseClicked(k -> {
+	        	board.setLastPieceClicked(this);
+	        	System.out.println(String.valueOf(this.column));
+			});
+		} else {
+			checker.setOnMouseClicked(k -> {
+				board.setLastSquareClicked(this);
+				System.out.println(String.valueOf(this.column));
+			});
+		}    
 	}
 	
 	public void createRules(){
@@ -60,20 +61,11 @@ public class Cell {
 	public void addToBoard(Board board){
 		createRules();
 		createImage(board);
-		pane.getChildren().add(checker);		
+		pane.getChildren().add(checker);
 	}
 	
-	@FXML
-	public void click(){
-		clicked = true;
-	}
-
 	public boolean isLegal(Cell other){
 		return rules.isLegal(this, other);
-	}
-	
-	public boolean isClicked(){
-		return clicked;
 	}
 	
 	public int getColumn(){return column;}
@@ -83,8 +75,6 @@ public class Cell {
 		gridParent.getChildren().remove(pane);
 	}
 	
-	public int getState(){return STATE;}
-	
-	public void unclick(){clicked = false;}
+	public int getState(){return this.state;}
 	
 }

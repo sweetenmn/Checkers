@@ -8,7 +8,7 @@ public class Rules {
 	}
 	
 	public boolean isLegal(Cell origin, Cell destination){
-		return destination.getColumn() == Math.abs(origin.getColumn() - 1) && destination.getRow() == Math.abs(origin.getRow() - 1);
+		return Math.abs(destination.getColumn() - origin.getColumn()) == 1 && Math.abs(destination.getRow() - origin.getRow()) == 1;
 	}
 	
 	

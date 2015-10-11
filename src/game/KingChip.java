@@ -12,7 +12,7 @@ public class KingChip extends Cell {
 	}
 	
 	public void kingMe(){
-		if (STATE != 0){
+		if (state != 0){
 			kinged = true;
 			rules = new Rules(kinged);
 		}
@@ -20,10 +20,8 @@ public class KingChip extends Cell {
 	//can be use for "removing"?
 	public void changeImage(String imageName){
 		pane.getChildren().clear();
-		unclick();
 		image = new Image(imageName);
 		checker = new ImageView(image);
-		checker.setOnMouseClicked(k -> click());
 		pane.getChildren().add(checker);		
 	}
 

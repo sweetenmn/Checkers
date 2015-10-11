@@ -46,7 +46,8 @@ public class Server {
 	        try {
 	            PrintWriter writer = new PrintWriter(socket.getOutputStream());
 	            String msg = getMessage();
-	            Platform.runLater(() -> board.setMove(msg));
+	            Platform.runLater(() -> board.handleMessage(msg));
+	            System.out.println(msg);
 	            echoAndClose(writer, msg);
 	        } catch (IOException ioe) {
 	            ioe.printStackTrace();
