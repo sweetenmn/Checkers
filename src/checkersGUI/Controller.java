@@ -60,7 +60,6 @@ public class Controller {
 			for (;;) {
 				try {
 					String msg = messages.take();
-					System.out.println("taken: " + msg);
 					Platform.runLater(() -> {board.handleMessage(msg);});
 				} catch (Exception e) {
 					badNews(e.getMessage());
