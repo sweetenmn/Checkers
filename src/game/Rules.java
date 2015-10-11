@@ -11,9 +11,6 @@ public class Rules {
 		return Math.abs(destination.getColumn() - origin.getColumn()) == 1 && Math.abs(destination.getRow() - origin.getRow()) == 1;
 	}
 	
-	
-	
-	
 	//for getting legal moves
 	
 	/*Rules:

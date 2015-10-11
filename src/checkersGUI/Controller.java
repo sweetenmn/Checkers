@@ -99,7 +99,6 @@ public class Controller {
                  p2.setText(p2Name.getText());
                  playerTurn.setText(p1.getText() + "'s Turn");
                  popup.hide();
-                 System.out.println(host.getText());
                  createServer();
             }
         });

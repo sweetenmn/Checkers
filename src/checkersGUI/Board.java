@@ -101,7 +101,6 @@ public class Board {
 			oldY = Integer.valueOf(values[1]);
 			newX = Integer.valueOf(values[2]);
 			newY = Integer.valueOf(values[3]);
-			System.out.println(msg);
 			setMovement();
 			movePiece();
 		} 		

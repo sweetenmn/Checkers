@@ -45,20 +45,16 @@ public class Server {
 	    }
 
 	    public void run() {
-	    	System.out.println("host" + host);
-	    	
-	    		try {
-	    			PrintWriter writer = new PrintWriter(socket.getOutputStream());
-	    			String msg = getMessage();
-	    			if (!host.equals("localhost")){
-		    			Platform.runLater(() -> board.handleMessage(msg));
-		    			System.out.println(msg);
-	    			}
-	    			echoAndClose(writer, msg);
-	    		} catch (IOException ioe) {
-	    			ioe.printStackTrace();
-	    		} 
-	    	//}
+	    	try {
+	    		PrintWriter writer = new PrintWriter(socket.getOutputStream());
+	    		String msg = getMessage();
+	    		if (!host.equals("localhost")){
+		    		Platform.runLater(() -> board.handleMessage(msg));
+	    		}
+	    		echoAndClose(writer, msg);
+	    	} catch (IOException ioe) {
+	    		ioe.printStackTrace();
+	    	}
 	    }
 	    
 	    private void echoAndClose(PrintWriter writer, String msg) throws IOException {

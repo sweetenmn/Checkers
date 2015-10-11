@@ -17,7 +17,7 @@ public class KingChip extends Cell {
 			rules = new Rules(kinged);
 		}
 	}
-	//can be use for "removing"?
+
 	public void changeImage(String imageName){
 		pane.getChildren().clear();
 		image = new Image(imageName);
