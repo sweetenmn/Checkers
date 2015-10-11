@@ -2,26 +2,44 @@ package game;
 
 public class Rules {
 	private static boolean isKing;
-	
+	private static int count = 0;
 	public Rules(boolean kinged){
 		isKing = kinged;		
 	}
 	
 	public boolean isLegal(Cell origin, Cell destination){
-		return Math.abs(destination.getColumn() - origin.getColumn()) == 1 && Math.abs(destination.getRow() - origin.getRow()) == 1;
+		if(isKing == true){
+			return Math.abs(destination.getColumn() - origin.getColumn()) == 1 
+					&& Math.abs(destination.getRow() - origin.getRow()) == 1;
+		}else{
+			return LegalMoves(origin, destination);
+		}
 	}
 	
-	
-	
-	
-	//for getting legal moves
-	
+	public boolean LegalMoves(Cell origin, Cell destination){
+		if(origin.state == Cell.BLACK){
+			return Math.abs(destination.getColumn() - origin.getColumn()) == 1
+					&& destination.getRow() - origin.getRow() == -1;
+		}else{
+			return Math.abs(destination.getColumn() - origin.getColumn()) == 1 
+					&& destination.getRow() - origin.getRow() == 1;
+		}
+	}
 	/*Rules:
 	 * 
 	 * Black moves first, then players alternate turns.
-	 * 
-	 * Non-king pieces can only move forwards.
-	 * 
+	 * keeps count of the moves, if even number, black moves. if odd, red moves.
+	 * counter changes when the players are switched.
+	 */
+	public void movesFirst(){
+		if(count % 2 == 0){
+			//black moves
+		}else{
+			//red moves
+		}
+	}
+	/*
+	 
 	 * Pieces not jumping can only move forward one square at a time (I think this
 	 * may have already been covered by the prev. piece movement).
 	 * 
