@@ -3,10 +3,13 @@ package game;
 public class Rules {
 	private static boolean isKing;
 	private static int count = 0;
+	
+	
 	public Rules(boolean kinged){
 		isKing = kinged;		
 	}
-	
+	//isKing should be a method corresponding to a chip, not a boolean. I think.
+	//Maybe just change Rules() to isKing? and isKing to kinged.
 	public boolean isLegal(Cell origin, Cell destination){
 		if(isKing == true){
 			return Math.abs(destination.getColumn() - origin.getColumn()) == 1 
@@ -38,16 +41,15 @@ public class Rules {
 			//red moves
 		}
 	}
+	
+	/*Pieces that are captured need to be removed from the board.*/
+	 public void isCaptured(){
+		 //call during jump method. remove the jumped chip. eraseFrom() ?
+	 }
+	
 	/*
-	 
-	 * Pieces not jumping can only move forward one square at a time (I think this
-	 * may have already been covered by the prev. piece movement).
-	 * 
 	 * Only one opponent piece can be captured per jump, but multiple jumps are 
 	 * allowed.
-	 * 
-	 * Pieces that are captured need to be removed from the board.
-	 * 
 	 * If a jump is available, it must be made. If more than one jump is available,
 	 * the player can choose either.
 	 * 

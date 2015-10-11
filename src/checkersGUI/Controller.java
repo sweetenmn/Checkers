@@ -45,7 +45,7 @@ public class Controller {
 	Label playerTurn;
 	
 	@FXML
-	TextField host = new TextField("Enter Host");
+	TextField host = new TextField("Enter IP Address");
 	@FXML
 	TextField port = new TextField("Enter Port Number");
 	

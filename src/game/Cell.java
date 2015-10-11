@@ -55,7 +55,7 @@ public class Cell {
 	}
 	
 	public void createRules(){
-		rules = new Rules(false);
+		rules = new Rules(kinged);
 	}
 	
 	public void addToBoard(Board board){
