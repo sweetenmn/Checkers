@@ -12,16 +12,18 @@ import javafx.application.Platform;
 
 public class Server {
 	private Board board;
+	private String host;
 
-	public static void main(String[] args, Board board) throws IOException {
-		Server s = new Server(Integer.parseInt(args[0]), board);
+	public static void main(String[] args, Board board, String string) throws IOException {
+		Server s = new Server(Integer.parseInt(args[0]), board, string);
 		s.listen();
 	}
 	
 	private ServerSocket accepter;
 
-	public Server(int port, Board board) throws IOException {
+	public Server(int port, Board board, String host) throws IOException {
 		this.board = board;
+		this.host = host;
 		accepter = new ServerSocket(port);
 		System.out.println("Server: IP address: " + accepter.getInetAddress() + " (" + port + ")");
 	}
@@ -43,15 +45,20 @@ public class Server {
 	    }
 
 	    public void run() {
-	        try {
-	            PrintWriter writer = new PrintWriter(socket.getOutputStream());
-	            String msg = getMessage();
-	            Platform.runLater(() -> board.handleMessage(msg));
-	            System.out.println(msg);
-	            echoAndClose(writer, msg);
-	        } catch (IOException ioe) {
-	            ioe.printStackTrace();
-	        } 
+	    	System.out.println("host" + host);
+	    	
+	    		try {
+	    			PrintWriter writer = new PrintWriter(socket.getOutputStream());
+	    			String msg = getMessage();
+	    			if (!host.equals("localhost")){
+		    			Platform.runLater(() -> board.handleMessage(msg));
+		    			System.out.println(msg);
+	    			}
+	    			echoAndClose(writer, msg);
+	    		} catch (IOException ioe) {
+	    			ioe.printStackTrace();
+	    		} 
+	    	//}
 	    }
 	    
 	    private void echoAndClose(PrintWriter writer, String msg) throws IOException {

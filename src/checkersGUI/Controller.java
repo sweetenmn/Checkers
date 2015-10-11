@@ -55,16 +55,7 @@ public class Controller {
 	public void initialize(){
 		board = new Board(checkerboard);
 		board.setUp();
-		submitMove.setOnAction(event -> sendmove());
-		new Thread(() -> {
-	            try {
-	                Server s = new Server(8888, board);
-	                s.listen();
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-		}).start();
-	    
+		submitMove.setOnAction(event -> sendmove());	    
 		new Thread(() -> {
 			for (;;) {
 				try {
@@ -107,9 +98,22 @@ public class Controller {
                  p1.setText(p1Name.getText());
                  p2.setText(p2Name.getText());
                  playerTurn.setText(p1.getText() + "'s Turn");
-                 popup.hide();    
+                 popup.hide();
+                 System.out.println(host.getText());
+                 createServer();
             }
         });
+	}
+	
+	private void createServer(){
+		new Thread(() -> {
+            try {
+                Server s = new Server(8888, board, host.getText());
+                s.listen();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+		}).start();
 	}
 	
 	

@@ -3,8 +3,6 @@ package checkersGUI;
 import java.util.ArrayList;
 
 import game.Cell;
-import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
