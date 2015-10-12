@@ -3,12 +3,12 @@ package checkersGUI;
 import server_connection.Server;
 
 import java.io.BufferedReader;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
@@ -23,6 +25,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class Controller {
+	@FXML
+	BorderPane canvas;
 	@FXML
 	GridPane checkerboard;
 	@FXML
@@ -53,7 +57,7 @@ public class Controller {
 	public void initialize(){
 		board = new Board(checkerboard);
 		board.setUp();
-		submitMove.setOnAction(event -> sendmove());	    
+		requestFocus();
 		new Thread(() -> {
 			for (;;) {
 				try {
@@ -67,10 +71,23 @@ public class Controller {
 		}).start();
 	}
 	
+	@FXML
+	public void requestFocus(){
+				canvas.requestFocus();
+	
+		
+	}
+	
 	void badNews(String what) {
 		Alert badNum = new Alert(AlertType.ERROR);
 		badNum.setContentText(what);
 		badNum.show();
+	}
+	
+	void handlePress(KeyCode code){
+		if (code == KeyCode.ENTER){
+			sendmove();
+		}
 	}
 	
 	@FXML
@@ -89,8 +106,12 @@ public class Controller {
                  p1.setText(p1Name.getText());
                  p2.setText(p2Name.getText());
                  playerTurn.setText(p1.getText() + "'s Turn");
+                 requestFocus();
+        		 submitMove.setOnAction(event -> sendmove());
+        		 canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
+        		 createServer();
                  popup.hide();
-                 createServer();
+                 
             }
         });
 	}
