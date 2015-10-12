@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import game.Cell;
 import helpers.CellState;
 import helpers.Coordinate;
-import helpers.ImageHashMap;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
 public class Board {
 	private GridPane checkerboard;
@@ -18,7 +16,6 @@ public class Board {
 	private int oldY;
 	private int newX;
 	private int newY;
-	public ImageHashMap images = new ImageHashMap();
 	
 	public Board(GridPane grid){
 		checkerboard = grid;
@@ -34,24 +31,28 @@ public class Board {
 	public void addChips(CellState state, int rowStart, int rowEnd){
 		for (int column = 0; column < 8; column++){
 			for (int row = rowStart; row < rowEnd; row++){
-				Pane pane = new Pane();
-				Cell cell = new Cell(this, state, pane, new Coordinate(column, row));
+				Cell cell = new Cell(this, state, new Coordinate(column, row));
 				if (row % 2 != 0){
 					if (column % 2 != 0){
-						addPane(cell, pane);
+						addCell(cell);
 					}
 				} else {
 					if (column % 2 == 0){
-						addPane(cell, pane);
+						addCell(cell);
 					}
 				}
 			}
 		}
 	}
 	
-	private void addPane(Cell cell, Pane pane){
-		checkerboard.add(pane, cell.getColumn(), cell.getRow());
+	private void addCell(Cell cell){
+		cell.addTo(checkerboard);
 		cells.add(cell);
+	}
+	
+	public void removeCell(Cell cell){
+		cells.remove(cell);
+		cell.eraseFrom(checkerboard);
 	}
 	
 	public void setLastPieceClicked(Cell cell){
@@ -66,20 +67,13 @@ public class Board {
 	public void movePiece(){
 		removeCell(lastPieceClicked);
 		removeCell(lastSquareClicked);
-		Pane destPane = new Pane();
-		Pane originPane = new Pane();
-		Cell newPiece = new Cell(this, lastPieceClicked.getState(), destPane, lastSquareClicked.getCoords());
-		Cell newSquare = new Cell(this, CellState.EMPTY, originPane, lastPieceClicked.getCoords());
-		addPane(newPiece, destPane);
-		addPane(newSquare, originPane);
+		Cell newPiece = new Cell(this, lastPieceClicked.getState(), lastSquareClicked.getCoords());
+		Cell newSquare = new Cell(this, CellState.EMPTY, lastPieceClicked.getCoords());
+		addCell(newPiece);
+		addCell(newSquare);
 	}
 	
 	//used for deletion
-	public void removeCell(Cell cell){
-		cells.remove(cell);
-		cell.eraseFrom(checkerboard);
-	}
-	
 	public String getMove(){
 		String oldX = "";
 		String oldY = "";
@@ -111,7 +105,7 @@ public class Board {
 	}
 	
 	public void setMovement(int xOrg, int yOrg, int xDest, int yDest){
-		//have a type param as well
+		//have a type param as well??
 		for (Cell c: cells){
 			if (c.hasSameCoords(xOrg, yOrg)){
 				setLastPieceClicked(c);
@@ -124,11 +118,12 @@ public class Board {
 	/*
 	public Cell getCellAt(int column, int row){
 		for (Cell c: cells){
-			if (c.getColumn() == column && c.getRow() == row){
+			if (c.hasSameCoords(column, row){
 				return c;
 			}
 		}
 		return new Cell(CellState.EMPTY, new Pane(), 0, 0);
+		///throw exception! shouldn't ever be nothing
 		
 	}*/
 }
