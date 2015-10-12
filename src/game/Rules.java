@@ -4,27 +4,37 @@ import checkersGUI.Board;
 
 public class Rules {
 	private static int count = 0;
+	private Board board;
 
 	//isKing should be a method corresponding to a chip, not a boolean. I think.
 	//Maybe just change Rules() to isKing? and isKing to kinged.
-
+	public Rules(Board board){
+		this.board = board;
+	}
+	
 	
 	public boolean isLegal(Cell origin, Cell destination){
-		if(origin.getState() == CellState.RED_KING || origin.getState() == 
-				CellState.BLACK_KING){
-			return Math.abs(destination.getColumn() - origin.getColumn()) == 1 && 
-					Math.abs(destination.getRow() - origin.getRow()) == 1;
+		if (playerTurn(origin)){
+			if(origin.getState() == CellState.RED_KING || origin.getState() == 
+					CellState.BLACK_KING){
+				count++;
+				return Math.abs(destination.getColumn() - origin.getColumn()) == 1 && 
+						Math.abs(destination.getRow() - origin.getRow()) == 1;
+			} else {
+				return LegalMoves(origin, destination);
+			}
 		} else {
-
-			return LegalMoves(origin, destination);
+			return false;
 		}
 	}
 	
 	public boolean LegalMoves(Cell origin, Cell destination){
 		if(origin.getState() == CellState.BLACK){
+			count++;
 			return Math.abs(destination.getColumn() - origin.getColumn()) == 1
 					&& destination.getRow() - origin.getRow() == -1;
 		} else if (origin.getState() == CellState.RED){
+			count++;
 			return Math.abs(destination.getColumn() - origin.getColumn()) == 1 
 					&& destination.getRow() - origin.getRow() == 1;
 		}
@@ -36,29 +46,32 @@ public class Rules {
 	 * keeps count of the moves, if even number, black moves. if odd, red moves.
 	 * counter changes when the players are switched.
 	 */
-	public void playerTurn(){
-		if(count % 2 == 0){
-			//black moves
-		}else{
-			//red moves
+	public boolean playerTurn(Cell movingPiece){
+		switch(movingPiece.getState()){
+			case BLACK: case BLACK_KING:
+				return count % 2 == 0;
+			case RED: case RED_KING:
+				return count % 2 != 0;
+			case EMPTY:
+				break;
 		}
+		return false;
 	}
 	
 	//captured pieces are removed.
 	 public void isCaptured(Cell jumped){
-		 //Imported Board, but this command wants to be called statically.
-		 //Board.removeCell(jumped);
+		 board.removeCell(jumped);
 	 }
 	
 	 public void Jump(Cell origin, Cell enemy, Cell destination){
-		 if(isAvailable(origin, enemy, destination) == true){
+		 if(isAvailable(origin, enemy, destination)){
 			 //origin chip moves to destination. Not sure how to make this 
 			 //the only available movement.
 			 isCaptured(enemy);
 			 //doesn't change players to allow multiple jumps & checks for another
 			 //available jump.
 		 }else{
-			 count ++;
+			 count++;
 		 }
 	 }
 	 //if enemy's chip is in movement square, and there is not a piece on the 

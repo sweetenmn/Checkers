@@ -121,4 +121,14 @@ public class Board {
 			}
 		}
 	}
+	/*
+	public Cell getCellAt(int column, int row){
+		for (Cell c: cells){
+			if (c.getColumn() == column && c.getRow() == row){
+				return c;
+			}
+		}
+		return new Cell(CellState.EMPTY, new Pane(), 0, 0);
+		
+	}*/
 }

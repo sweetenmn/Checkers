@@ -134,6 +134,7 @@ public class Controller {
 	
 	
 	void sendmove() {
+		
 		try {
 			sendTo(host.getText(), 8888, board.getMove());
 			turnUpdate();

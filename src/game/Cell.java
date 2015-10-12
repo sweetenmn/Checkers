@@ -15,7 +15,6 @@ public class Cell {
 	private Pane pane;
 	private Image image;
 	private ImageView checker;
-	private boolean kinged;
 	private static final int TOP_ROW = 0;
 	private static final int BOTTOM_ROW = 7;
 	
@@ -24,7 +23,6 @@ public class Cell {
 		this.pane = pane;
 		column = x;
 		row = y;
-		kinged = false;
 	}
 	
 	public void addToBoard(Board board){
@@ -38,7 +36,7 @@ public class Cell {
 	
 	private void createChip(Board board){
 		crownIfKing();
-		createRules();
+		createRules(board);
 		switchImage();
 		createImageView();
 		assignEvent(board);   
@@ -48,13 +46,11 @@ public class Cell {
 			case BLACK:
 				if (row == TOP_ROW){
 					state = CellState.BLACK_KING;
-					kinged = true;
 				}
 				break;
 			case RED:
 				if (row == BOTTOM_ROW){
 					state = CellState.RED_KING;
-					kinged = true;
 				}
 				break;
 			case BLACK_KING: case EMPTY: case RED_KING:
@@ -102,8 +98,8 @@ public class Cell {
 		checker = new ImageView(image);
 	}
 	
-	public void createRules(){
-		rules = new Rules();
+	public void createRules(Board board){
+		rules = new Rules(board);
 	}
 	
 	public boolean isLegal(Cell other){
