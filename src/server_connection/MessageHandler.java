@@ -4,6 +4,10 @@ import checkersGUI.Board;
 
 public class MessageHandler {
 	
+	//will replace the appropriate methods in Board
+	//need to handle non-move messages like updating turn information (not if jumping)
+	//and players' names
+	
 	Board board;
 	private static final int MIN_LENGTH = 3;
 	

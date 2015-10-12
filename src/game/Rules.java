@@ -1,19 +1,17 @@
 package game;
 
 public class Rules {
-	private static boolean isKing;
 	private static int count = 0;
 	
 	
-	public Rules(boolean kinged){
-		isKing = kinged;		
+	public Rules(){
 	}
 	//isKing should be a method corresponding to a chip, not a boolean. I think.
 	//Maybe just change Rules() to isKing? and isKing to kinged.
 	public boolean isLegal(Cell origin, Cell destination){
-		if(isKing == true){
-			return Math.abs(destination.getColumn() - origin.getColumn()) == 1 
-					&& Math.abs(destination.getRow() - origin.getRow()) == 1;
+		if(origin.getState() == CellState.BLACK_KING || origin.getState() == CellState.RED_KING){
+			return (Math.abs(destination.getColumn() - origin.getColumn()) == 1 && 
+					Math.abs(destination.getRow() - origin.getRow()) == 1);
 		}else{
 			return LegalMoves(origin, destination);
 		}

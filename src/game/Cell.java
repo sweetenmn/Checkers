@@ -103,7 +103,7 @@ public class Cell {
 	}
 	
 	public void createRules(){
-		rules = new Rules(kinged);
+		rules = new Rules();
 	}
 	
 	public boolean isLegal(Cell other){
