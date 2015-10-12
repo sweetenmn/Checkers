@@ -1,6 +1,8 @@
 package checkersGUI;
 
+import server_connection.MessageHandler;
 import server_connection.Server;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,34 +35,28 @@ public class Controller {
 	@FXML
 	Button connect = new Button("Connect");
 	@FXML
-	TextField p1Name = new TextField();
+	TextField playerOneInput = new TextField();
 	@FXML
-	TextField p2Name = new TextField();
+	TextField playerTwoInput = new TextField();
 	@FXML
 	Button submitMove;
 	Board board;
-	
 	@FXML
-	Label p1;
+	Label playerOneLabel;
 	@FXML
-	Label p2;
+	Label playerTwoLabel;
 	@FXML
 	Label playerTurn;
-	
 	@FXML
-	TextField host = new TextField();
-	
+	TextField hostText = new TextField();
+	MessageHandler messageHandler;
 	ArrayBlockingQueue<String> messages = new ArrayBlockingQueue<>(20);
 	
 	@FXML
 	public void initialize(){
-		p1Name.setPromptText("Enter your name");
-		p2Name.setPromptText("Enter opponent's name");
-		host.setPromptText("Enter IP Address");
-		board = new Board(checkerboard);
-		board.setUp();
-		requestFocus();
-		startMessaging();
+		playerOneInput.setPromptText("Enter your name");
+		playerTwoInput.setPromptText("Enter opponent's name");
+		hostText.setPromptText("Enter IP Address");
 	}
 	
 	public void startMessaging(){
@@ -68,7 +64,8 @@ public class Controller {
 			for (;;) {
 				try {
 					String msg = messages.take();
-					Platform.runLater(() -> {board.handleMessage(msg);});
+					System.out.println(msg);
+					Platform.runLater(() -> {messageHandler.handleMessage(msg);});
 				} catch (Exception e) {
 					badNews(e.getMessage());
 				}
@@ -98,9 +95,9 @@ public class Controller {
 	@FXML
 	public void popUp(){
 		VBox popupVBox = new VBox();
-		popupVBox.getChildren().add(p1Name);
-		popupVBox.getChildren().add(p2Name);
-		popupVBox.getChildren().add(host);
+		popupVBox.getChildren().add(playerOneInput);
+		popupVBox.getChildren().add(playerTwoInput);
+		popupVBox.getChildren().add(hostText);
 		popupVBox.getChildren().add(connect);
 		Popup popup = new Popup();
         popup.getContent().addAll(popupVBox);
@@ -108,22 +105,35 @@ public class Controller {
         connect.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-                 p1.setText(p1Name.getText());
-                 p2.setText(p2Name.getText());
-                 playerTurn.setText(p1.getText() + "'s Turn");
-                 requestFocus();
-        		 submitMove.setOnAction(event -> sendmove());
-        		 canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
-        		 createServer();
+                 startGame();
                  popup.hide();
             }
         });
 	}
+	private void startGame(){
+        requestFocus();
+        submitMove.setOnAction(event -> sendmove());
+        canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
+
+		board = new Board(checkerboard);
+		board.setUp();
+		messageHandler = new MessageHandler(board);
+		requestFocus();
+		startMessaging();
+		createServer(hostText.getText());
+		
+		sendTo(hostText.getText(), 8888, 
+				messageHandler.generateSetUpMessage(playerOneInput.getText(), playerTwoInput.getText()));
+        playerOneLabel.setText(messageHandler.getPlayerOneName());
+        playerTwoLabel.setText(messageHandler.getPlayerTwoName());
+        playerTurn.setText(playerTwoLabel.getText() + "'s Turn");
+		
+	}
 	
-	private void createServer(){
+	private void createServer(String host){
 		new Thread(() -> {
             try {
-                Server s = new Server(8888, board, host.getText());
+                Server s = new Server(8888, messageHandler, host);
                 s.listen();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -133,12 +143,11 @@ public class Controller {
 	
 	
 	void sendmove() {
-		
 		try {
-			sendTo(host.getText(), 8888, board.getMove());
+			sendTo(hostText.getText(), 8888, messageHandler.getMovementMessage());
 			turnUpdate();
 		} catch (NumberFormatException nfe) {
-			badNews(this.host.getText() + " is not a valid IP Address");
+			badNews(this.hostText.getText() + " is not a valid IP Address");
 		
 		}
 	}
@@ -181,10 +190,10 @@ public class Controller {
 		 * Can be used/used in conjunction with another method to allow the next player the ability to move their pieces
 		 * while restricting the other player.
 		*/
-		if(playerTurn.getText() == p1.getText() + "'s Turn")
-			playerTurn.setText(p2.getText() + "'s Turn");
+		if(playerTurn.getText() == playerOneLabel.getText() + "'s Turn")
+			playerTurn.setText(playerTwoLabel.getText() + "'s Turn");
 		else
-			playerTurn.setText(p1.getText() + "'s Turn");
+			playerTurn.setText(playerOneLabel.getText() + "'s Turn");
 	}
 
 }
