@@ -1,7 +1,6 @@
 package checkersGUI;
 
 import server_connection.Server;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
