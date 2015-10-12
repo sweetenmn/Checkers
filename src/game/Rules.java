@@ -7,8 +7,6 @@ public class Rules {
 	private static int count = 0;
 	private Board board;
 
-	//isKing should be a method corresponding to a chip, not a boolean. I think.
-	//Maybe just change Rules() to isKing? and isKing to kinged.
 	public Rules(Board board){
 		this.board = board;
 	}
@@ -17,7 +15,7 @@ public class Rules {
 		if (playerTurn(origin) && player.isPlayerChip(origin.getState())){
 			if(origin.getState() == CellState.RED_KING || origin.getState() == 
 					CellState.BLACK_KING){
-				boolean result = Math.abs(destination.getColumn() - origin.getColumn()) == 1 
+				boolean result = Math.abs(destination.getColumn()-origin.getColumn()) == 1 
 						&& Math.abs(destination.getRow() - origin.getRow()) == 1;
 				if (result){
 					count++;
@@ -38,7 +36,6 @@ public class Rules {
 			if (result){
 				count++;
 			}
-			
 			return result;
 		} else if (origin.getState() == CellState.RED){
 			boolean result = Math.abs(destination.getColumn() - origin.getColumn()) == 1 
@@ -84,23 +81,26 @@ public class Rules {
 			 count++;
 		 }
 	 }
+	 //will accept an empty square for the false statement.
+	 public boolean Reds(Cell enemy){
+		 if(enemy.getState()==CellState.RED || enemy.getState()==CellState.RED_KING){
+			 return true;
+		 }
+		 return false;
+	 }
 	 //if enemy's chip is in movement square, and there is not a piece on the 
 		 //other side of it, return true.
 	 public boolean isAvailable(Cell origin, Cell enemy, Cell destination){		 
-		 if(origin.getState()==CellState.BLACK && (enemy.getState()==CellState.RED ||
-				 enemy.getState()==CellState.RED_KING)){
+		 if(origin.getState()==CellState.BLACK && Reds(enemy) == true){
 			 return Math.abs(destination.getColumn() - origin.getColumn()) == 2
 					 && destination.getRow() - origin.getRow() == -2;
-		 }else if(origin.getState()==CellState.RED &&(enemy.getState()
-				 ==CellState.BLACK || enemy.getState()==CellState.BLACK_KING)){
+		 }else if(origin.getState()==CellState.RED && Reds(enemy)== false){
 			 return Math.abs(destination.getColumn() - origin.getColumn()) == 2 
 					 && destination.getRow() - origin.getRow() == 2;
-		 }else if(origin.getState()==CellState.BLACK_KING && (enemy.getState()==
-				 CellState.RED || enemy.getState()==CellState.RED_KING)){
+		 }else if(origin.getState()==CellState.BLACK_KING && Reds(enemy)==true){
 			 return Math.abs(destination.getColumn() - origin.getColumn()) == 2 && 
 					 Math.abs(destination.getRow() - origin.getRow()) == 2;
-		 }else if(origin.getState()==CellState.RED_KING && (enemy.getState()==
-				 CellState.BLACK || enemy.getState()==CellState.BLACK_KING)){
+		 }else if(origin.getState()==CellState.RED_KING && Reds(enemy)==false){
 			 return Math.abs(destination.getColumn() - origin.getColumn()) == 2 && 
 					 Math.abs(destination.getRow() - origin.getRow()) == 2;
 		 }
