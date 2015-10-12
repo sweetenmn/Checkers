@@ -7,6 +7,7 @@ public class MessageHandler {
 	//will replace the appropriate methods in Board
 	//need to handle non-move messages like updating turn information (not if jumping)
 	//and players' names
+	//talks to Movement class
 	
 	Board board;
 	private static final int MIN_LENGTH = 3;
