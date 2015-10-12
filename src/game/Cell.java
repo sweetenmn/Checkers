@@ -1,7 +1,6 @@
 package game;
 
 import checkersGUI.Board;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -13,20 +12,26 @@ public class Cell {
 	private int row;
 	private Rules rules;
 	private Pane pane;
-	private Image image;
 	private ImageView checker;
+	private Board board;
+	private ImageHashMap images;
+	private Coordinate coord;
 	private static final int TOP_ROW = 0;
 	private static final int BOTTOM_ROW = 7;
 	
-	public Cell(CellState state, Pane pane, int x, int y){
+	public Cell(Board board, CellState state, Pane pane, Coordinate coord){
 		this.state = state;
 		this.pane = pane;
-		column = x;
-		row = y;
+		this.coord = coord;
+		this.board = board;
+		images = board.images;
+		column = coord.column();
+		row = coord.row();
+		addToBoard();
 	}
 	
-	public void addToBoard(Board board){
-		createChip(board);
+	public void addToBoard(){
+		createChip();
 		pane.getChildren().add(checker);
 	}
 	
@@ -34,12 +39,11 @@ public class Cell {
 		gridParent.getChildren().remove(pane);
 	}
 	
-	private void createChip(Board board){
+	private void createChip(){
 		crownIfKing();
-		createRules(board);
-		switchImage();
+		createRules();
 		createImageView();
-		assignEvent(board);   
+		assignEvent();   
 	}
 	private void crownIfKing(){
 		switch(state){
@@ -58,27 +62,8 @@ public class Cell {
 		}
 	}
 	
-	private void switchImage(){
-		switch(state){
-			case EMPTY:
-				image = new Image("emptyChip.png");
-				break;
-			case BLACK:
-				image = new Image("blackChip.png");
-				break;
-			case BLACK_KING:
-				image = new Image("blackCrown.png");
-				break;
-			case RED:
-				image = new Image("redChip.png");
-				break;
-			case RED_KING:
-				image = new Image("redCrown.png");
-				break;		
-		}
-	}
 	
-	private void assignEvent(Board board){
+	private void assignEvent(){
 		switch(state){
 			case EMPTY:
 				checker.setOnMouseClicked(k -> {
@@ -95,10 +80,10 @@ public class Cell {
 	}
 	
 	private void createImageView(){
-		checker = new ImageView(image);
+		checker = new ImageView(images.getImageFor(state));
 	}
 	
-	public void createRules(Board board){
+	public void createRules(){
 		rules = new Rules(board);
 	}
 	
@@ -110,5 +95,7 @@ public class Cell {
 	public int getRow(){return row;}
 	
 	public CellState getState(){return state;}
+	
+	public Coordinate getCoords(){return coord;}
 	
 }

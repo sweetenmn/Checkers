@@ -4,18 +4,21 @@ import java.util.ArrayList;
 
 import game.Cell;
 import game.CellState;
+import game.Coordinate;
+import game.ImageHashMap;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 public class Board {
-	GridPane checkerboard;
-	ArrayList<Cell> cells;
-	Cell lastPieceClicked;
-	Cell lastSquareClicked;
-	int oldX;
-	int oldY;
-	int newX;
-	int newY;
+	private GridPane checkerboard;
+	private ArrayList<Cell> cells;
+	private Cell lastPieceClicked;
+	private Cell lastSquareClicked;
+	private int oldX;
+	private int oldY;
+	private int newX;
+	private int newY;
+	public ImageHashMap images = new ImageHashMap();
 	
 	public Board(GridPane grid){
 		checkerboard = grid;
@@ -32,8 +35,7 @@ public class Board {
 		for (int column = 0; column < 8; column++){
 			for (int row = rowStart; row < rowEnd; row++){
 				Pane pane = new Pane();
-				Cell cell = new Cell(state, pane, column, row);
-				cell.addToBoard(this);
+				Cell cell = new Cell(this, state, pane, new Coordinate(column, row));
 				if (row % 2 != 0){
 					if (column % 2 != 0){
 						addPane(cell, pane, column, row);
@@ -66,10 +68,8 @@ public class Board {
 		removeCell(lastSquareClicked);
 		Pane destPane = new Pane();
 		Pane originPane = new Pane();
-		Cell newPiece = new Cell(lastPieceClicked.getState(), destPane, lastSquareClicked.getColumn(), lastSquareClicked.getRow());
-		Cell newSquare = new Cell(CellState.EMPTY, originPane, lastPieceClicked.getColumn(), lastPieceClicked.getRow());
-		newPiece.addToBoard(this);
-		newSquare.addToBoard(this);
+		Cell newPiece = new Cell(this, lastPieceClicked.getState(), destPane, lastSquareClicked.getCoords());
+		Cell newSquare = new Cell(this, CellState.EMPTY, originPane, lastPieceClicked.getCoords());
 		addPane(newPiece, destPane, newPiece.getColumn(), newPiece.getRow());
 		addPane(newSquare, originPane, newSquare.getColumn(), newSquare.getRow());
 	}
