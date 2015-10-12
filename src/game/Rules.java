@@ -13,6 +13,8 @@ public class Rules {
 	
 	
 	public boolean isLegal(Cell origin, Cell destination){
+		Cell enemy = //the cell at coordinates origin + 1
+		Jump(origin, , destination);
 		if (playerTurn(origin)){
 			if(origin.getState() == CellState.RED_KING || origin.getState() == 
 					CellState.BLACK_KING){
