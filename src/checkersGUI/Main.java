@@ -17,6 +17,7 @@ public class Main extends Application {
 			BorderPane root = (BorderPane) loader.load(getClass().getResource("GUI.fxml").openStream());
 			primaryStage.setScene(new Scene(root));
 			primaryStage.show();
+			primaryStage.setResizable(false);
 			primaryStage.setOnCloseRequest(event -> System.exit(0));
 		} catch (IOException e) {
 			e.printStackTrace();

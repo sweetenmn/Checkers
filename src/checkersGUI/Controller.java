@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
@@ -34,9 +35,9 @@ public class Controller {
 	@FXML
 	Button connect = new Button("Connect");
 	@FXML
-	TextField p1Name = new TextField("Enter your name");
+	TextField p1Name = new TextField();
 	@FXML
-	TextField p2Name = new TextField("Enter your enemy's name");
+	TextField p2Name = new TextField();
 	@FXML
 	Button submitMove;
 	Board board;
@@ -49,15 +50,22 @@ public class Controller {
 	Label playerTurn;
 	
 	@FXML
-	TextField host = new TextField("Enter IP Address");
+	TextField host = new TextField();
 	
 	ArrayBlockingQueue<String> messages = new ArrayBlockingQueue<>(20);
 	
 	@FXML
 	public void initialize(){
+		p1Name.setPromptText("Enter your name");
+		p2Name.setPromptText("Enter opponent's name");
+		host.setPromptText("Enter IP Address");
 		board = new Board(checkerboard);
 		board.setUp();
 		requestFocus();
+		startMessaging();
+	}
+	
+	public void startMessaging(){
 		new Thread(() -> {
 			for (;;) {
 				try {
@@ -69,13 +77,12 @@ public class Controller {
 				
 			}
 		}).start();
+		
 	}
 	
 	@FXML
 	public void requestFocus(){
-				canvas.requestFocus();
-	
-		
+		canvas.requestFocus();		
 	}
 	
 	void badNews(String what) {
@@ -111,7 +118,6 @@ public class Controller {
         		 canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
         		 createServer();
                  popup.hide();
-                 
             }
         });
 	}
