@@ -1,13 +1,15 @@
 package game;
 
+import checkersGUI.Board;
+
 public class Rules {
 	private static int count = 0;
 	
-	//isKing should be a method corresponding to a chip, not a boolean. I think.
-	//Maybe just change Rules() to isKing? and isKing to kinged.
 	public boolean isLegal(Cell origin, Cell destination){
-		if(origin.getState() == CellState.RED_KING || origin.getState() == CellState.BLACK_KING){
-			return Math.abs(destination.getColumn() - origin.getColumn()) == 1 && Math.abs(destination.getRow() - origin.getRow()) == 1;
+		if(origin.getState() == CellState.RED_KING || origin.getState() == 
+				CellState.BLACK_KING){
+			return Math.abs(destination.getColumn() - origin.getColumn()) == 1 && 
+					Math.abs(destination.getRow() - origin.getRow()) == 1;
 		} else {
 			return LegalMoves(origin, destination);
 		}
@@ -29,7 +31,7 @@ public class Rules {
 	 * keeps count of the moves, if even number, black moves. if odd, red moves.
 	 * counter changes when the players are switched.
 	 */
-	public void movesFirst(){
+	public void playerTurn(){
 		if(count % 2 == 0){
 			//black moves
 		}else{
@@ -37,27 +39,47 @@ public class Rules {
 		}
 	}
 	
-	/*Pieces that are captured need to be removed from the board.*/
-	 public void isCaptured(){
-		 //call during jump method. remove the jumped chip. eraseFrom() ?
+	//captured pieces are removed.
+	 public void isCaptured(Cell jumped){
+		 //Imported Board, but this command wants to be called statically.
+		 //Board.removeCell(jumped);
 	 }
 	
-	/*
-	 * Only one opponent piece can be captured per jump, but multiple jumps are 
-	 * allowed.
-	 * If a jump is available, it must be made. If more than one jump is available,
-	 * the player can choose either.
-	 * 
-	 * When a piece reaches the other side, it gets made into a king.
-	 * 
-	 * Kings can move backwards and forwards (Maybe have a king interface for this?)
-	 * 
-	 * Kings can do multiple jumps backwards and forwards, or a combination of those.
-	 * 
+	 public void Jump(Cell origin, Cell enemy, Cell destination){
+		 if(isAvailable(origin, enemy, destination) == true){
+			 //origin chip moves to destination. Not sure how to make this 
+			 //the only available movement.
+			 isCaptured(enemy);
+			 //doesn't change players to allow multiple jumps & checks for another
+			 //available jump.
+		 }else{
+			 count ++;
+		 }
+	 }
+	 //if enemy's chip is in movement square, and there is not a piece on the 
+		 //other side of it, return true.
+	 public boolean isAvailable(Cell origin, Cell enemy, Cell destination){		 
+		 if(origin.getState()==CellState.BLACK && (enemy.getState()==CellState.RED ||
+				 enemy.getState()==CellState.RED_KING)){
+			 return Math.abs(destination.getColumn() - origin.getColumn()) == 2
+					 && destination.getRow() - origin.getRow() == -2;
+		 }else if(origin.getState()==CellState.RED &&(enemy.getState()
+				 ==CellState.BLACK || enemy.getState()==CellState.BLACK_KING)){
+			 return Math.abs(destination.getColumn() - origin.getColumn()) == 2 
+					 && destination.getRow() - origin.getRow() == 2;
+		 }else if(origin.getState()==CellState.BLACK_KING && (enemy.getState()==
+				 CellState.RED || enemy.getState()==CellState.RED_KING)){
+			 return Math.abs(destination.getColumn() - origin.getColumn()) == 2 && 
+					 Math.abs(destination.getRow() - origin.getRow()) == 2;
+		 }else if(origin.getState()==CellState.RED_KING && (enemy.getState()==
+				 CellState.BLACK || enemy.getState()==CellState.BLACK_KING)){
+			 return Math.abs(destination.getColumn() - origin.getColumn()) == 2 && 
+					 Math.abs(destination.getRow() - origin.getRow()) == 2;
+		 }
+		 return false;
+	 }
+		 
+	 /* When a piece reaches the other side, it gets made into a king.
 	 * A player wins when the other cannot make a move.
-	 * 
 	 */
-	
-	
-	
 }
