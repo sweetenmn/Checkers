@@ -1,5 +1,8 @@
 package game;
 
+import helpers.CellState;
+import helpers.PlayerID;
+
 public class Player {
 	PlayerID player;
 	

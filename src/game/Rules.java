@@ -1,5 +1,6 @@
 package game;
 
+import helpers.CellState;
 import checkersGUI.Board;
 
 public class Rules {
@@ -17,9 +18,12 @@ public class Rules {
 		if (playerTurn(origin)){
 			if(origin.getState() == CellState.RED_KING || origin.getState() == 
 					CellState.BLACK_KING){
-				count++;
-				return Math.abs(destination.getColumn() - origin.getColumn()) == 1 && 
-						Math.abs(destination.getRow() - origin.getRow()) == 1;
+				boolean result = Math.abs(destination.getColumn() - origin.getColumn()) == 1 
+						&& Math.abs(destination.getRow() - origin.getRow()) == 1;
+				if (result){
+					count++;
+				}
+				return result;
 			} else {
 				return LegalMoves(origin, destination);
 			}
@@ -30,13 +34,20 @@ public class Rules {
 	
 	public boolean LegalMoves(Cell origin, Cell destination){
 		if(origin.getState() == CellState.BLACK){
-			count++;
-			return Math.abs(destination.getColumn() - origin.getColumn()) == 1
+			boolean result = Math.abs(destination.getColumn() - origin.getColumn()) == 1
 					&& destination.getRow() - origin.getRow() == -1;
+			if (result){
+				count++;
+			}
+			
+			return result;
 		} else if (origin.getState() == CellState.RED){
-			count++;
-			return Math.abs(destination.getColumn() - origin.getColumn()) == 1 
+			boolean result = Math.abs(destination.getColumn() - origin.getColumn()) == 1 
 					&& destination.getRow() - origin.getRow() == 1;
+			if (result){
+				count++;
+			}
+			return result;
 		}
 		return false;
 	}

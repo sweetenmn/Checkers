@@ -3,9 +3,9 @@ package checkersGUI;
 import java.util.ArrayList;
 
 import game.Cell;
-import game.CellState;
-import game.Coordinate;
-import game.ImageHashMap;
+import helpers.CellState;
+import helpers.Coordinate;
+import helpers.ImageHashMap;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -38,19 +38,19 @@ public class Board {
 				Cell cell = new Cell(this, state, pane, new Coordinate(column, row));
 				if (row % 2 != 0){
 					if (column % 2 != 0){
-						addPane(cell, pane, column, row);
+						addPane(cell, pane);
 					}
 				} else {
 					if (column % 2 == 0){
-						addPane(cell, pane, column, row);
+						addPane(cell, pane);
 					}
 				}
 			}
 		}
 	}
 	
-	private void addPane(Cell cell, Pane pane, int column, int row){
-		checkerboard.add(pane, column, row);
+	private void addPane(Cell cell, Pane pane){
+		checkerboard.add(pane, cell.getColumn(), cell.getRow());
 		cells.add(cell);
 	}
 	
@@ -70,8 +70,8 @@ public class Board {
 		Pane originPane = new Pane();
 		Cell newPiece = new Cell(this, lastPieceClicked.getState(), destPane, lastSquareClicked.getCoords());
 		Cell newSquare = new Cell(this, CellState.EMPTY, originPane, lastPieceClicked.getCoords());
-		addPane(newPiece, destPane, newPiece.getColumn(), newPiece.getRow());
-		addPane(newSquare, originPane, newSquare.getColumn(), newSquare.getRow());
+		addPane(newPiece, destPane);
+		addPane(newSquare, originPane);
 	}
 	
 	//used for deletion
@@ -113,10 +113,10 @@ public class Board {
 	public void setMovement(int xOrg, int yOrg, int xDest, int yDest){
 		//have a type param as well
 		for (Cell c: cells){
-			if (c.getColumn() == xOrg && c.getRow() == yOrg){
+			if (c.hasSameCoords(xOrg, yOrg)){
 				setLastPieceClicked(c);
 			} 
-			if (c.getColumn() == xDest && c.getRow() == yDest){
+			if (c.hasSameCoords(xDest, yDest)){
 				setLastSquareClicked(c);
 			}
 		}

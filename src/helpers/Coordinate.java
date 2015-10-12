@@ -1,4 +1,4 @@
-package game;
+package helpers;
 
 public class Coordinate {
 	private int column;

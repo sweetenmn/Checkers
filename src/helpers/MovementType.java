@@ -1,4 +1,4 @@
-package game;
+package helpers;
 
 public enum MovementType {
 	JUMP, NORM

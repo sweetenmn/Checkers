@@ -1,5 +1,8 @@
 package game;
 
+import helpers.CellState;
+import helpers.Coordinate;
+import helpers.ImageHashMap;
 import checkersGUI.Board;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -30,7 +33,7 @@ public class Cell {
 		addToBoard();
 	}
 	
-	public void addToBoard(){
+	private void addToBoard(){
 		createChip();
 		pane.getChildren().add(checker);
 	}
@@ -62,7 +65,6 @@ public class Cell {
 		}
 	}
 	
-	
 	private void assignEvent(){
 		switch(state){
 			case EMPTY:
@@ -72,8 +74,8 @@ public class Cell {
 				break;
 			case BLACK: case BLACK_KING: case RED: case RED_KING:
 				checker.setOnMouseClicked(k -> {
-		        	board.setLastPieceClicked(this);
-		        	board.setLastSquareClicked(this);
+					board.setLastPieceClicked(this);
+					board.setLastSquareClicked(this);
 				});
 				break;
 		}
@@ -97,5 +99,9 @@ public class Cell {
 	public CellState getState(){return state;}
 	
 	public Coordinate getCoords(){return coord;}
+	
+	public boolean hasSameCoords(int x, int y){
+		return coord.column() == x && coord.row() == y;
+	}
 	
 }
