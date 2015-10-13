@@ -37,9 +37,9 @@ public class Controller {
 	@FXML
 	Button connect = new Button("Connect");
 	@FXML
-	TextField playerOneInput = new TextField();
+	TextField player = new TextField();
 	@FXML
-	TextField playerTwoInput = new TextField();
+	TextField otherPlayer = new TextField();
 	@FXML
 	Button submitMove;
 	Board board;
@@ -47,6 +47,10 @@ public class Controller {
 	Label playerOneLabel;
 	@FXML
 	Label playerTwoLabel;
+	@FXML
+	Label playerOneChecker;
+	@FXML
+	Label playerTwoChecker;
 	@FXML
 	Label playerTurn;
 	@FXML
@@ -56,8 +60,8 @@ public class Controller {
 	
 	@FXML
 	public void initialize(){
-		playerOneInput.setPromptText("Enter your name");
-		playerTwoInput.setPromptText("Enter opponent's name");
+		player.setPromptText("Enter your name");
+		otherPlayer.setPromptText("Enter opponent's name");
 		hostText.setPromptText("Enter IP Address");
 	}
 	
@@ -95,37 +99,35 @@ public class Controller {
 	}
 	
 	@FXML
-	public void popUp(){
-		Stage window = new Stage();
-
-        //Block events to other windows
+    public void popUp(){
+        Stage window = new Stage();
+        connect.setOnAction(new EventHandler<ActionEvent>() {
+        	@Override
+        	public void handle(ActionEvent t) {
+        		
+        		startGame();
+        		window.hide();
+        	}
+        });
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Connection Window");
         window.setMinWidth(250);
         
         VBox layout = new VBox(3);
-        layout.getChildren().addAll(playerOneInput, playerTwoInput, hostText, connect);
+        layout.getChildren().addAll(player, otherPlayer, hostText, connect);
         layout.setAlignment(Pos.CENTER);
 
         //Display window and wait for it to be closed before returning
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
-        connect.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-            	playerTurn.setText(playerOneInput.getText() + "'s Turn");
-            	submitMove.setOnAction(event -> sendmove());
-            	canvas.setOnKeyPressed(k -> handlePress(k.getCode()));               
-            }
-        });
-	}
+    }
 	private void startGame(){
         requestFocus();
         submitMove.setOnAction(event -> sendmove());
         canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
 
-		board = new Board(checkerboard);
+		board = new Board(checkerboard, player.getText());
 		board.setUp();
 		messageHandler = new MessageHandler(board);
 		requestFocus();
@@ -133,10 +135,20 @@ public class Controller {
 		createServer(hostText.getText());
 		
 		sendTo(hostText.getText(), 8888, 
-				messageHandler.generateSetUpMessage(playerOneInput.getText(), playerTwoInput.getText()));
-        playerOneLabel.setText(messageHandler.getPlayerOneName());
-        playerTwoLabel.setText(messageHandler.getPlayerTwoName());
-        playerTurn.setText(playerTwoLabel.getText() + "'s Turn");
+				messageHandler.generateSetUpMessage(player.getText(), otherPlayer.getText()));
+        if (player.getText().compareTo(otherPlayer.getText()) < 0){
+        	playerOneLabel.setText(player.getText());
+        	playerTwoLabel.setText(otherPlayer.getText());
+        } else {
+        	playerOneLabel.setText(otherPlayer.getText());
+        	playerTwoLabel.setText(player.getText());
+        }
+        if(playerOneLabel.getText().isEmpty()){playerOneLabel.setText("Player 1");}
+        if(playerTwoLabel.getText().isEmpty()){playerTwoLabel.setText("Player 2");}
+        playerOneChecker.setText(playerOneLabel.getText() + " Has Taken");
+        playerTwoChecker.setText(playerTwoLabel.getText() + " Has Taken");
+    	playerTurn.setText(playerOneLabel.getText() + "'s Turn");
+       
 		
 	}
 
