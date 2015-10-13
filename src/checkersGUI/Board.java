@@ -16,10 +16,16 @@ public class Board {
 	private Cell lastSquareClicked;
 	private Player thisPlayer;
 	private boolean turnSwapped = false;
+	private String playerName;
 	
-	public Board(GridPane grid){
+	public Board(GridPane grid, String player){
+		playerName = player;
 		checkerboard = grid;
 		cells = new ArrayList<Cell>();
+	}
+	
+	public String getName(){
+		return playerName;
 	}
 	
 	public void createPlayer(PlayerID playerState){
@@ -103,18 +109,6 @@ public class Board {
 	
 	private String getString(int x){
 		return Integer.toString(x);
-	}
-	
-	public void handleMessage(String msg){
-		if (msg.length() > 3){
-			String[] values = msg.split(":");
-			int xOrg = Integer.valueOf(values[0]);
-			int yOrg = Integer.valueOf(values[1]);
-			int xDest = Integer.valueOf(values[2]);
-			int yDest = Integer.valueOf(values[3]);
-			setMovement(xOrg, yOrg, xDest, yDest);
-			movePiece();
-		} 
 	}
 	
 	public void setMovement(int xOrg, int yOrg, int xDest, int yDest){

@@ -115,7 +115,7 @@ public class Controller {
         submitMove.setOnAction(event -> sendmove());
         canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
 
-		board = new Board(checkerboard);
+		board = new Board(checkerboard, player.getText());
 		board.setUp();
 		messageHandler = new MessageHandler(board);
 		requestFocus();
