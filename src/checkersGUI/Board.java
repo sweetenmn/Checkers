@@ -12,8 +12,8 @@ import javafx.scene.layout.GridPane;
 public class Board {
 	private GridPane checkerboard;
 	private ArrayList<Cell> cells;
-	private Cell lastPieceClicked;
-	private Cell lastSquareClicked;
+	private Cell lastPieceClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0) );
+	private Cell lastSquareClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0) );
 	private Player thisPlayer;
 	private boolean turnSwapped = false;
 	private String playerName;
@@ -29,6 +29,7 @@ public class Board {
 	}
 	
 	public void createPlayer(PlayerID playerState){
+		System.out.println(playerName);
 		thisPlayer = new Player(playerState);
 	}
 	
@@ -75,12 +76,14 @@ public class Board {
 	
 
 	public void movePiece(){
+		lastPieceClicked.isLegal(lastSquareClicked, thisPlayer);
 		removeCell(lastPieceClicked);
 		removeCell(lastSquareClicked);
 		Cell newPiece = new Cell(this, lastPieceClicked.getState(), lastSquareClicked.getCoords());
 		Cell newSquare = new Cell(this, CellState.EMPTY, lastPieceClicked.getCoords());
 		addCell(newPiece);
 		addCell(newSquare);
+		turnSwapped = true;
 	}
 	
 	public boolean swapTurn(){
