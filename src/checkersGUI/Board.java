@@ -83,7 +83,7 @@ public class Board {
 		Cell newSquare = new Cell(this, CellState.EMPTY, lastPieceClicked.getCoords());
 		addCell(newPiece);
 		addCell(newSquare);
-		turnSwapped = true;
+	//	turnSwapped = true;
 	}
 	
 	public boolean swapTurn(){
@@ -105,7 +105,7 @@ public class Board {
 			oldY = getString(lastPieceClicked.getRow());
 			newX = getString(lastSquareClicked.getColumn());
 			newY = getString(lastSquareClicked.getRow());
-			turnSwapped = true;
+		//	turnSwapped = true;
 		}
 		return (oldX + ":" + oldY + ":" + newX + ":" + newY).trim();
 	}
@@ -124,6 +124,7 @@ public class Board {
 				setLastSquareClicked(c);
 			}
 		}
+		turnSwapped = true;
 	}
 	
 	public Cell getCellAt(Coordinate coord) {

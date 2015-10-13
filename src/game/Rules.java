@@ -12,6 +12,7 @@ public class Rules {
 	}
 	
 	public boolean isLegal(Cell origin, Cell destination, Player player){
+		System.out.println(String.valueOf(count));
 		if (playerTurn(origin) && player.isPlayerChip(origin.getState())){
 			if(origin.getState() == CellState.RED_KING || origin.getState() == 
 					CellState.BLACK_KING){
@@ -19,6 +20,7 @@ public class Rules {
 						&& Math.abs(destination.getRow() - origin.getRow()) == 1;
 				if (result){
 					count++;
+					System.out.println(String.valueOf(count));
 				}
 				return result;
 			} else {
@@ -35,6 +37,7 @@ public class Rules {
 					&& destination.getRow() - origin.getRow() == -1;
 			if (result){
 				count++;
+				System.out.println(String.valueOf(count));
 			}
 			return result;
 		} else if (origin.getState() == CellState.RED){
@@ -42,6 +45,7 @@ public class Rules {
 					&& destination.getRow() - origin.getRow() == 1;
 			if (result){
 				count++;
+				System.out.println(String.valueOf(count));
 			}
 			return result;
 		}

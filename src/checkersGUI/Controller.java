@@ -66,6 +66,7 @@ public class Controller {
 					String msg = messages.take();
 					System.out.println(msg);
 					Platform.runLater(() -> {messageHandler.handleMessage(msg);});
+					turnUpdate();
 				} catch (Exception e) {
 					badNews(e.getMessage());
 				}
@@ -194,6 +195,7 @@ public class Controller {
 	@FXML
 	public void turnUpdate(){
 		if (board.swapTurn()){
+			System.out.println("swapped");
 			if(playerTurn.getText().equals(playerOneLabel.getText() + "'s Turn"))
 				playerTurn.setText(playerTwoLabel.getText() + "'s Turn");
 			else

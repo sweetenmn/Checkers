@@ -39,7 +39,7 @@ public class MessageHandler {
 		return ("MOVE:" + board.getMove());
 	}
 	public void setUpPlayer(String player, String otherPlayer){
-		if (player.equals(board.getName())){
+		if (otherPlayer.equals(board.getName())){
 			System.out.println("BLACK");
 			board.createPlayer(PlayerID.BLACK);
 			playerOneName = player;
