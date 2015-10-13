@@ -35,9 +35,9 @@ public class Controller {
 	@FXML
 	Button connect = new Button("Connect");
 	@FXML
-	TextField playerOneInput = new TextField();
+	TextField player = new TextField();
 	@FXML
-	TextField playerTwoInput = new TextField();
+	TextField otherPlayer = new TextField();
 	@FXML
 	Button submitMove;
 	Board board;
@@ -54,8 +54,8 @@ public class Controller {
 	
 	@FXML
 	public void initialize(){
-		playerOneInput.setPromptText("Enter your name");
-		playerTwoInput.setPromptText("Enter opponent's name");
+		player.setPromptText("Enter your name");
+		otherPlayer.setPromptText("Enter opponent's name");
 		hostText.setPromptText("Enter IP Address");
 	}
 	
@@ -95,8 +95,8 @@ public class Controller {
 	@FXML
 	public void popUp(){
 		VBox popupVBox = new VBox();
-		popupVBox.getChildren().add(playerOneInput);
-		popupVBox.getChildren().add(playerTwoInput);
+		popupVBox.getChildren().add(player);
+		popupVBox.getChildren().add(otherPlayer);
 		popupVBox.getChildren().add(hostText);
 		popupVBox.getChildren().add(connect);
 		Popup popup = new Popup();
@@ -123,10 +123,17 @@ public class Controller {
 		createServer(hostText.getText());
 		
 		sendTo(hostText.getText(), 8888, 
-				messageHandler.generateSetUpMessage(playerOneInput.getText(), playerTwoInput.getText()));
-        playerOneLabel.setText(messageHandler.getPlayerOneName());
-        playerTwoLabel.setText(messageHandler.getPlayerTwoName());
-        playerTurn.setText(playerOneLabel.getText() + "'s Turn");
+				messageHandler.generateSetUpMessage(player.getText(), otherPlayer.getText()));
+        if (player.getText().compareTo(otherPlayer.getText()) < 0){
+        	playerOneLabel.setText(player.getText());
+        	playerTwoLabel.setText(otherPlayer.getText());
+        } else {
+        	playerOneLabel.setText(otherPlayer.getText());
+        	playerTwoLabel.setText(player.getText());
+        }
+        
+    	playerTurn.setText(playerOneLabel.getText() + "'s Turn");
+       
 		
 	}
 	
@@ -186,14 +193,16 @@ public class Controller {
 	
 	@FXML
 	public void turnUpdate(){
+		if (board.swapTurn()){
+			if(playerTurn.getText().equals(playerOneLabel.getText() + "'s Turn"))
+				playerTurn.setText(playerTwoLabel.getText() + "'s Turn");
+			else
+				playerTurn.setText(playerOneLabel.getText() + "'s Turn");
+		}
 		/*This will update the Label displaying the current player's turn.
 		 * Can be used/used in conjunction with another method to allow the next player the ability to move their pieces
 		 * while restricting the other player.
 		*/
-		if(playerTurn.getText().equals(playerOneLabel.getText() + "'s Turn"))
-			playerTurn.setText(playerTwoLabel.getText() + "'s Turn");
-		else
-			playerTurn.setText(playerOneLabel.getText() + "'s Turn");
 	}
 
 }
