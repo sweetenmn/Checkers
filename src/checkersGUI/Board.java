@@ -15,6 +15,7 @@ public class Board {
 	private Cell lastPieceClicked;
 	private Cell lastSquareClicked;
 	private Player thisPlayer;
+	private boolean turnSwapped = false;
 	
 	public Board(GridPane grid){
 		checkerboard = grid;
@@ -76,6 +77,15 @@ public class Board {
 		addCell(newSquare);
 	}
 	
+	public boolean swapTurn(){
+		if (turnSwapped){
+			turnSwapped = false;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public String getMove(){
 		String oldX = "";
 		String oldY = "";
@@ -86,6 +96,7 @@ public class Board {
 			oldY = getString(lastPieceClicked.getRow());
 			newX = getString(lastSquareClicked.getColumn());
 			newY = getString(lastSquareClicked.getRow());
+			turnSwapped = true;
 		}
 		return (oldX + ":" + oldY + ":" + newX + ":" + newY).trim();
 	}

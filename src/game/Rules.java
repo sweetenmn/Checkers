@@ -70,7 +70,7 @@ public class Rules {
 		 board.removeCell(jumped);
 	 }
 	
-	 public void jump(Cell origin, Cell enemy, Cell destination){
+	/* public void jump(Cell origin, Cell enemy, Cell destination){
 		 if(isAvailable(origin, enemy, destination)){
 			 //origin chip moves to destination. Not sure how to make this 
 			 //the only available movement.
@@ -78,7 +78,7 @@ public class Rules {
 			 //doesn't change players to allow multiple jumps & checks for another
 			 //available jump.
 		 }
-	 }
+	 }*/
 	 //will accept an empty square for the false statement.
 	 public boolean isEnemy(Cell origin, Cell enemy){
 		 switch(origin.getState()){
@@ -96,12 +96,8 @@ public class Rules {
 	 //if enemy's chip is in movement square, and there is not a piece on the 
 		 //other side of it, return true.
 	 public boolean isAvailable(Cell origin, Cell destination){	
-		switch(origin.getState()){
-		case BLACK:
-			if()){
-				return }/*
-			}
-		}
+		 
+		 /*
 		 if(origin.getState()==CellState.BLACK && Reds(enemy) == true){
 			 return Math.abs(destination.getColumn() - origin.getColumn()) == 2
 					 && destination.getRow() - origin.getRow() == -2;

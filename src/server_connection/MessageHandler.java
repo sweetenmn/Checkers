@@ -26,7 +26,7 @@ public class MessageHandler {
 			String[] values = msg.split(":");
 			String messageType = values[0];
 			if (messageType.equals("PLAY")){
-				setUpMessage = generateSetUpMessage(values[1], values[2]);
+				setUpPlayers(values[1], values[2]);
 			} else if (messageType.equals("MOVE") && msg.length() > 8){
 				board.setMovement(toInt(values[1]), toInt(values[2]),
 						toInt(values[3]), toInt(values[4]));
@@ -38,20 +38,21 @@ public class MessageHandler {
 	public String getMovementMessage(){
 		return ("MOVE:" + board.getMove());
 	}
+	public void setUpPlayers(String player, String otherPlayer){
+		if (player.compareTo(otherPlayer) > 0){
+			board.createPlayer(PlayerID.RED);
+			playerOneName = otherPlayer;
+			playerTwoName = player;
+		} else {
+			board.createPlayer(PlayerID.BLACK);
+			playerOneName = player;
+			playerTwoName = otherPlayer;
+		}
+	}
 	
 	public String generateSetUpMessage(String player, String otherPlayer){
 		System.out.print("generating... " + player + " " + otherPlayer);
-		if (player.compareTo(otherPlayer) > 0){
-			board.createPlayer(PlayerID.RED);
-			playerOneName = player;
-			playerTwoName = otherPlayer;
-			return ("PLAY:" + player + ":" + otherPlayer);
-		} else {
-			board.createPlayer(PlayerID.BLACK);
-			playerOneName = otherPlayer;
-			playerTwoName = player;
-			return ("PLAY:" + otherPlayer + ":" + otherPlayer);
-		}
+		return ("PLAY:" + player + ":" + otherPlayer);
 	}
 	
 	public String getSetUp(){
