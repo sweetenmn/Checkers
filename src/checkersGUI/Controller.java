@@ -119,8 +119,13 @@ public class Controller {
 	@FXML
     public void popUp(){
         Stage window = new Stage();
-
-        //Block events to other windows
+        connect.setOnAction(new EventHandler<ActionEvent>() {
+        	@Override
+        	public void handle(ActionEvent t) {
+        		startGame();
+        		window.hide();
+        	}
+        });
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Connection Window");
         window.setMinWidth(250);
@@ -133,13 +138,6 @@ public class Controller {
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
-        connect.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                startGame();
-                window.close();
-            }
-        });
     }
 	private void startGame(){
         requestFocus();
@@ -147,7 +145,7 @@ public class Controller {
         canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
 
 		board = new Board(checkerboard, player.getText());
-		board.setUp();
+		Platform.runLater(() -> {board.setUp();});
 		messageHandler = new MessageHandler(board);
 		requestFocus();
 		startMessaging();
