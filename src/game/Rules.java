@@ -7,15 +7,14 @@ public class Rules {
 	private Board board;
 	private TurnCounter counter;
 
-	public Rules(Board board, TurnCounter counter){
-		this.counter = counter;
+	public Rules(Board board){
+		this.counter = board.getCounter();
 		this.board = board;
 	}
 	
 	public boolean isLegal(Cell origin, Cell destination, Player player){
 		System.out.println(String.valueOf(counter.getCount()));
-		//playerTurn(origin) && 
-		if (player.isPlayerChip(origin.getState())){
+		if (playerTurn(origin) && player.isPlayerChip(origin.getState())){
 			if(origin.getState() == CellState.RED_KING || origin.getState() == 
 					CellState.BLACK_KING){
 				boolean result = Math.abs(destination.getColumn()-origin.getColumn()) == 1 
