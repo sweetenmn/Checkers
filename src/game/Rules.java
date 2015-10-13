@@ -7,7 +7,7 @@ public class Rules {
 	private int count = 0;
 	private Board board;
 
-	public Rules(Board board){
+	public Rules(Board board, TurnCounter counter){
 		this.board = board;
 	}
 	

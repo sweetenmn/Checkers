@@ -36,7 +36,7 @@ public class Board {
 			turn = GameState.RED_TURN;
 			break;
 		case RED_TURN:
-			System.out.println("tblack");
+			System.out.println("to black");
 			turn = GameState.RED_TURN;
 			break;
 		}
@@ -168,7 +168,10 @@ public class Board {
 		}
 		//put this where it's called
 		if (result == null){throw (new NullPointerException());}
-		
 		return result;		
+	}
+	
+	public GameState getGameState(){
+		return turn;
 	}
 }
