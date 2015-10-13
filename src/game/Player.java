@@ -10,9 +10,9 @@ public class Player {
 		player = playID;
 	}
 	
-	public boolean isPlayerTurn(PlayerID attempting){
-		return player == attempting;
-	}
+	public PlayerID getID(){
+		return player;
+		}
 	
 	public boolean isPlayerChip(CellState state){
 		switch(state){

@@ -4,24 +4,23 @@ import helpers.CellState;
 import checkersGUI.Board;
 
 public class Rules {
-	private static int count = 0;
 	private Board board;
+	private TurnCounter counter;
 
-	public Rules(Board board){
+	public Rules(Board board, TurnCounter counter){
+		this.counter = counter;
 		this.board = board;
 	}
 	
 	public boolean isLegal(Cell origin, Cell destination, Player player){
-		System.out.println(String.valueOf(count));
+		System.out.println(String.valueOf(counter.getCount()));
 		if (playerTurn(origin) && player.isPlayerChip(origin.getState())){
 			if(origin.getState() == CellState.RED_KING || origin.getState() == 
 					CellState.BLACK_KING){
 				boolean result = Math.abs(destination.getColumn()-origin.getColumn()) == 1 
 						&& Math.abs(destination.getRow() - origin.getRow()) == 1;
-				if (result){
-					count++;
-					System.out.println(String.valueOf(count));
-				}
+				//if (result){
+			//		counter.increment();
 				return result;
 			} else {
 				return LegalMoves(origin, destination);
@@ -36,16 +35,16 @@ public class Rules {
 			boolean result = Math.abs(destination.getColumn() - origin.getColumn()) == 1
 					&& destination.getRow() - origin.getRow() == -1;
 			if (result){
-				count++;
-				System.out.println(String.valueOf(count));
+				/*counter.increment();*/
+				System.out.println(String.valueOf(counter.getCount()));
 			}
 			return result;
 		} else if (origin.getState() == CellState.RED){
 			boolean result = Math.abs(destination.getColumn() - origin.getColumn()) == 1 
 					&& destination.getRow() - origin.getRow() == 1;
 			if (result){
-				count++;
-				System.out.println(String.valueOf(count));
+			//	counter.increment();
+				System.out.println(String.valueOf(counter.getCount()));
 			}
 			return result;
 		}
@@ -60,9 +59,9 @@ public class Rules {
 	public boolean playerTurn(Cell movingPiece){
 		switch(movingPiece.getState()){
 			case BLACK: case BLACK_KING:
-				return count % 2 == 0;
+				return counter.getCount() % 2 == 0;
 			case RED: case RED_KING:
-				return count % 2 != 0;
+				return counter.getCount() % 2 != 0;
 			case EMPTY:
 				break;
 		}

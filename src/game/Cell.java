@@ -13,13 +13,15 @@ public class Cell {
 	private ImageView checker;
 	private Board board;
 	private Coordinate coord;
+	private TurnCounter counter;
 	private static final int TOP_ROW = 0;
 	private static final int BOTTOM_ROW = 7;
 	
-	public Cell(Board board, CellState state, Coordinate coord){
+	public Cell(Board board, CellState state, Coordinate coord, TurnCounter counter){
 		this.state = state;
 		this.coord = coord;
 		this.board = board;
+		this.counter = counter;
 		createChip();
 	}
 	
@@ -75,7 +77,7 @@ public class Cell {
 	}
 	
 	public void createRules(){
-		rules = new Rules(board);
+		rules = new Rules(board, counter);
 	}
 	
 	public boolean isLegal(Cell other, Player player){

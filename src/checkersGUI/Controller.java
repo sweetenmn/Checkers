@@ -12,6 +12,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,7 +23,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -93,7 +97,7 @@ public class Controller {
 		}
 	}
 	
-	@FXML
+	/*@FXML
 	public void popUp(){
 		VBox popupVBox = new VBox();
 		popupVBox.getChildren().add(player);
@@ -110,7 +114,33 @@ public class Controller {
                  popup.hide();
             }
         });
-	}
+	} */
+	
+	@FXML
+    public void popUp(){
+        Stage window = new Stage();
+
+        //Block events to other windows
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("Connection Window");
+        window.setMinWidth(250);
+        
+        VBox layout = new VBox(3);
+        layout.getChildren().addAll(player, otherPlayer, hostText, connect);
+        layout.setAlignment(Pos.CENTER);
+
+        //Display window and wait for it to be closed before returning
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
+        connect.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                startGame();
+                window.close();
+            }
+        });
+    }
 	private void startGame(){
         requestFocus();
         submitMove.setOnAction(event -> sendmove());
