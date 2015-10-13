@@ -52,7 +52,7 @@ public class MessageHandler {
 	}
 	
 	public String generateSetUpMessage(String player, String otherPlayer){
-		if(player.compareTo(otherPlayer) > 0){
+		if(player.compareTo(otherPlayer) < 0){
 			System.out.print("generating... " + player + " " + otherPlayer);
 			return "PLAY:" + player + ":" + otherPlayer;
 		} else {
