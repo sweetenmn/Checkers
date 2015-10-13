@@ -11,18 +11,18 @@ import java.net.Socket;
 import javafx.application.Platform;
 
 public class Server {
-	private Board board;
 	private String host;
+	private MessageHandler messageHandler;
 
-	public static void main(String[] args, Board board, String string) throws IOException {
-		Server s = new Server(Integer.parseInt(args[0]), board, string);
+	public static void main(String[] args, MessageHandler handler, String string) throws IOException {
+		Server s = new Server(Integer.parseInt(args[0]), handler, string);
 		s.listen();
 	}
 	
 	private ServerSocket accepter;
 
-	public Server(int port, Board board, String host) throws IOException {
-		this.board = board;
+	public Server(int port, MessageHandler handler, String host) throws IOException {
+		messageHandler = handler;
 		this.host = host;
 		accepter = new ServerSocket(port);
 	}
@@ -47,7 +47,7 @@ public class Server {
 	    		PrintWriter writer = new PrintWriter(socket.getOutputStream());
 	    		String msg = getMessage();
 	    		if (!host.equals("localhost")){
-		    		Platform.runLater(() -> board.handleMessage(msg));
+		    		Platform.runLater(() -> messageHandler.handleMessage(msg));
 	    		}
 	    		echoAndClose(writer, msg);
 	    	} catch (IOException ioe) {

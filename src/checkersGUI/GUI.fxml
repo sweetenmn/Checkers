@@ -46,7 +46,7 @@
    <top>
       <Pane>
          <children>
-            <Label fx:id="p1" layoutX="144.0" prefHeight="32.0" prefWidth="170.0" text="Player 1" BorderPane.alignment="CENTER">
+            <Label fx:id="playerOneLabel" layoutX="144.0" prefHeight="32.0" prefWidth="170.0" text="Player 1" BorderPane.alignment="CENTER">
                <font>
                   <Font size="22.0" />
                </font>
@@ -56,7 +56,7 @@
       </Pane>
    </top>
    <bottom>
-      <Label fx:id="p2" prefHeight="32.0" prefWidth="196.0" text="Player 2" BorderPane.alignment="CENTER">
+      <Label fx:id="playerTwoLabel" prefHeight="32.0" prefWidth="196.0" text="Player 2" BorderPane.alignment="CENTER">
          <font>
             <Font size="22.0" />
          </font>
@@ -469,390 +469,390 @@
                   </Lighting>
                </effect>
             </Rectangle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="7" GridPane.rowIndex="1">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="2">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="2">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="6">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.rowIndex="2">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="4">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="6">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.rowIndex="2">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="4">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="6" GridPane.rowIndex="2">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.rowIndex="6">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="5">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="7">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="6">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="5">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="7">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="7" GridPane.rowIndex="5">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.rowIndex="6">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="7" GridPane.rowIndex="7">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="6" GridPane.rowIndex="6">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
-            <Circle fill="#dd1f06" radius="21.5" stroke="BLACK" strokeType="INSIDE" translateX="1.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Lighting surfaceScale="3.36">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
-                        </Lighting>
-                     </input>
-                  </InnerShadow>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect>
-            </Circle>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.rowIndex="4">
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="5" GridPane.rowIndex="7">
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0" GridPane.columnIndex="7" GridPane.rowIndex="7">
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#747e86" height="45.0" stroke="BLACK" strokeType="INSIDE" width="45.0">
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Rectangle>
          </children>
       </GridPane>
    </center>

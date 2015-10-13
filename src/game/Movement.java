@@ -5,4 +5,6 @@ public class Movement {
 	//allowing for jumping
 	//talks to messagehandler
 	
+	
+	
 }
