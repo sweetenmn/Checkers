@@ -70,7 +70,9 @@ public class Controller {
 					String msg = messages.take();
 					System.out.println(msg);
 					Platform.runLater(() -> {messageHandler.handleMessage(msg);});
-					turnUpdate();
+					if (messageHandler.getMovementMessage().length() > 8){
+						Platform.runLater(() -> {turnUpdate();});
+					}
 				} catch (Exception e) {
 					badNews(e.getMessage());
 				}
@@ -181,7 +183,9 @@ public class Controller {
 	void sendmove() {
 		try {
 			sendTo(hostText.getText(), 8888, messageHandler.getMovementMessage());
-			turnUpdate();
+			if (messageHandler.getMovementMessage().length() > 8){
+				Platform.runLater(() -> {turnUpdate();});
+			}
 		} catch (NumberFormatException nfe) {
 			badNews(this.hostText.getText() + " is not a valid IP Address");
 		

@@ -14,7 +14,8 @@ public class Rules {
 	
 	public boolean isLegal(Cell origin, Cell destination, Player player){
 		System.out.println(String.valueOf(counter.getCount()));
-		if (playerTurn(origin) && player.isPlayerChip(origin.getState())){
+		// && player.isPlayerChip(origin.getState())
+		if (playerTurn(origin)){
 			if(origin.getState() == CellState.RED_KING || origin.getState() == 
 					CellState.BLACK_KING){
 				boolean result = Math.abs(destination.getColumn()-origin.getColumn()) == 1 

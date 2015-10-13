@@ -29,13 +29,19 @@ public class Board {
 		turn = GameState.BLACK_TURN;
 	}
 	
+	public TurnCounter getCounter(){
+		return counter;
+	}
+	
 	public void swapPlayerTurn(){
 		switch(turn){
 		case BLACK_TURN:
 			System.out.println("to red");
+			turnSwapped = true;
 			turn = GameState.RED_TURN;
 			break;
 		case RED_TURN:
+			turnSwapped = true;
 			System.out.println("tblack");
 			turn = GameState.RED_TURN;
 			break;
@@ -114,7 +120,6 @@ public class Board {
 		swapPlayerTurn();
 		counter.increment();
 		System.out.println(String.valueOf(counter.getCount()));
-		turnSwapped = true;
 	}
 	
 	public boolean swapTurn(){
@@ -136,7 +141,6 @@ public class Board {
 			oldY = getString(lastPieceClicked.getRow());
 			newX = getString(lastSquareClicked.getColumn());
 			newY = getString(lastSquareClicked.getRow());
-			turnSwapped = true;
 		}
 		return (oldX + ":" + oldY + ":" + newX + ":" + newY).trim();
 	}
@@ -155,7 +159,6 @@ public class Board {
 				setLastSquareClicked(c);
 			}
 		}
-		turnSwapped = true;
 	}
 	
 	public Cell getCellAt(Coordinate coord) {

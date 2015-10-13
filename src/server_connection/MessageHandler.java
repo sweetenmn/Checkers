@@ -35,6 +35,10 @@ public class MessageHandler {
 		} 		
 	}
 	
+	public void incCounter(){
+		board.getCounter().increment();
+	}
+	
 	public String getMovementMessage(){
 		return ("MOVE:" + board.getMove());
 	}
