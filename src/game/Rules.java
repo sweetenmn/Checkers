@@ -9,7 +9,6 @@ import checkersGUI.Board;
 public class Rules {
 	private Board board;
 	private TurnCounter counter;
-	private ArrayList<Cell> possibleJumpDests = new ArrayList<Cell>();
 
 	public Rules(Board board){
 		this.counter = board.getCounter();
@@ -18,12 +17,15 @@ public class Rules {
 	
 	public boolean hasJump(Cell origin){
 		ArrayList<Cell> possibleEnemies = getPossibleEnemies(origin);
+		if (!possibleEnemies.isEmpty()){
+			
 		for(Cell enemy : possibleEnemies){
 			System.out.println("in possible dest loop");
 			if (isPossibleDest(origin, enemy)){
 				System.out.println("in possible if");
 				return true;
 			}
+		}
 		}
 		return false;
 	}
@@ -123,7 +125,7 @@ public class Rules {
 	}
 	
 	private boolean enemyInRange(Coordinate coord){
-		return enemyRangeCheck(coord.column()) &&  enemyRangeCheck(coord.row());
+		return enemyRangeCheck(coord.column()) && enemyRangeCheck(coord.row());
 	}
 	
 	private boolean enemyRangeCheck(int index){
@@ -165,11 +167,14 @@ public class Rules {
 	public boolean isLegal(Cell origin, Cell destination, Player player){
 		System.out.println(String.valueOf(counter.getCount()));
 		if (hasJump(origin)){
-			return isJump(origin, destination) && 
-					getMiddleChip(origin, destination).getState() != CellState.EMPTY;
-		}
-		// 
-		if (playerTurn(origin)&& player.isPlayerChip(origin.getState())){
+			if (isJump(origin, destination) && 
+					getMiddleChip(origin, destination).getState() != CellState.EMPTY){
+				return true;
+			} else {
+				return false;
+			}
+			//&& player.isPlayerChip(origin.getState())
+		} else if (playerTurn(origin)){
 			if(origin.getState() == CellState.RED_KING || origin.getState() == 
 					CellState.BLACK_KING){
 				boolean result = Math.abs(destination.getColumn()-origin.getColumn()) == 1 
@@ -246,8 +251,11 @@ public class Rules {
 		 case RED: case RED_KING:
 			 return (enemy.getState()==CellState.BLACK || 
 			 enemy.getState()==CellState.BLACK_KING);
-		 case EMPTY:
-			 break;
+		case EMPTY:
+			break;
+		default:
+			return false;
+			 
 		 }
 		 return false;
 	 }

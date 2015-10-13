@@ -108,7 +108,9 @@ public class Board {
 		addCell(newPiece);
 		addCell(newSquare);
 		if (rules.isJump(lastPieceClicked, lastSquareClicked)){
-			removeCell(rules.getMiddleChip(lastPieceClicked, lastSquareClicked));
+			Cell captured = rules.getMiddleChip(lastPieceClicked, lastSquareClicked);
+			removeCell(captured);
+			addCell(new Cell(this, CellState.EMPTY, captured.getCoords()));
 		}
 		swapPlayerTurn();
 		counter.increment();
