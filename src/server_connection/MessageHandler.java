@@ -21,6 +21,7 @@ public class MessageHandler {
 		setUpMessage = "";
 	}
 	public void handleMessage(String msg){
+		System.out.println("handling... " + msg);
 		if (msg.length() > MIN_LENGTH){
 			String[] values = msg.split(":");
 			String messageType = values[0];
@@ -39,6 +40,7 @@ public class MessageHandler {
 	}
 	
 	public String generateSetUpMessage(String player, String otherPlayer){
+		System.out.print("generating... " + player + " " + otherPlayer);
 		if (player.compareTo(otherPlayer) > 0){
 			board.createPlayer(PlayerID.RED);
 			playerOneName = player;

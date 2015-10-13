@@ -126,7 +126,7 @@ public class Controller {
 				messageHandler.generateSetUpMessage(playerOneInput.getText(), playerTwoInput.getText()));
         playerOneLabel.setText(messageHandler.getPlayerOneName());
         playerTwoLabel.setText(messageHandler.getPlayerTwoName());
-        playerTurn.setText(playerTwoLabel.getText() + "'s Turn");
+        playerTurn.setText(playerOneLabel.getText() + "'s Turn");
 		
 	}
 	

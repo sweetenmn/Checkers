@@ -11,16 +11,8 @@ public class Rules {
 		this.board = board;
 	}
 	
-<<<<<<< HEAD
-	
-	public boolean isLegal(Cell origin, Cell destination){
-		Cell enemy = //the cell at coordinates origin + 1
-		Jump(origin, , destination);
-		if (playerTurn(origin)){
-=======
 	public boolean isLegal(Cell origin, Cell destination, Player player){
 		if (playerTurn(origin) && player.isPlayerChip(origin.getState())){
->>>>>>> origin/master
 			if(origin.getState() == CellState.RED_KING || origin.getState() == 
 					CellState.BLACK_KING){
 				boolean result = Math.abs(destination.getColumn()-origin.getColumn()) == 1 
