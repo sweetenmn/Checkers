@@ -190,7 +190,7 @@ public class Controller {
 		 * Can be used/used in conjunction with another method to allow the next player the ability to move their pieces
 		 * while restricting the other player.
 		*/
-		if(playerTurn.getText() == playerOneLabel.getText() + "'s Turn")
+		if(playerTurn.getText().equals(playerOneLabel.getText() + "'s Turn"))
 			playerTurn.setText(playerTwoLabel.getText() + "'s Turn");
 		else
 			playerTurn.setText(playerOneLabel.getText() + "'s Turn");

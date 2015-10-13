@@ -70,27 +70,38 @@ public class Rules {
 		 board.removeCell(jumped);
 	 }
 	
-	 public void Jump(Cell origin, Cell enemy, Cell destination){
+	 public void jump(Cell origin, Cell enemy, Cell destination){
 		 if(isAvailable(origin, enemy, destination)){
 			 //origin chip moves to destination. Not sure how to make this 
 			 //the only available movement.
 			 isCaptured(enemy);
 			 //doesn't change players to allow multiple jumps & checks for another
 			 //available jump.
-		 }else{
-			 count++;
 		 }
 	 }
 	 //will accept an empty square for the false statement.
-	 public boolean Reds(Cell enemy){
-		 if(enemy.getState()==CellState.RED || enemy.getState()==CellState.RED_KING){
-			 return true;
+	 public boolean isEnemy(Cell origin, Cell enemy){
+		 switch(origin.getState()){
+		 case BLACK: case BLACK_KING:
+			 return (enemy.getState()==CellState.RED || 
+			 enemy.getState()==CellState.RED_KING);
+		 case RED: case RED_KING:
+			 return (enemy.getState()==CellState.BLACK || 
+			 enemy.getState()==CellState.BLACK_KING);
+		 case EMPTY:
+			 break;
 		 }
 		 return false;
 	 }
 	 //if enemy's chip is in movement square, and there is not a piece on the 
 		 //other side of it, return true.
-	 public boolean isAvailable(Cell origin, Cell enemy, Cell destination){		 
+	 public boolean isAvailable(Cell origin, Cell destination){	
+		switch(origin.getState()){
+		case BLACK:
+			if()){
+				return }/*
+			}
+		}
 		 if(origin.getState()==CellState.BLACK && Reds(enemy) == true){
 			 return Math.abs(destination.getColumn() - origin.getColumn()) == 2
 					 && destination.getRow() - origin.getRow() == -2;
@@ -103,11 +114,8 @@ public class Rules {
 		 }else if(origin.getState()==CellState.RED_KING && Reds(enemy)==false){
 			 return Math.abs(destination.getColumn() - origin.getColumn()) == 2 && 
 					 Math.abs(destination.getRow() - origin.getRow()) == 2;
-		 }
+					 
+		 }*/
 		 return false;
 	 }
-		 
-	 /* When a piece reaches the other side, it gets made into a king.
-	 * A player wins when the other cannot make a move.
-	 */
 }
