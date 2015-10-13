@@ -3,8 +3,10 @@ package checkersGUI;
 import java.util.ArrayList;
 
 import game.Cell;
+import game.Player;
 import helpers.CellState;
 import helpers.Coordinate;
+import helpers.PlayerID;
 import javafx.scene.layout.GridPane;
 
 public class Board {
@@ -12,14 +14,15 @@ public class Board {
 	private ArrayList<Cell> cells;
 	private Cell lastPieceClicked;
 	private Cell lastSquareClicked;
-	private int oldX;
-	private int oldY;
-	private int newX;
-	private int newY;
+	private Player thisPlayer;
 	
 	public Board(GridPane grid){
 		checkerboard = grid;
 		cells = new ArrayList<Cell>();
+	}
+	
+	public void createPlayer(PlayerID playerState){
+		thisPlayer = new Player(playerState);
 	}
 	
 	public void setUp(){
@@ -73,13 +76,12 @@ public class Board {
 		addCell(newSquare);
 	}
 	
-	//used for deletion
 	public String getMove(){
 		String oldX = "";
 		String oldY = "";
 		String newX = "";
 		String newY = "";
-		if (lastPieceClicked.isLegal(lastSquareClicked)){
+		if (lastPieceClicked.isLegal(lastSquareClicked, thisPlayer)){
 			oldX = getString(lastPieceClicked.getColumn());
 			oldY = getString(lastPieceClicked.getRow());
 			newX = getString(lastSquareClicked.getColumn());
@@ -95,35 +97,38 @@ public class Board {
 	public void handleMessage(String msg){
 		if (msg.length() > 3){
 			String[] values = msg.split(":");
-			oldX = Integer.valueOf(values[0]);
-			oldY = Integer.valueOf(values[1]);
-			newX = Integer.valueOf(values[2]);
-			newY = Integer.valueOf(values[3]);
-			setMovement(oldX, oldY, newX, newY);
+			int xOrg = Integer.valueOf(values[0]);
+			int yOrg = Integer.valueOf(values[1]);
+			int xDest = Integer.valueOf(values[2]);
+			int yDest = Integer.valueOf(values[3]);
+			setMovement(xOrg, yOrg, xDest, yDest);
 			movePiece();
-		} 		
+		} 
 	}
 	
 	public void setMovement(int xOrg, int yOrg, int xDest, int yDest){
 		//have a type param as well??
 		for (Cell c: cells){
-			if (c.hasSameCoords(xOrg, yOrg)){
+			if (c.hasCoords(xOrg, yOrg)){
 				setLastPieceClicked(c);
 			} 
-			if (c.hasSameCoords(xDest, yDest)){
+			if (c.hasCoords(xDest, yDest)){
 				setLastSquareClicked(c);
 			}
 		}
 	}
-	/*
-	public Cell getCellAt(int column, int row){
+	
+	public Cell getCellAt(Coordinate coord) {
+		Cell result = null;
 		for (Cell c: cells){
-			if (c.hasSameCoords(column, row){
-				return c;
+			if (c.hasCoords(coord.column(), coord.row())){
+				result = c;
+				System.out.println("found");
 			}
 		}
-		return new Cell(CellState.EMPTY, new Pane(), 0, 0);
-		///throw exception! shouldn't ever be nothing
+		//put this where it's called
+		if (result == null){throw (new NullPointerException());}
 		
-	}*/
+		return result;		
+	}
 }

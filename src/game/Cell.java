@@ -78,8 +78,8 @@ public class Cell {
 		rules = new Rules(board);
 	}
 	
-	public boolean isLegal(Cell other){
-		return rules.isLegal(this, other);
+	public boolean isLegal(Cell other, Player player){
+		return rules.isLegal(this, other, player);
 	}
 	
 	public int getColumn(){return coord.column();}
@@ -89,7 +89,7 @@ public class Cell {
 	
 	public Coordinate getCoords(){return coord;}
 	
-	public boolean hasSameCoords(int x, int y){
+	public boolean hasCoords(int x, int y){
 		return coord.column() == x && coord.row() == y;
 	}
 	
