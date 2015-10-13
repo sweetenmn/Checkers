@@ -4,7 +4,7 @@ import helpers.CellState;
 import checkersGUI.Board;
 
 public class Rules {
-	private static int count = 0;
+	private int count = 0;
 	private Board board;
 
 	public Rules(Board board){
@@ -13,7 +13,7 @@ public class Rules {
 	
 	public boolean isLegal(Cell origin, Cell destination, Player player){
 		System.out.println(String.valueOf(count));
-		if (playerTurn(origin) && player.isPlayerChip(origin.getState())){
+		if (player.isPlayerChip(origin.getState())){
 			if(origin.getState() == CellState.RED_KING || origin.getState() == 
 					CellState.BLACK_KING){
 				boolean result = Math.abs(destination.getColumn()-origin.getColumn()) == 1 
