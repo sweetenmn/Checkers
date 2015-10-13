@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import game.Cell;
 import game.Player;
+import game.Rules;
 import game.TurnCounter;
 import helpers.CellState;
 import helpers.Coordinate;
@@ -15,27 +16,33 @@ public class Board {
 	private TurnCounter counter = new TurnCounter();
 	private GridPane checkerboard;
 	private ArrayList<Cell> cells;
-	private Cell lastPieceClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0), counter);
-	private Cell lastSquareClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0), counter);
+	private Cell lastPieceClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
+	private Cell lastSquareClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
 	private Player thisPlayer;
 	private boolean turnSwapped = false;
 	private String playerName;
 	private GameState turn;
+	private Rules rules;
 	
 	public Board(GridPane grid, String player){
 		playerName = player;
 		checkerboard = grid;
 		cells = new ArrayList<Cell>();
 		turn = GameState.BLACK_TURN;
+		rules = new Rules(this);
 	}
+	
+	public TurnCounter getCounter(){return counter;}
 	
 	public void swapPlayerTurn(){
 		switch(turn){
 		case BLACK_TURN:
 			System.out.println("to red");
+			turnSwapped = true;
 			turn = GameState.RED_TURN;
 			break;
 		case RED_TURN:
+			turnSwapped = true;
 			System.out.println("tblack");
 			turn = GameState.RED_TURN;
 			break;
@@ -53,14 +60,9 @@ public class Board {
 	}
 	
 	
-	public String getName(){
-		return playerName;
-	}
+	public String getName(){return playerName;}
 	
-	public void createPlayer(PlayerID playerState){
-		System.out.println(playerName);
-		thisPlayer = new Player(playerState);
-	}
+	public void createPlayer(PlayerID playerState){thisPlayer = new Player(playerState);}
 	
 	public void setUp(){
 		addChips(CellState.EMPTY, 0, 8);
@@ -71,7 +73,7 @@ public class Board {
 	public void addChips(CellState state, int rowStart, int rowEnd){
 		for (int column = 0; column < 8; column++){
 			for (int row = rowStart; row < rowEnd; row++){
-				Cell cell = new Cell(this, state, new Coordinate(column, row), counter);
+				Cell cell = new Cell(this, state, new Coordinate(column, row));
 				if (row % 2 != 0){
 					if (column % 2 != 0){
 						addCell(cell);
@@ -95,35 +97,26 @@ public class Board {
 		cell.eraseFrom(checkerboard);
 	}
 	
-	public void setLastPieceClicked(Cell cell){
-		lastPieceClicked = cell;
-	}
+	public void setLastPieceClicked(Cell cell){lastPieceClicked = cell;}
+	public void setLastSquareClicked(Cell cell){lastSquareClicked = cell;}
 	
-	public void setLastSquareClicked(Cell cell){
-		lastSquareClicked = cell;
-	}
-	
-
 	public void movePiece(){
 		removeCell(lastPieceClicked);
 		removeCell(lastSquareClicked);
-		Cell newPiece = new Cell(this, lastPieceClicked.getState(), lastSquareClicked.getCoords(), counter);
-		Cell newSquare = new Cell(this, CellState.EMPTY, lastPieceClicked.getCoords(), counter);
+		Cell newPiece = new Cell(this, lastPieceClicked.getState(), lastSquareClicked.getCoords());
+		Cell newSquare = new Cell(this, CellState.EMPTY, lastPieceClicked.getCoords());
 		addCell(newPiece);
 		addCell(newSquare);
 		swapPlayerTurn();
 		counter.increment();
-		System.out.println(String.valueOf(counter.getCount()));
-		turnSwapped = true;
 	}
 	
 	public boolean swapTurn(){
 		if (turnSwapped){
 			turnSwapped = false;
 			return true;
-		} else {
-			return false;
-		}
+		} 
+		return false;
 	}
 	
 	public String getMove(){
@@ -131,22 +124,18 @@ public class Board {
 		String oldY = "";
 		String newX = "";
 		String newY = "";
-		if (lastPieceClicked.isLegal(lastSquareClicked, thisPlayer)){
+		if (rules.isLegal(lastPieceClicked, lastSquareClicked, thisPlayer)){
 			oldX = getString(lastPieceClicked.getColumn());
 			oldY = getString(lastPieceClicked.getRow());
 			newX = getString(lastSquareClicked.getColumn());
 			newY = getString(lastSquareClicked.getRow());
-			turnSwapped = true;
 		}
 		return (oldX + ":" + oldY + ":" + newX + ":" + newY).trim();
 	}
 	
-	private String getString(int x){
-		return Integer.toString(x);
-	}
+	private String getString(int x){return Integer.toString(x);}
 	
 	public void setMovement(int xOrg, int yOrg, int xDest, int yDest){
-		//have a type param as well??
 		for (Cell c: cells){
 			if (c.hasCoords(xOrg, yOrg)){
 				setLastPieceClicked(c);
@@ -155,7 +144,6 @@ public class Board {
 				setLastSquareClicked(c);
 			}
 		}
-		turnSwapped = true;
 	}
 	
 	public Cell getCellAt(Coordinate coord) {
@@ -166,9 +154,7 @@ public class Board {
 				System.out.println("found");
 			}
 		}
-		//put this where it's called
 		if (result == null){throw (new NullPointerException());}
-		
 		return result;		
 	}
 }

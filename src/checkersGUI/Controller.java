@@ -24,7 +24,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -70,7 +69,6 @@ public class Controller {
 					String msg = messages.take();
 					System.out.println(msg);
 					Platform.runLater(() -> {messageHandler.handleMessage(msg);});
-					turnUpdate();
 				} catch (Exception e) {
 					badNews(e.getMessage());
 				}
@@ -78,6 +76,12 @@ public class Controller {
 			}
 		}).start();
 		
+	}
+	
+	private void checkTurnUpdate(int length){
+		if (length > 8){
+			Platform.runLater(() -> {turnUpdate();});
+		}
 	}
 	
 	@FXML
@@ -97,25 +101,6 @@ public class Controller {
 		}
 	}
 	
-	/*@FXML
-	public void popUp(){
-		VBox popupVBox = new VBox();
-		popupVBox.getChildren().add(player);
-		popupVBox.getChildren().add(otherPlayer);
-		popupVBox.getChildren().add(hostText);
-		popupVBox.getChildren().add(connect);
-		Popup popup = new Popup();
-        popup.getContent().addAll(popupVBox);
-        popup.show(checkerboard, 800, 150);
-        connect.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                 startGame();
-                 popup.hide();
-            }
-        });
-	} */
-	
 	@FXML
     public void popUp(){
         Stage window = new Stage();
@@ -134,23 +119,21 @@ public class Controller {
         layout.getChildren().addAll(player, otherPlayer, hostText, connect);
         layout.setAlignment(Pos.CENTER);
 
-        //Display window and wait for it to be closed before returning
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
     }
+	@FXML
 	private void startGame(){
         requestFocus();
         submitMove.setOnAction(event -> sendmove());
         canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
-
 		board = new Board(checkerboard, player.getText());
 		Platform.runLater(() -> {board.setUp();});
 		messageHandler = new MessageHandler(board);
 		requestFocus();
 		startMessaging();
 		createServer(hostText.getText());
-		
 		sendTo(hostText.getText(), 8888, 
 				messageHandler.generateSetUpMessage(player.getText(), otherPlayer.getText()));
         if (player.getText().compareTo(otherPlayer.getText()) < 0){
@@ -160,10 +143,7 @@ public class Controller {
         	playerOneLabel.setText(otherPlayer.getText());
         	playerTwoLabel.setText(player.getText());
         }
-        
     	playerTurn.setText(playerOneLabel.getText() + "'s Turn");
-       
-		
 	}
 	
 	private void createServer(String host){
@@ -181,7 +161,7 @@ public class Controller {
 	void sendmove() {
 		try {
 			sendTo(hostText.getText(), 8888, messageHandler.getMovementMessage());
-			turnUpdate();
+			checkTurnUpdate(messageHandler.getMovementMessage().length());
 		} catch (NumberFormatException nfe) {
 			badNews(this.hostText.getText() + " is not a valid IP Address");
 		
@@ -229,10 +209,6 @@ public class Controller {
 			else
 				playerTurn.setText(playerOneLabel.getText() + "'s Turn");
 		}
-		/*This will update the Label displaying the current player's turn.
-		 * Can be used/used in conjunction with another method to allow the next player the ability to move their pieces
-		 * while restricting the other player.
-		*/
 	}
 
 }
