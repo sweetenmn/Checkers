@@ -4,25 +4,54 @@ import java.util.ArrayList;
 
 import game.Cell;
 import game.Player;
+import game.TurnCounter;
 import helpers.CellState;
 import helpers.Coordinate;
+import helpers.GameState;
 import helpers.PlayerID;
 import javafx.scene.layout.GridPane;
 
 public class Board {
+	private TurnCounter counter = new TurnCounter();
 	private GridPane checkerboard;
 	private ArrayList<Cell> cells;
-	private Cell lastPieceClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0) );
-	private Cell lastSquareClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0) );
+	private Cell lastPieceClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0), counter);
+	private Cell lastSquareClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0), counter);
 	private Player thisPlayer;
 	private boolean turnSwapped = false;
 	private String playerName;
+	private GameState turn;
 	
 	public Board(GridPane grid, String player){
 		playerName = player;
 		checkerboard = grid;
 		cells = new ArrayList<Cell>();
+		turn = GameState.BLACK_TURN;
 	}
+	
+	public void swapPlayerTurn(){
+		switch(turn){
+		case BLACK_TURN:
+			System.out.println("to red");
+			turn = GameState.RED_TURN;
+			break;
+		case RED_TURN:
+			System.out.println("tblack");
+			turn = GameState.RED_TURN;
+			break;
+		}
+	}
+	
+	public boolean isTurn(Player player){
+		switch(turn){
+		case BLACK_TURN:
+			return player.getID() == PlayerID.BLACK;
+		case RED_TURN:
+			return player.getID() == PlayerID.RED;
+		}
+		return false;
+	}
+	
 	
 	public String getName(){
 		return playerName;
@@ -42,7 +71,7 @@ public class Board {
 	public void addChips(CellState state, int rowStart, int rowEnd){
 		for (int column = 0; column < 8; column++){
 			for (int row = rowStart; row < rowEnd; row++){
-				Cell cell = new Cell(this, state, new Coordinate(column, row));
+				Cell cell = new Cell(this, state, new Coordinate(column, row), counter);
 				if (row % 2 != 0){
 					if (column % 2 != 0){
 						addCell(cell);
@@ -76,14 +105,16 @@ public class Board {
 	
 
 	public void movePiece(){
-		lastPieceClicked.isLegal(lastSquareClicked, thisPlayer);
 		removeCell(lastPieceClicked);
 		removeCell(lastSquareClicked);
-		Cell newPiece = new Cell(this, lastPieceClicked.getState(), lastSquareClicked.getCoords());
-		Cell newSquare = new Cell(this, CellState.EMPTY, lastPieceClicked.getCoords());
+		Cell newPiece = new Cell(this, lastPieceClicked.getState(), lastSquareClicked.getCoords(), counter);
+		Cell newSquare = new Cell(this, CellState.EMPTY, lastPieceClicked.getCoords(), counter);
 		addCell(newPiece);
 		addCell(newSquare);
-	//	turnSwapped = true;
+		swapPlayerTurn();
+		counter.increment();
+		System.out.println(String.valueOf(counter.getCount()));
+		turnSwapped = true;
 	}
 	
 	public boolean swapTurn(){
@@ -105,7 +136,7 @@ public class Board {
 			oldY = getString(lastPieceClicked.getRow());
 			newX = getString(lastSquareClicked.getColumn());
 			newY = getString(lastSquareClicked.getRow());
-		//	turnSwapped = true;
+			turnSwapped = true;
 		}
 		return (oldX + ":" + oldY + ":" + newX + ":" + newY).trim();
 	}
