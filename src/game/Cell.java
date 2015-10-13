@@ -82,4 +82,20 @@ public class Cell {
 		return coord.column() == x && coord.row() == y;
 	}
 	
+	public String compareCoords(Coordinate compareCoord){
+		if (compareCoord.column() == coord.column() - 1){
+			if (compareCoord.row() == coord.row() - 1){
+				return "UL";
+			} else {
+				return "DL";
+			}
+		} else {
+			if (compareCoord.row() == coord.row() - 1){
+				return "UR";
+			} else {
+				return "DR";
+			}
+		}
+	}
+	
 }

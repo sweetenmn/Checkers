@@ -4,12 +4,7 @@ import helpers.PlayerID;
 import checkersGUI.Board;
 
 public class MessageHandler {
-	
-	//will replace the appropriate methods in Board
-	//need to handle non-move messages like updating turn information (not if jumping)
-	//and players' names
-	//talks to Movement class
-	
+
 	Board board;
 	private static final int MIN_LENGTH = 8;
 	
@@ -34,16 +29,16 @@ public class MessageHandler {
 	public void incCounter(){
 		board.getCounter().increment();
 	}
-	
+	//maybe use this length to ensure player turn update
 	public String getMovementMessage(){
 		return ("MOVE:" + board.getMove());
 	}
 	public void setUpPlayer(String player, String otherPlayer){
 		if (player.equals(board.getName())){
-			System.out.println("YOU ARE BLACK");
+			System.out.println("CHIPS: BLACK");
 			board.createPlayer(PlayerID.BLACK);
 		} else if (otherPlayer.equals(board.getName())) {
-			System.out.println("YOU ARE RED");
+			System.out.println("CHIPS: RED");
 			board.createPlayer(PlayerID.RED);
 		}
 	}
@@ -58,9 +53,7 @@ public class MessageHandler {
 		}
 	}
 	
-	public Integer toInt(String s){
-		return Integer.valueOf(s);
-	}
+	public Integer toInt(String s){ return Integer.valueOf(s); }
 	
 
 }

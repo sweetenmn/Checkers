@@ -107,6 +107,9 @@ public class Board {
 		Cell newSquare = new Cell(this, CellState.EMPTY, lastPieceClicked.getCoords());
 		addCell(newPiece);
 		addCell(newSquare);
+		if (rules.isJump(lastPieceClicked, lastSquareClicked)){
+			removeCell(rules.getMiddleChip(lastPieceClicked, lastSquareClicked));
+		}
 		swapPlayerTurn();
 		counter.increment();
 	}
@@ -151,7 +154,6 @@ public class Board {
 		for (Cell c: cells){
 			if (c.hasCoords(coord.column(), coord.row())){
 				result = c;
-				System.out.println("found");
 			}
 		}
 		if (result == null){throw (new NullPointerException());}
