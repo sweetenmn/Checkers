@@ -1,5 +1,4 @@
 package server_connection;
-import checkersGUI.Board;
 
 import java.io.BufferedReader;
 import java.io.IOException;
