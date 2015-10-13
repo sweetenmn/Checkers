@@ -71,7 +71,7 @@ public class Rules {
 	 }
 	
 	 public void jump(Cell origin, Cell enemy, Cell destination){
-		 if(isAvailable(origin, enemy, destination)){
+		 if(isAvailable(origin, destination)){
 			 //origin chip moves to destination. Not sure how to make this 
 			 //the only available movement.
 			 isCaptured(enemy);
@@ -79,7 +79,7 @@ public class Rules {
 			 //available jump.
 		 }
 	 }
-	 //will accept an empty square for the false statement.
+	
 	 public boolean isEnemy(Cell origin, Cell enemy){
 		 switch(origin.getState()){
 		 case BLACK: case BLACK_KING:
@@ -93,13 +93,22 @@ public class Rules {
 		 }
 		 return false;
 	 }
+	 
+	 public boolean inBounds(Cell destination){
+		if(destination.getRow() >= 0 && destination.getRow() < 8 && 
+				destination.getColumn() >= 0 && destination.getColumn() < 8){
+			return true;
+		}
+		return false;
+	 }
 	 //if enemy's chip is in movement square, and there is not a piece on the 
 		 //other side of it, return true.
 	 public boolean isAvailable(Cell origin, Cell destination){	
-		switch(origin.getState()){
-		case BLACK:
-			if()){
-				return }/*
+		  
+			 switch(origin.getState()){
+			 case BLACK:
+				 if()){
+					 return }}/*
 			}
 		}
 		 if(origin.getState()==CellState.BLACK && Reds(enemy) == true){
