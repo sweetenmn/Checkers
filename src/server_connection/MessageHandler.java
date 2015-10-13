@@ -11,14 +11,10 @@ public class MessageHandler {
 	//talks to Movement class
 	
 	Board board;
-	String setUpMessage;
-	String playerOneName;
-	String playerTwoName;
-	private static final int MIN_LENGTH = 3;
+	private static final int MIN_LENGTH = 8;
 	
 	public MessageHandler(Board board){
 		this.board = board;
-		setUpMessage = "";
 	}
 	public void handleMessage(String msg){
 		System.out.println("handling... " + msg);
@@ -44,14 +40,11 @@ public class MessageHandler {
 	}
 	public void setUpPlayer(String player, String otherPlayer){
 		if (player.equals(board.getName())){
-			System.out.println("BLACK");
+			System.out.println("YOU ARE BLACK");
 			board.createPlayer(PlayerID.BLACK);
-			playerOneName = player;
-			playerTwoName = otherPlayer;
 		} else if (otherPlayer.equals(board.getName())) {
+			System.out.println("YOU ARE RED");
 			board.createPlayer(PlayerID.RED);
-			playerOneName = otherPlayer;
-			playerTwoName = player;
 		}
 	}
 	
@@ -65,19 +58,9 @@ public class MessageHandler {
 		}
 	}
 	
-	public String getSetUp(){
-		return setUpMessage;
-	}
-	
 	public Integer toInt(String s){
 		return Integer.valueOf(s);
 	}
 	
-	public String getPlayerOneName(){
-		return playerOneName;
-	}
-	public String getPlayerTwoName(){
-		return playerTwoName;
-	}
 
 }

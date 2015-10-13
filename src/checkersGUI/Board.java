@@ -169,7 +169,6 @@ public class Board {
 				System.out.println("found");
 			}
 		}
-		//put this where it's called
 		if (result == null){throw (new NullPointerException());}
 		
 		return result;		
