@@ -5,21 +5,20 @@ import java.util.ArrayList;
 import game.Cell;
 import game.Player;
 import game.Rules;
-import game.TurnCounter;
 import helpers.CellState;
 import helpers.Coordinate;
 import helpers.GameState;
 import helpers.PlayerID;
+import helpers.TurnCounter;
 import javafx.scene.layout.GridPane;
 
 public class Board {
 	private TurnCounter counter = new TurnCounter();
 	private GridPane checkerboard;
-	private ArrayList<Cell> cells;
+	public ArrayList<Cell> cells;
 	private Cell lastPieceClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
 	private Cell lastSquareClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
 	private Player thisPlayer;
-	private boolean turnSwapped = false;
 	private String playerName;
 	private GameState turn;
 	private Rules rules;
@@ -37,13 +36,9 @@ public class Board {
 	public void swapPlayerTurn(){
 		switch(turn){
 		case BLACK_TURN:
-			System.out.println("to red");
-			turnSwapped = true;
 			turn = GameState.RED_TURN;
 			break;
 		case RED_TURN:
-			turnSwapped = true;
-			System.out.println("tblack");
 			turn = GameState.RED_TURN;
 			break;
 		}
@@ -107,16 +102,18 @@ public class Board {
 		Cell newSquare = new Cell(this, CellState.EMPTY, lastPieceClicked.getCoords());
 		addCell(newPiece);
 		addCell(newSquare);
-		swapPlayerTurn();
-		counter.increment();
-	}
-	
-	public boolean swapTurn(){
-		if (turnSwapped){
-			turnSwapped = false;
-			return true;
-		} 
-		return false;
+		if (rules.isJump(lastPieceClicked, lastSquareClicked)){
+			Cell captured = rules.getMiddleChip(lastPieceClicked, lastSquareClicked);
+			removeCell(captured);
+			addCell(new Cell(this, CellState.EMPTY, captured.getCoords()));
+			if (!rules.hasJump(newPiece)){
+				swapPlayerTurn();
+				counter.increment();
+			}
+		} else {
+			swapPlayerTurn();
+			counter.increment();
+		}
 	}
 	
 	public String getMove(){
@@ -151,7 +148,6 @@ public class Board {
 		for (Cell c: cells){
 			if (c.hasCoords(coord.column(), coord.row())){
 				result = c;
-				System.out.println("found");
 			}
 		}
 		if (result == null){throw (new NullPointerException());}

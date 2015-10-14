@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -49,8 +48,6 @@ public class Controller {
 	@FXML
 	Label playerTwoLabel;
 	@FXML
-	Label playerTurn;
-	@FXML
 	TextField hostText = new TextField();
 	MessageHandler messageHandler;
 	ArrayBlockingQueue<String> messages = new ArrayBlockingQueue<>(20);
@@ -60,45 +57,6 @@ public class Controller {
 		player.setPromptText("Enter your name");
 		otherPlayer.setPromptText("Enter opponent's name");
 		hostText.setPromptText("Enter IP Address");
-	}
-	
-	public void startMessaging(){
-		new Thread(() -> {
-			for (;;) {
-				try {
-					String msg = messages.take();
-					System.out.println(msg);
-					Platform.runLater(() -> {messageHandler.handleMessage(msg);});
-				} catch (Exception e) {
-					badNews(e.getMessage());
-				}
-				
-			}
-		}).start();
-		
-	}
-	
-	private void checkTurnUpdate(int length){
-		if (length > 8){
-			Platform.runLater(() -> {turnUpdate();});
-		}
-	}
-	
-	@FXML
-	public void requestFocus(){
-		canvas.requestFocus();		
-	}
-	
-	void badNews(String what) {
-		Alert badNum = new Alert(AlertType.ERROR);
-		badNum.setContentText(what);
-		badNum.show();
-	}
-	
-	void handlePress(KeyCode code){
-		if (code == KeyCode.ENTER){
-			sendmove();
-		}
 	}
 	
 	@FXML
@@ -125,25 +83,50 @@ public class Controller {
     }
 	@FXML
 	private void startGame(){
-        requestFocus();
-        submitMove.setOnAction(event -> sendmove());
-        canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
-		board = new Board(checkerboard, player.getText());
-		Platform.runLater(() -> {board.setUp();});
-		messageHandler = new MessageHandler(board);
-		requestFocus();
+		startHandlingEvents();
+		setUpGame();
+		setUpLabels();
 		startMessaging();
 		createServer(hostText.getText());
 		sendTo(hostText.getText(), 8888, 
 				messageHandler.generateSetUpMessage(player.getText(), otherPlayer.getText()));
-        if (player.getText().compareTo(otherPlayer.getText()) < 0){
+	}
+	
+	private void startHandlingEvents(){
+		submitMove.setOnAction(event -> sendmove());
+        canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
+        requestFocus();
+	}
+	public void startMessaging(){
+		messageHandler = new MessageHandler(board);
+		new Thread(() -> {
+			for (;;) {
+				try {
+					String msg = messages.take();
+					Platform.runLater(() -> {messageHandler.handleMessage(msg);});
+				} catch (Exception e) {
+					badNews(e.getMessage());
+				}
+				
+			}
+		}).start();
+	}
+	
+	@FXML
+	public void requestFocus(){canvas.requestFocus();}
+	private void setUpGame(){
+		board = new Board(checkerboard, player.getText());
+		Platform.runLater(() -> {board.setUp();});
+
+	}
+	private void setUpLabels(){
+		if (player.getText().compareTo(otherPlayer.getText()) < 0){
         	playerOneLabel.setText(player.getText());
         	playerTwoLabel.setText(otherPlayer.getText());
         } else {
         	playerOneLabel.setText(otherPlayer.getText());
         	playerTwoLabel.setText(player.getText());
         }
-    	playerTurn.setText(playerOneLabel.getText() + "'s Turn");
 	}
 	
 	private void createServer(String host){
@@ -152,6 +135,7 @@ public class Controller {
                 Server s = new Server(8888, messageHandler, host);
                 s.listen();
             } catch (IOException e) {
+            	Platform.runLater(() -> badNews("Server failed."));
                 e.printStackTrace();
             }
 		}).start();
@@ -161,7 +145,6 @@ public class Controller {
 	void sendmove() {
 		try {
 			sendTo(hostText.getText(), 8888, messageHandler.getMovementMessage());
-			checkTurnUpdate(messageHandler.getMovementMessage().length());
 		} catch (NumberFormatException nfe) {
 			badNews(this.hostText.getText() + " is not a valid IP Address");
 		
@@ -176,7 +159,7 @@ public class Controller {
 				receive(target);
 				target.close();
 			} catch (Exception e) {
-				Platform.runLater(() -> badNews(e.getMessage()));
+				Platform.runLater(() -> {badNews(e.getMessage());});
 			}
 		}).start();
 	}
@@ -199,16 +182,15 @@ public class Controller {
 			}
 		}		
 	}
+	void badNews(String what) {
+		Alert badNum = new Alert(AlertType.ERROR);
+		badNum.setContentText(what);
+		badNum.show();
+	}
 	
-	@FXML
-	public void turnUpdate(){
-		if (board.swapTurn()){
-			System.out.println("swapped");
-			if(playerTurn.getText().equals(playerOneLabel.getText() + "'s Turn"))
-				playerTurn.setText(playerTwoLabel.getText() + "'s Turn");
-			else
-				playerTurn.setText(playerOneLabel.getText() + "'s Turn");
+	void handlePress(KeyCode code){
+		if (code == KeyCode.ENTER){
+			sendmove();
 		}
 	}
-
 }

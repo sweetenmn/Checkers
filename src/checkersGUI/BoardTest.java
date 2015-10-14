@@ -8,7 +8,6 @@ public class BoardTest {
 	private GridPane grid;
 	Board board = new Board(grid, "name");
 	
-	
 	@Test
 	public void test() {
 		
