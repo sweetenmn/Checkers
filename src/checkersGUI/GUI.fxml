@@ -10,39 +10,6 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane fx:id="canvas" prefHeight="424.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="checkersGUI.Controller">
-   <right>
-      <VBox prefHeight="360.0" prefWidth="120.0" BorderPane.alignment="CENTER">
-         <children>
-            <Separator prefWidth="200.0" />
-            <Label alignment="CENTER" prefHeight="39.0" prefWidth="182.0" text="Player 1 Has Taken:" textAlignment="CENTER">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="39.0" prefWidth="163.0" text="0 Checkers" textAlignment="CENTER" />
-            <Separator prefHeight="17.0" prefWidth="100.0" />
-            <Label alignment="CENTER" prefHeight="39.0" prefWidth="132.0" text="Player 2 Has Taken:" textAlignment="CENTER">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="39.0" prefWidth="136.0" text="0 Checkers" textAlignment="CENTER" />
-            <Separator prefHeight="12.0" prefWidth="120.0" />
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="145.0" text="It Is" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="playerTurn" alignment="CENTER" prefHeight="40.0" prefWidth="138.0" text="Player 1's Turn" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Separator prefWidth="200.0" />
-            <Button fx:id="submitMove" alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" text="Submit Move" textAlignment="CENTER" />
-         </children>
-      </VBox>
-   </right>
    <top>
       <Pane>
          <children>
@@ -856,4 +823,11 @@
          </children>
       </GridPane>
    </center>
+   <right>
+      <Pane prefHeight="360.0" prefWidth="118.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="submitMove" layoutX="2.0" layoutY="260.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="115.0" text="Submit Move" />
+         </children>
+      </Pane>
+   </right>
 </BorderPane>

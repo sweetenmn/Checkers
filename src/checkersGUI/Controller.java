@@ -48,8 +48,6 @@ public class Controller {
 	@FXML
 	Label playerTwoLabel;
 	@FXML
-	Label playerTurn;
-	@FXML
 	TextField hostText = new TextField();
 	MessageHandler messageHandler;
 	ArrayBlockingQueue<String> messages = new ArrayBlockingQueue<>(20);
@@ -129,7 +127,6 @@ public class Controller {
         	playerOneLabel.setText(otherPlayer.getText());
         	playerTwoLabel.setText(player.getText());
         }
-    	playerTurn.setText(playerOneLabel.getText() + "'s Turn");
 	}
 	
 	private void createServer(String host){
