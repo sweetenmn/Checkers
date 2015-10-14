@@ -33,7 +33,7 @@ public class Cell {
 		gridParent.getChildren().remove(checker);
 	}
 	
-	private void createChip(){
+	public void createChip(){
 		crownIfKing();
 		createRules();
 		createImageView();
@@ -76,7 +76,7 @@ public class Cell {
 		checker = new ImageView(state.getImage());
 	}
 	
-	public void createRules(){
+	private void createRules(){
 		rules = new Rules(board, counter);
 	}
 	
