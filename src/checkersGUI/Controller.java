@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -78,16 +77,8 @@ public class Controller {
 		
 	}
 	
-	private void checkTurnUpdate(int length){
-		if (length > 8){
-			Platform.runLater(() -> {turnUpdate();});
-		}
-	}
-	
 	@FXML
-	public void requestFocus(){
-		canvas.requestFocus();		
-	}
+	public void requestFocus(){canvas.requestFocus();}
 	
 	void badNews(String what) {
 		Alert badNum = new Alert(AlertType.ERROR);
@@ -161,7 +152,6 @@ public class Controller {
 	void sendmove() {
 		try {
 			sendTo(hostText.getText(), 8888, messageHandler.getMovementMessage());
-			checkTurnUpdate(messageHandler.getMovementMessage().length());
 		} catch (NumberFormatException nfe) {
 			badNews(this.hostText.getText() + " is not a valid IP Address");
 		
@@ -200,15 +190,4 @@ public class Controller {
 		}		
 	}
 	
-	@FXML
-	public void turnUpdate(){
-		if (board.swapTurn()){
-			System.out.println("swapped");
-			if(playerTurn.getText().equals(playerOneLabel.getText() + "'s Turn"))
-				playerTurn.setText(playerTwoLabel.getText() + "'s Turn");
-			else
-				playerTurn.setText(playerOneLabel.getText() + "'s Turn");
-		}
-	}
-
 }

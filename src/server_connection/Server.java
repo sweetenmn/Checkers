@@ -46,7 +46,6 @@ public class Server {
 	    		PrintWriter writer = new PrintWriter(socket.getOutputStream());
 	    		String msg = getMessage();
 	    		if (!host.equals("localhost")){
-	    			if (msg.length() > 8){messageHandler.incCounter();}
 		    		Platform.runLater(() -> messageHandler.handleMessage(msg));
 	    		}
 	    		echoAndClose(writer, msg);

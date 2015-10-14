@@ -19,7 +19,7 @@ public class Player {
 		case BLACK: case BLACK_KING:
 			return player == PlayerID.BLACK;
 		case EMPTY:
-			break;
+			return false;
 		case RED: case RED_KING:
 			return player == PlayerID.RED;
 		}

@@ -15,7 +15,7 @@ import javafx.scene.layout.GridPane;
 public class Board {
 	private TurnCounter counter = new TurnCounter();
 	private GridPane checkerboard;
-	private ArrayList<Cell> cells;
+	public ArrayList<Cell> cells;
 	private Cell lastPieceClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
 	private Cell lastSquareClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
 	private Player thisPlayer;
