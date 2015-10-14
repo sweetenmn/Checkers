@@ -2,7 +2,6 @@ package game;
 
 import helpers.CellState;
 import helpers.Coordinate;
-import helpers.PlayerID;
 import helpers.TurnCounter;
 import checkersGUI.Board;
 
@@ -16,15 +15,7 @@ public class Rules {
 	}
 	
 	public boolean isLegal(Cell origin, Cell destination, Player player){
-		if (playerTurn(origin) ){
-			//&& player.isPlayerChip(origin.getState())
-			//FOR TESTING*********************
-			if (isBlackChip(origin) || isBlackKing(origin)){
-				player = new Player(PlayerID.BLACK);
-			} else if(isRedChip(origin) || isRedKing(origin)){
-				player = new Player(PlayerID.RED);
-			} 
-			//END TESTING**********************/
+		if (playerTurn(origin) && player.isPlayerChip(origin.getState()) ){
 			if (jumpRules.playerCanJump(player)){
 				if (isJump(origin, destination) &&
 						!isEmpty(jumpRules.getMiddleChip(origin, destination))){

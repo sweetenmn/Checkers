@@ -8,7 +8,6 @@ import game.Rules;
 import helpers.TurnCounter;
 import helpers.CellState;
 import helpers.Coordinate;
-import helpers.GameState;
 import helpers.PlayerID;
 import javafx.scene.layout.GridPane;
 
@@ -20,40 +19,16 @@ public class Board {
 	private Cell lastSquareClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
 	private Player thisPlayer;
 	private String playerName;
-	public GameState turn;
 	private Rules rules;
 	
 	public Board(GridPane grid, String player){
 		playerName = player;
 		checkerboard = grid;
 		cells = new ArrayList<Cell>();
-		turn = GameState.BLACK_TURN;
 		rules = new Rules(this);
 	}
 	
 	public TurnCounter getCounter(){return counter;}
-	
-	public void swapPlayerTurn(){
-		switch(turn){
-		case BLACK_TURN:
-			turn = GameState.RED_TURN;
-			break;
-		case RED_TURN:
-			turn = GameState.RED_TURN;
-			break;
-		}
-	}
-	
-	public boolean isTurn(Player player){
-		switch(turn){
-		case BLACK_TURN:
-			return player.getID() == PlayerID.BLACK;
-		case RED_TURN:
-			return player.getID() == PlayerID.RED;
-		}
-		return false;
-	}
-	
 	
 	public String getName(){return playerName;}
 	
@@ -123,11 +98,9 @@ public class Board {
 			removeCell(captured);
 			addCell(new Cell(this, CellState.EMPTY, captured.getCoords()));
 			if (!rules.hasJump(newPiece)){
-				swapPlayerTurn();
 				counter.increment();
 			}
 		} else {
-			swapPlayerTurn();
 			counter.increment();
 		}
 	}
