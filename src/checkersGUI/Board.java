@@ -20,7 +20,7 @@ public class Board {
 	private Cell lastSquareClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
 	private Player thisPlayer;
 	private String playerName;
-	private GameState turn;
+	public GameState turn;
 	private Rules rules;
 	
 	public Board(GridPane grid, String player){
@@ -153,4 +153,5 @@ public class Board {
 		if (result == null){throw (new NullPointerException());}
 		return result;		
 	}
+
 }

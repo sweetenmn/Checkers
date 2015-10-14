@@ -46,16 +46,13 @@ public class Rules {
 		return jumpRules.isJump(origin, destination);
 	}
 	
-	public boolean playerCanJump(Player player){
-		return jumpRules.playerCanJump(player);
-	}
 	public boolean hasJump(Cell cell){
 		return jumpRules.hasJump(cell);
 	}
 		
 	public Cell getMiddleChip(Cell origin, Cell dest){
 		return jumpRules.getMiddleChip(origin, dest);
-		}
+	}
 		
 	public boolean isNormalLegalMove(Cell origin, Cell destination){
 	switch(origin.getState()){
