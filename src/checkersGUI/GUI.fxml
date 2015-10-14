@@ -13,17 +13,17 @@
    <top>
       <Pane>
          <children>
-            <Label fx:id="playerOneLabel" layoutX="144.0" prefHeight="32.0" prefWidth="170.0" text="Player 1" BorderPane.alignment="CENTER">
+            <Label fx:id="playerTwoLabel" layoutX="144.0" prefHeight="32.0" prefWidth="170.0" text="Player 2" BorderPane.alignment="CENTER">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Button fx:id="newGame" layoutX="382.0" layoutY="2.0" mnemonicParsing="false" onAction="#popUp" text="New Game" />
+            <Button fx:id="newGame" layoutX="379.0" layoutY="2.0" mnemonicParsing="false" onAction="#popUp" text="New Game" />
          </children>
       </Pane>
    </top>
    <bottom>
-      <Label fx:id="playerTwoLabel" prefHeight="32.0" prefWidth="196.0" text="Player 2" BorderPane.alignment="CENTER">
+      <Label fx:id="playerOneLabel" prefHeight="32.0" prefWidth="196.0" text="Player 1" BorderPane.alignment="CENTER">
          <font>
             <Font size="22.0" />
          </font>
@@ -824,9 +824,9 @@
       </GridPane>
    </center>
    <right>
-      <Pane prefHeight="360.0" prefWidth="118.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="360.0" prefWidth="112.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="submitMove" layoutX="2.0" layoutY="260.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="115.0" text="Submit Move" />
+            <Button fx:id="submitMove" layoutY="260.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="112.0" text="Submit Move" />
          </children>
       </Pane>
    </right>

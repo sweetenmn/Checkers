@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import game.Cell;
 import game.Player;
 import game.Rules;
+import helpers.TurnCounter;
 import helpers.CellState;
 import helpers.Coordinate;
 import helpers.GameState;
 import helpers.PlayerID;
-import helpers.TurnCounter;
 import javafx.scene.layout.GridPane;
 
 public class Board {
@@ -65,6 +65,23 @@ public class Board {
 		addChips(CellState.BLACK, 5, 8);
 	}
 	
+	public int redChipCount(){
+		int red = 0;
+		for(Cell c:cells){
+			if(rules.isRedChip(c) || rules.isRedKing(c)){red++;}
+			
+		}
+		return red;
+	}
+	
+	public int blackChipCount(){
+		int black = 0;
+		for(Cell c:cells){
+			if(rules.isBlackChip(c) || rules.isBlackKing(c)){black++;}
+		}
+		return black;
+	}
+	
 	public void addChips(CellState state, int rowStart, int rowEnd){
 		for (int column = 0; column < 8; column++){
 			for (int row = rowStart; row < rowEnd; row++){
@@ -81,7 +98,6 @@ public class Board {
 			}
 		}
 	}
-	
 	private void addCell(Cell cell){
 		cell.addTo(checkerboard);
 		cells.add(cell);
@@ -115,7 +131,7 @@ public class Board {
 			counter.increment();
 		}
 	}
-	
+		
 	public String getMove(){
 		String oldX = "";
 		String oldY = "";
@@ -153,5 +169,4 @@ public class Board {
 		if (result == null){throw (new NullPointerException());}
 		return result;		
 	}
-
 }

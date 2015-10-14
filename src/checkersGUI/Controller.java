@@ -89,12 +89,33 @@ public class Controller {
 		createServer(hostText.getText());
 		sendTo(hostText.getText(), 8888, 
 				messageHandler.generateSetUpMessage(player.getText(), otherPlayer.getText()));
+		newGame.setVisible(false);
+	}
+	
+	private void checkEndGame(){
+		int red = board.redChipCount();
+		int black = board.blackChipCount();
+		Alert win = new Alert(AlertType.INFORMATION);
+		if(red == 0){
+			win.setContentText(playerOneLabel.getText() + " has won!");
+			stopHandlingEvents();
+			win.show();
+		}
+		else if(black == 0){
+			win.setContentText(playerTwoLabel.getText() + " has won!");
+			stopHandlingEvents();
+			win.show();
+		}
 	}
 	
 	private void startHandlingEvents(){
 		submitMove.setOnAction(event -> sendmove());
         canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
         requestFocus();
+	}
+	private void stopHandlingEvents(){
+		submitMove.setOnAction(null);
+		canvas.setOnKeyPressed(null);
 	}
 	public void startMessaging(){
 		messageHandler = new MessageHandler(board);
@@ -113,11 +134,12 @@ public class Controller {
 	
 	@FXML
 	public void requestFocus(){canvas.requestFocus();}
+	
 	private void setUpGame(){
 		board = new Board(checkerboard, player.getText());
 		Platform.runLater(() -> {board.setUp();});
-
 	}
+	
 	private void setUpLabels(){
 		if (player.getText().compareTo(otherPlayer.getText()) < 0){
         	playerOneLabel.setText(player.getText());
@@ -144,6 +166,7 @@ public class Controller {
 	
 	void sendmove() {
 		try {
+			checkEndGame();
 			sendTo(hostText.getText(), 8888, messageHandler.getMovementMessage());
 		} catch (NumberFormatException nfe) {
 			badNews(this.hostText.getText() + " is not a valid IP Address");
