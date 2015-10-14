@@ -1,4 +1,4 @@
-package game;
+package helpers;
 
 public class TurnCounter {
 	private int count = 0;

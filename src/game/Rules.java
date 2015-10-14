@@ -2,6 +2,8 @@ package game;
 
 import helpers.CellState;
 import helpers.Coordinate;
+import helpers.PlayerID;
+import helpers.TurnCounter;
 import checkersGUI.Board;
 
 public class Rules {
@@ -14,24 +16,32 @@ public class Rules {
 	}
 	
 	public boolean isLegal(Cell origin, Cell destination, Player player){
-	if (playerTurn(origin) && player.isPlayerChip(origin.getState())){
-		if (jumpRules.playerCanJump(player)){
-			if (isJump(origin, destination) &&
-					isEmpty(jumpRules.getMiddleChip(origin, destination))){
-				return true;
+		if (playerTurn(origin)){
+			//FOR TESTING*********************
+			if (isBlackChip(origin) || isBlackKing(origin)){
+				player = new Player(PlayerID.BLACK);
+			} else if(isRedChip(origin) || isRedKing(origin)){
+				player = new Player(PlayerID.RED);
+			} 
+			//END TESTING*********************
+			// if actual play add condition: && player.isPlayerChip(origin.getState())
+			if (jumpRules.playerCanJump(player)){
+				if (isJump(origin, destination) &&
+						!isEmpty(jumpRules.getMiddleChip(origin, destination))){
+					return true;
+					} else {
+						return false;
+					}
+				} else if (isRedKing(origin) || isBlackKing(origin)){
+					return Math.abs(destination.getColumn()-origin.getColumn()) == 1 
+						&& Math.abs(destination.getRow() - origin.getRow()) == 1;
 				} else {
-					return false;
+					return isNormalLegalMove(origin, destination);
+				}			
+			} else { 
+				return false;
 				}
-			} else if (isRedKing(origin) || isBlackKing(origin)){
-				return Math.abs(destination.getColumn()-origin.getColumn()) == 1 
-					&& Math.abs(destination.getRow() - origin.getRow()) == 1;
-			} else {
-				return isNormalLegalMove(origin, destination);
-			}			
-		} else { 
-			return false;
-			}
-	}
+		}
 	
 	public boolean isJump(Cell origin, Cell destination){
 		return jumpRules.isJump(origin, destination);

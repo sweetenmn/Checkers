@@ -61,37 +61,6 @@ public class Controller {
 		hostText.setPromptText("Enter IP Address");
 	}
 	
-	public void startMessaging(){
-		new Thread(() -> {
-			for (;;) {
-				try {
-					String msg = messages.take();
-					System.out.println(msg);
-					Platform.runLater(() -> {messageHandler.handleMessage(msg);});
-				} catch (Exception e) {
-					badNews(e.getMessage());
-				}
-				
-			}
-		}).start();
-		
-	}
-	
-	@FXML
-	public void requestFocus(){canvas.requestFocus();}
-	
-	void badNews(String what) {
-		Alert badNum = new Alert(AlertType.ERROR);
-		badNum.setContentText(what);
-		badNum.show();
-	}
-	
-	void handlePress(KeyCode code){
-		if (code == KeyCode.ENTER){
-			sendmove();
-		}
-	}
-	
 	@FXML
     public void popUp(){
         Stage window = new Stage();
@@ -116,18 +85,44 @@ public class Controller {
     }
 	@FXML
 	private void startGame(){
-        requestFocus();
-        submitMove.setOnAction(event -> sendmove());
-        canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
-		board = new Board(checkerboard, player.getText());
-		Platform.runLater(() -> {board.setUp();});
-		messageHandler = new MessageHandler(board);
-		requestFocus();
+		startHandlingEvents();
+		setUpGame();
+		setUpLabels();
 		startMessaging();
 		createServer(hostText.getText());
 		sendTo(hostText.getText(), 8888, 
 				messageHandler.generateSetUpMessage(player.getText(), otherPlayer.getText()));
-        if (player.getText().compareTo(otherPlayer.getText()) < 0){
+	}
+	
+	private void startHandlingEvents(){
+		submitMove.setOnAction(event -> sendmove());
+        canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
+        requestFocus();
+	}
+	public void startMessaging(){
+		messageHandler = new MessageHandler(board);
+		new Thread(() -> {
+			for (;;) {
+				try {
+					String msg = messages.take();
+					Platform.runLater(() -> {messageHandler.handleMessage(msg);});
+				} catch (Exception e) {
+					badNews(e.getMessage());
+				}
+				
+			}
+		}).start();
+	}
+	
+	@FXML
+	public void requestFocus(){canvas.requestFocus();}
+	private void setUpGame(){
+		board = new Board(checkerboard, player.getText());
+		Platform.runLater(() -> {board.setUp();});
+
+	}
+	private void setUpLabels(){
+		if (player.getText().compareTo(otherPlayer.getText()) < 0){
         	playerOneLabel.setText(player.getText());
         	playerTwoLabel.setText(otherPlayer.getText());
         } else {
@@ -143,6 +138,7 @@ public class Controller {
                 Server s = new Server(8888, messageHandler, host);
                 s.listen();
             } catch (IOException e) {
+            	Platform.runLater(() -> badNews("Server failed."));
                 e.printStackTrace();
             }
 		}).start();
@@ -166,7 +162,7 @@ public class Controller {
 				receive(target);
 				target.close();
 			} catch (Exception e) {
-				Platform.runLater(() -> badNews(e.getMessage()));
+				Platform.runLater(() -> {badNews(e.getMessage());});
 			}
 		}).start();
 	}
@@ -189,5 +185,15 @@ public class Controller {
 			}
 		}		
 	}
+	void badNews(String what) {
+		Alert badNum = new Alert(AlertType.ERROR);
+		badNum.setContentText(what);
+		badNum.show();
+	}
 	
+	void handlePress(KeyCode code){
+		if (code == KeyCode.ENTER){
+			sendmove();
+		}
+	}
 }

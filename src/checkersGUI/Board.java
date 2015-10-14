@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import game.Cell;
 import game.Player;
 import game.Rules;
-import game.TurnCounter;
 import helpers.CellState;
 import helpers.Coordinate;
 import helpers.GameState;
 import helpers.PlayerID;
+import helpers.TurnCounter;
 import javafx.scene.layout.GridPane;
 
 public class Board {
@@ -37,13 +37,11 @@ public class Board {
 	public void swapPlayerTurn(){
 		switch(turn){
 		case BLACK_TURN:
-			System.out.println("to red");
 			turnSwapped = true;
 			turn = GameState.RED_TURN;
 			break;
 		case RED_TURN:
 			turnSwapped = true;
-			System.out.println("tblack");
 			turn = GameState.RED_TURN;
 			break;
 		}

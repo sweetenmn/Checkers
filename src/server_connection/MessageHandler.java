@@ -12,7 +12,6 @@ public class MessageHandler {
 		this.board = board;
 	}
 	public void handleMessage(String msg){
-		System.out.println("handling... " + msg);
 		if (msg.length() > MIN_LENGTH){
 			String[] values = msg.split(":");
 			String messageType = values[0];
@@ -29,26 +28,21 @@ public class MessageHandler {
 	public void incCounter(){
 		board.getCounter().increment();
 	}
-	//maybe use this length to ensure player turn update
 	public String getMovementMessage(){
 		return ("MOVE:" + board.getMove());
 	}
 	public void setUpPlayer(String player, String otherPlayer){
 		if (player.equals(board.getName())){
-			System.out.println("CHIPS: BLACK");
 			board.createPlayer(PlayerID.BLACK);
 		} else if (otherPlayer.equals(board.getName())) {
-			System.out.println("CHIPS: RED");
 			board.createPlayer(PlayerID.RED);
 		}
 	}
 	
 	public String generateSetUpMessage(String player, String otherPlayer){
 		if(player.compareTo(otherPlayer) < 0){
-			System.out.print("generating... " + player + " " + otherPlayer);
 			return "PLAY:" + player + ":" + otherPlayer;
 		} else {
-			System.out.print("generating... " + otherPlayer + " " + player);
 			return ("PLAY:" + otherPlayer + ":" + player);
 		}
 	}
