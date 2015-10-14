@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import javafx.scene.layout.GridPane;
 import helpers.CellState;
 import helpers.Coordinate;
+import helpers.TurnCounter;
 
 import org.junit.Test;
 
@@ -16,8 +17,8 @@ public class CellTest {
 	Coordinate coord2 = new Coordinate(1,0);
 	TurnCounter counter = new TurnCounter();
 	
-	Cell cell = new Cell(board, CellState.BLACK, coord, counter);
-	Cell cell2 = new Cell(board, CellState.BLACK, coord2, counter);
+	Cell cell = new Cell(board, CellState.BLACK, coord);
+	Cell cell2 = new Cell(board, CellState.BLACK, coord2);
 	
 	@Test
 	public void test() {

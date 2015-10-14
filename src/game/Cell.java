@@ -31,7 +31,7 @@ public class Cell {
 		gridParent.getChildren().remove(checker);
 	}
 	
-	private void createChip(){
+	void createChip(){
 		crownIfKing();
 		createImageView();
 		assignEvent();   
