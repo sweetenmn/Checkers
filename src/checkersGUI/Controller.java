@@ -2,7 +2,6 @@ package checkersGUI;
 
 import server_connection.MessageHandler;
 import server_connection.Server;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -137,6 +136,7 @@ public class Controller {
             } catch (IOException e) {
             	Platform.runLater(() -> badNews("Server failed."));
                 e.printStackTrace();
+                
             }
 		}).start();
 	}
