@@ -19,7 +19,6 @@ public class Board {
 	private Cell lastPieceClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
 	private Cell lastSquareClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
 	private Player thisPlayer;
-	private boolean turnSwapped = false;
 	private String playerName;
 	private GameState turn;
 	private Rules rules;
@@ -37,11 +36,9 @@ public class Board {
 	public void swapPlayerTurn(){
 		switch(turn){
 		case BLACK_TURN:
-			turnSwapped = true;
 			turn = GameState.RED_TURN;
 			break;
 		case RED_TURN:
-			turnSwapped = true;
 			turn = GameState.RED_TURN;
 			break;
 		}
@@ -109,17 +106,14 @@ public class Board {
 			Cell captured = rules.getMiddleChip(lastPieceClicked, lastSquareClicked);
 			removeCell(captured);
 			addCell(new Cell(this, CellState.EMPTY, captured.getCoords()));
+			if (!rules.hasJump(newPiece)){
+				swapPlayerTurn();
+				counter.increment();
+			}
+		} else {
+			swapPlayerTurn();
+			counter.increment();
 		}
-		swapPlayerTurn();
-		counter.increment();
-	}
-	
-	public boolean swapTurn(){
-		if (turnSwapped){
-			turnSwapped = false;
-			return true;
-		} 
-		return false;
 	}
 	
 	public String getMove(){

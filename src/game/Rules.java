@@ -16,7 +16,7 @@ public class Rules {
 	}
 	
 	public boolean isLegal(Cell origin, Cell destination, Player player){
-		if (playerTurn(origin)){
+		if (playerTurn(origin) && player.isPlayerChip(origin.getState())){
 			//FOR TESTING*********************
 			if (isBlackChip(origin) || isBlackKing(origin)){
 				player = new Player(PlayerID.BLACK);
@@ -24,7 +24,6 @@ public class Rules {
 				player = new Player(PlayerID.RED);
 			} 
 			//END TESTING*********************
-			// if actual play add condition: && player.isPlayerChip(origin.getState())
 			if (jumpRules.playerCanJump(player)){
 				if (isJump(origin, destination) &&
 						!isEmpty(jumpRules.getMiddleChip(origin, destination))){
@@ -45,6 +44,13 @@ public class Rules {
 	
 	public boolean isJump(Cell origin, Cell destination){
 		return jumpRules.isJump(origin, destination);
+	}
+	
+	public boolean playerCanJump(Player player){
+		return jumpRules.playerCanJump(player);
+	}
+	public boolean hasJump(Cell cell){
+		return jumpRules.hasJump(cell);
 	}
 		
 	public Cell getMiddleChip(Cell origin, Cell dest){

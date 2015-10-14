@@ -2,6 +2,7 @@ package game;
 
 import helpers.CellState;
 import helpers.Coordinate;
+import helpers.PlayerID;
 import checkersGUI.Board;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -66,6 +67,21 @@ public class Cell {
 				});
 				break;
 		}
+	}
+	
+	public Player getPlayer(){
+		switch(state){
+		case BLACK: case BLACK_KING:
+			return new Player(PlayerID.BLACK);
+		case EMPTY:
+			break;
+		case RED: case RED_KING:
+			return new Player(PlayerID.RED);
+		default:
+			break;
+		
+		}
+		return null;
 	}
 	
 	private void createImageView(){
