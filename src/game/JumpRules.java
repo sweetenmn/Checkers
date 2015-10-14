@@ -1,8 +1,6 @@
-package helpers;
+package game;
 
-import game.Cell;
-import game.Player;
-import game.Rules;
+import helpers.Coordinate;
 
 import java.util.ArrayList;
 

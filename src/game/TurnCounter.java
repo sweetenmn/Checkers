@@ -5,8 +5,6 @@ public class TurnCounter {
 	
 	public int getCount(){return count;}
 	
-	public void increment(){
-		count++;
-		}
+	public void increment(){count++;}
 
 }

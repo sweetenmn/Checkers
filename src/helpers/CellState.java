@@ -11,11 +11,7 @@ public enum CellState {
 	
 	private Image image;
 	
-	private CellState(Image image){
-		this.image = image;
-	}
+	private CellState(Image image){this.image = image;}
 	
-	public Image getImage(){
-		return image;
-	}
+	public Image getImage(){return image;}
 }

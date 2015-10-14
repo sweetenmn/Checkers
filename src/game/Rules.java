@@ -2,7 +2,6 @@ package game;
 
 import helpers.CellState;
 import helpers.Coordinate;
-import helpers.JumpRules;
 import checkersGUI.Board;
 
 public class Rules {
