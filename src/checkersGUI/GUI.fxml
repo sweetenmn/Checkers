@@ -827,6 +827,36 @@
       <Pane prefHeight="360.0" prefWidth="112.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="submitMove" layoutY="260.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="112.0" text="Submit Move" />
+            <Label layoutX="6.0" layoutY="10.0" prefHeight="25.0" prefWidth="101.0" text="How to Play">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Text layoutX="5.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name &amp; your opponent's name." wrappingWidth="98.13671875">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Text>
+            <Text layoutX="5.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Black chips move first." wrappingWidth="98.13671875">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Text>
+            <Text layoutX="5.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If you have a jump, you must jump." wrappingWidth="98.13671875">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Text>
+            <Text layoutX="3.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First player to 0 pieces wins." wrappingWidth="98.13671875">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Text>
+            <Text layoutX="4.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hit Enter or Submit Move to finalize your move." wrappingWidth="98.13671875">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </right>
