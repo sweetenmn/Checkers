@@ -32,7 +32,7 @@ public class Board {
 	
 	public String getName(){return playerName;}
 	
-	public void createPlayer(PlayerID playerState){thisPlayer = new Player(playerState);}
+	public void createPlayer(PlayerID playerState){thisPlayer = new Player(playerState, counter);}
 	
 	public void setUp(){
 		addChips(CellState.EMPTY, 0, 8);

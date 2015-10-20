@@ -70,22 +70,8 @@ public class Cell {
 		}
 	}
 	
-	public Player getPlayer(){
-		switch(state){
-		case BLACK: case BLACK_KING:
-			return new Player(PlayerID.BLACK);
-		case EMPTY:
-			break;
-		case RED: case RED_KING:
-			return new Player(PlayerID.RED);
-		default:
-			break;
-		
-		}
-		return null;
-	}
 	
-	private void createImageView(){
+	void createImageView(){
 		checker = new ImageView(images.getImageFor(state));
 	}
 	public int getColumn(){return coord.column();}

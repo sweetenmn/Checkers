@@ -12,19 +12,20 @@ public class Rules {
 	static final int NORM_RANGE = 1;
 
 	public Rules(Board board){
+		//remove counter for final
 		this.counter = board.getCounter();
 		jumpRules = new JumpRules(board, this);
 	}
 	
 	public boolean isLegal(Cell origin, Cell destination, Player player){
-		/////TESTING BLOCK
+		/////TESTING BLOCK -- remove for final
 		if (isBlackChip(origin) || isBlackKing(origin)){
-			player = new Player(PlayerID.BLACK);
+			player = new Player(PlayerID.BLACK, counter);
 			} else if (isRedChip(origin) || isRedKing(origin)){
-				player = new Player(PlayerID.RED);
+				player = new Player(PlayerID.RED, counter);
 			}
-		///END TESTING BLOCK. ADD && player.isPlayerChip(origin.getState()) TO BELOW IF-STATEMENT FOR FINAL
-		if (playerTurn(origin) ){
+		///END TESTING BLOCK. REPLACE BELOW W/: if (player.isPlayerMove(origin.getState())) {
+		if (player.isPlayerTurn(origin.getState())){
 			if (jumpRules.playerCanJump(player)){
 				if (isJump(origin, destination) &&
 						!isEmpty(jumpRules.getMiddleChip(origin, destination))){
@@ -69,20 +70,6 @@ public class Rules {
 	return false;
 	}
 	
-	public boolean playerTurn(Cell movingPiece){
-	switch(movingPiece.getState()){
-		case BLACK: case BLACK_KING:
-			return isBlackTurn();
-		case RED: case RED_KING:
-			return !isBlackTurn();
-		case EMPTY:
-			break;
-	}
-	return false;
-	}
-	
-	public boolean isBlackTurn(){return counter.getCount() % 2 == 0;}
- 
  	public boolean isBlackChip(Cell cell){return cell.getState() == CellState.BLACK;}
  	public boolean isRedChip(Cell cell){return cell.getState() == CellState.RED;}
  	public boolean isRedKing(Cell cell){return cell.getState() == CellState.RED_KING;}
