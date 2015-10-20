@@ -37,6 +37,7 @@ public class MessageHandler {
 		} else if (otherPlayer.equals(board.getName())) {
 			board.createPlayer(PlayerID.RED);
 		}
+	
 	}
 	
 	public String generateSetUpMessage(String player, String otherPlayer){
@@ -45,6 +46,7 @@ public class MessageHandler {
 		} else {
 			return ("PLAY:" + otherPlayer + ":" + player);
 		}
+		
 	}
 	
 	public Integer toInt(String s){ return Integer.valueOf(s); }

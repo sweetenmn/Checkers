@@ -9,6 +9,7 @@ import checkersGUI.Board;
 public class JumpRules {
 	Board board;
 	Rules rules;
+	static final int JUMP_RANGE = 2;
 	
 	public JumpRules(Board board, Rules rules){
 		this.board = board;
@@ -88,7 +89,8 @@ public class JumpRules {
 		return rangeCheck(coord.column()) && rangeCheck(coord.row());
 	}
 	
-	private boolean rangeCheck(int index){return index >= 0 && index <= 7;}
+	private boolean rangeCheck(int index){return index >= Cell.TOP_ROW && index <= Cell.BOTTOM_ROW;}
+	
 	private boolean hasPossibleDestination(Cell origin, Cell enemy){
 		String location = origin.compareCoords(enemy.getCoords());
 		if (location.equals("UL")){
@@ -115,14 +117,14 @@ public class JumpRules {
 	public boolean isJump(Cell origin, Cell destination){
 		switch(origin.getState()){
 		case RED:
-			return rules.isColumnsAway(origin, destination, 2) &&
-					rules.isRowsOneWay(destination, origin, 2);
+			return rules.isColumnsAway(origin, destination, JUMP_RANGE) &&
+					rules.isRowsOneWay(destination, origin, JUMP_RANGE);
 		case BLACK:
-			return rules.isColumnsAway(origin, destination, 2) && 
-					rules.isRowsOneWay(origin, destination, 2);
+			return rules.isColumnsAway(origin, destination, JUMP_RANGE) && 
+					rules.isRowsOneWay(origin, destination, JUMP_RANGE);
 		case RED_KING: case BLACK_KING:
-			return rules.isColumnsAway(origin, destination, 2) && 
-					rules.isRowsAway(destination, origin, 2);
+			return rules.isColumnsAway(origin, destination, JUMP_RANGE) && 
+					rules.isRowsAway(destination, origin, JUMP_RANGE);
 		case EMPTY:
 			break;
 		}

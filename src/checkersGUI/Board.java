@@ -15,8 +15,8 @@ public class Board {
 	private TurnCounter counter = new TurnCounter();
 	private GridPane checkerboard;
 	public ArrayList<Cell> cells;
-	private Cell lastPieceClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
-	private Cell lastSquareClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
+	private Cell lastPieceClicked = null;
+	private Cell lastSquareClicked = null;
 	private Player thisPlayer;
 	private String playerName;
 	private Rules rules;
@@ -74,6 +74,7 @@ public class Board {
 		}
 	}
 	private void addCell(Cell cell){
+		cell.createClickableChip();
 		cell.addTo(checkerboard);
 		cells.add(cell);
 	}

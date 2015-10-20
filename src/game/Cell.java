@@ -2,6 +2,7 @@ package game;
 
 import helpers.CellState;
 import helpers.Coordinate;
+import helpers.ImageHashMap;
 import helpers.PlayerID;
 import checkersGUI.Board;
 import javafx.scene.image.ImageView;
@@ -13,14 +14,15 @@ public class Cell {
 	private ImageView checker;
 	private Board board;
 	private Coordinate coord;
-	private static final int TOP_ROW = 0;
-	private static final int BOTTOM_ROW = 7;
+	static final int TOP_ROW = 0;
+	static final int BOTTOM_ROW = 7;
+	private ImageHashMap images = new ImageHashMap();
 	
 	public Cell(Board board, CellState state, Coordinate coord){
 		this.state = state;
 		this.coord = coord;
 		this.board = board;
-		createChip();
+		crownIfKing();
 	}
 	
 	public void addTo(GridPane gridParent){
@@ -31,8 +33,7 @@ public class Cell {
 		gridParent.getChildren().remove(checker);
 	}
 	
-	void createChip(){
-		crownIfKing();
+	public void createClickableChip(){
 		createImageView();
 		assignEvent();   
 	}
@@ -85,7 +86,7 @@ public class Cell {
 	}
 	
 	private void createImageView(){
-		checker = new ImageView(state.getImage());
+		checker = new ImageView(images.getImageFor(state));
 	}
 	public int getColumn(){return coord.column();}
 	public int getRow(){return coord.row();}

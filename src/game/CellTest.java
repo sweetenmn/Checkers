@@ -22,9 +22,7 @@ public class CellTest {
 	
 	@Test
 	public void test() {
-		cell.createChip();
 		assertTrue(cell.getState() != CellState.BLACK_KING);
-		cell2.createChip();
 		assertTrue(cell2.getState() == CellState.BLACK_KING);
 	}
 
