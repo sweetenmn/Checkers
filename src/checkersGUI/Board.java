@@ -43,7 +43,7 @@ public class Board {
 	public int redChipCount(){
 		int red = 0;
 		for(Cell c:cells){
-			if(rules.isRedChip(c) || rules.isRedKing(c)){red++;}
+			if(c.isRedChip() || c.isRedKing()){red++;}
 			
 		}
 		return red;
@@ -52,7 +52,7 @@ public class Board {
 	public int blackChipCount(){
 		int black = 0;
 		for(Cell c:cells){
-			if(rules.isBlackChip(c) || rules.isBlackKing(c)){black++;}
+			if(c.isBlackChip()|| c.isBlackKing()){black++;}
 		}
 		return black;
 	}

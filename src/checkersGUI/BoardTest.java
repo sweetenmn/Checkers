@@ -15,8 +15,7 @@ public class BoardTest {
 		
 		//////GameState No longer in use
 		
-		/*assertTrue(board.turn == GameState.BLACK_TURN);
-		board.swapPlayerTurn();
+		/*assertTrue(board.turn == GameState.BLACK_TURN);		board.swapPlayerTurn();
 		assertTrue(board.turn == GameState.RED_TURN);
 		board.swapPlayerTurn();
 		assertTrue(board.turn== GameState.BLACK_TURN);*/

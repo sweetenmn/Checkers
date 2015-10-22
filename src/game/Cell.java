@@ -3,7 +3,6 @@ package game;
 import helpers.CellState;
 import helpers.Coordinate;
 import helpers.ImageHashMap;
-import helpers.PlayerID;
 import checkersGUI.Board;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -86,19 +85,35 @@ public class Cell {
 	}
 	
 	public String compareCoords(Coordinate compareCoord){
-		if (compareCoord.column() == coord.column() - 1){
-			if (compareCoord.row() == coord.row() - 1){
+		if (compareCoord.column() == coord.column() - Rules.NORM_RANGE){
+			if (compareCoord.row() == coord.row() - Rules.NORM_RANGE){
 				return "UL";
 			} else {
 				return "DL";
 			}
 		} else {
-			if (compareCoord.row() == coord.row() - 1){
+			if (compareCoord.row() == coord.row() - Rules.NORM_RANGE){
 				return "UR";
 			} else {
 				return "DR";
 			}
 		}
+	}
+	
+ 	public boolean isBlackChip(){return getState() == CellState.BLACK;}
+ 	public boolean isRedChip(){return getState() == CellState.RED;}
+ 	public boolean isRedKing(){return getState() == CellState.RED_KING;}
+ 	public boolean isBlackKing(){return getState() == CellState.BLACK_KING;}
+ 	public boolean isEmpty(){return getState() == CellState.EMPTY;}
+ 	
+	public boolean isColumnsAway(Cell other, int desired){
+		return Math.abs(this.getColumn() - other.getColumn()) == desired;
+	}
+	public boolean isRowsOneWay(Cell other, int desired){
+		return this.getRow() - other.getRow() == desired;
+	}
+	public boolean isRowsAway(Cell other, int desired){
+		return Math.abs(this.getRow() - other.getRow()) == desired;
 	}
 	
 }
