@@ -26,14 +26,18 @@ public class JumpRules {
 		return false;
 	}
 	
+	public boolean hasJumpHelper(ArrayList<Cell> possibleEnemies, Cell origin){
+		for(Cell enemy : possibleEnemies){
+			if (hasPossibleDestination(origin, enemy)){
+				return true;
+			}
+		}
+		return false;
+	}
 	public boolean hasJump(Cell origin){
 		ArrayList<Cell> possibleEnemies = getPossibleEnemies(origin);
 		if (!possibleEnemies.isEmpty()){
-			for(Cell enemy : possibleEnemies){
-				if (hasPossibleDestination(origin, enemy)){
-					return true;
-				}
-			}
+			return hasJumpHelper(possibleEnemies, origin);
 		}
 		return false;
 	}
@@ -99,11 +103,10 @@ public class JumpRules {
 			enemies.add(board.getCellAt(enemyCoord)); 
 		}
 	}
+	
 	private boolean validEnemy(Cell origin, Coordinate coord){
 		if (cellInRange(coord)){ 
-			if (isEnemy(origin, board.getCellAt(coord))){
-				return true;
-			}
+			return isEnemy(origin, board.getCellAt(coord));
 		}
 		return false;
 	}
@@ -124,7 +127,8 @@ public class JumpRules {
 		return rangeCheck(coord.column()) && rangeCheck(coord.row());
 	}
 	
-	private boolean rangeCheck(int index){return index >= Cell.TOP_ROW && index <= Cell.BOTTOM_ROW;}
+	private boolean rangeCheck(int index){
+		return index >= Cell.TOP_ROW && index <= Cell.BOTTOM_ROW;}
 	
 	private boolean hasPossibleDestination(Cell origin, Cell enemy){
 		Coordinate enemyCoord = enemy.getCoords();
