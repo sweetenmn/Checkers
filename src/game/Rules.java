@@ -23,7 +23,7 @@ public class Rules {
 				player = new Player(PlayerID.RED, counter);
 			}
 		///END TESTING BLOCK. REPLACE BELOW W/: if (player.isPlayerMove(origin.getState())) {
-		if (player.isPlayerTurn(origin.getState())){
+		if (player.isPlayerTurn(origin.getState())) {
 			if (jumpRules.playerCanJump(player)){
 				return (isJump(origin, destination) &&
 						!jumpRules.getMiddleChip(origin, destination).isEmpty());

@@ -52,7 +52,6 @@ public class Board {
 		int red = 0;
 		for(Cell c:cells){
 			if(c.isRedChip() || c.isRedKing()){red++;}
-			
 		}
 		return red;
 	}
