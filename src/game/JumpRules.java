@@ -10,6 +10,7 @@ public class JumpRules {
 	Board board;
 	Rules rules;
 	static final int JUMP_RANGE = 2;
+
 	
 	public JumpRules(Board board, Rules rules){
 		this.board = board;
@@ -18,9 +19,7 @@ public class JumpRules {
 	public boolean playerCanJump(Player player){
 		for (Cell c: board.cells){
 			if (player.isPlayerChip(c.getState())){
-				if(hasJump(c)){
-					return true;
-				}
+				return hasJump(c);
 			}
 		}
 		return false;
@@ -30,9 +29,7 @@ public class JumpRules {
 		ArrayList<Cell> possibleEnemies = getPossibleEnemies(origin);
 		if (!possibleEnemies.isEmpty()){
 			for(Cell enemy : possibleEnemies){
-				if (hasPossibleDestination(origin, enemy)){
-					return true;
-				}
+				return hasPossibleDestination(origin, enemy);
 			}
 		}
 		return false;
@@ -71,7 +68,7 @@ public class JumpRules {
 			}
 		}
 	}
-	private ArrayList<Cell> getPossibleEnemies(Cell origin){
+	public ArrayList<Cell> getPossibleEnemies(Cell origin){
 		ArrayList<Cell> enemies = new ArrayList<Cell>();
 		Coordinate originCoord = origin.getCoords();
 		switch(origin.getState()){
@@ -99,16 +96,15 @@ public class JumpRules {
 			enemies.add(board.getCellAt(enemyCoord)); 
 		}
 	}
-	private boolean validEnemy(Cell origin, Coordinate coord){
+	
+	public boolean validEnemy(Cell origin, Coordinate coord){
 		if (cellInRange(coord)){ 
-			if (isEnemy(origin, board.getCellAt(coord))){
-				return true;
-			}
+			return isEnemy(origin, board.getCellAt(coord));
 		}
 		return false;
 	}
 	
-	private boolean isEnemy(Cell origin, Cell enemy){
+	public boolean isEnemy(Cell origin, Cell enemy){
 		 switch(origin.getState()){
 		 case BLACK: case BLACK_KING:
 			 return enemy.isRedChip() || enemy.isRedKing();
@@ -124,9 +120,10 @@ public class JumpRules {
 		return rangeCheck(coord.column()) && rangeCheck(coord.row());
 	}
 	
-	private boolean rangeCheck(int index){return index >= Cell.TOP_ROW && index <= Cell.BOTTOM_ROW;}
+	private boolean rangeCheck(int index){
+		return index >= Cell.TOP_ROW && index <= Cell.BOTTOM_ROW;}
 	
-	private boolean hasPossibleDestination(Cell origin, Cell enemy){
+	public boolean hasPossibleDestination(Cell origin, Cell enemy){
 		Coordinate enemyCoord = enemy.getCoords();
 		String location = origin.compareCoords(enemyCoord);
 		
@@ -142,12 +139,11 @@ public class JumpRules {
 		return false;
 	}
 	
-	private boolean validDestination(Coordinate coord){
+	public boolean validDestination(Coordinate coord){
 		if (cellInRange(coord)){
 			return board.getCellAt(coord).isEmpty();	
 		} else {
 			return false;
 		}
 	}
-	
 }
