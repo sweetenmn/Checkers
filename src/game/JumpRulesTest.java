@@ -37,14 +37,17 @@ public class JumpRulesTest {
 		}
 		assertFalse(jump.validDestination(coord));
 		assertFalse(jump.validDestination(coord2));
+	}
+		
+	@Test
+	public void test3(){
 		for(int i = 0; i < board.cells.size(); i ++){
 			Coordinate coord3 = new Coordinate((board.cells.get(i).getColumn() - 1), 
 					(board.cells.get(i).getRow() - 1));
+			
 			if((board.cells.get(i).getColumn()!=0)&&(board.cells.get(i).getRow()!=0)){
 				assertTrue(jump.hasPossibleDestination(board.cells.get(i), 
 						board.getCellAt(coord3)));
-				
-				
 			}else{
 				assertFalse(jump.hasPossibleDestination(board.cells.get(i), 
 						board.getCellAt(coord3)));
@@ -52,5 +55,14 @@ public class JumpRulesTest {
 			assertFalse(jump.isEnemy(board.cells.get(i), board.getCellAt(coord3)));
 			assertFalse(jump.validEnemy(board.cells.get(i), coord3));
 		}	
+	}
+	
+	@Test
+	public void test4(){
+		for(int i = 0; i < board.cells.size(); i ++){
+			Coordinate coord4 = new Coordinate((board.cells.get(i).getColumn() - 2), 
+				(board.cells.get(i).getRow() - 2));
+			assertTrue(jump.isJump(board.cells.get(i), board.getCellAt(coord4)));
+		}
 	}
 }
