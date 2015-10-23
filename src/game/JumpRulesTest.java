@@ -44,11 +44,13 @@ public class JumpRulesTest {
 				assertTrue(jump.hasPossibleDestination(board.cells.get(i), 
 						board.getCellAt(coord3)));
 				
+				
 			}else{
 				assertFalse(jump.hasPossibleDestination(board.cells.get(i), 
 						board.getCellAt(coord3)));
 			}
 			assertFalse(jump.isEnemy(board.cells.get(i), board.getCellAt(coord3)));
+			assertFalse(jump.validEnemy(board.cells.get(i), coord3));
 		}	
 	}
 }

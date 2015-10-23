@@ -97,7 +97,7 @@ public class JumpRules {
 		}
 	}
 	
-	private boolean validEnemy(Cell origin, Coordinate coord){
+	public boolean validEnemy(Cell origin, Coordinate coord){
 		if (cellInRange(coord)){ 
 			return isEnemy(origin, board.getCellAt(coord));
 		}
