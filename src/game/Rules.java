@@ -7,7 +7,6 @@ public class Rules {
 	public static final int NORM_RANGE = 1;
 
 	public Rules(Board board){
-		//remove counter for final
 		jumpRules = new JumpRules(board, this);
 	}
 	
