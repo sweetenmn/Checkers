@@ -103,6 +103,7 @@ public class JumpRulesTest {
 		//checks corrd out of bounds.
 		assertFalse(jump.validEnemy(downLeft, 
 				upRightCoord.upRightCoord().upRightCoord()));
+		assertTrue(jump.hasPossibleDestination(upLeft, straightLeft));
 	}
 	
 	@Test
