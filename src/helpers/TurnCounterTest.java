@@ -10,7 +10,7 @@ public class TurnCounterTest {
 	
 	@Test
 	public void test() {
-		assertTrue(turn.getCount() == 0);
+		assertEquals(turn.getCount(), 0);
 		turn.increment();
 		turn.increment();
 		turn.increment();

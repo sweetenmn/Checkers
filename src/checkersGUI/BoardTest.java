@@ -50,6 +50,29 @@ public class BoardTest {
 		assertEquals("3:1:5:3", board.getMove());
 	}
 	
+	@Test
+	public void getCellTest(){
+		setUpBoard();
+		assertEquals(origin, board.getCellAt(originCoord));
+	}
+	
+	@Test
+	public void countingTest(){
+		setUpBoard();
+		assertEquals(2, board.redChipCount());
+		assertEquals(1, board.blackChipCount());
+		origin = new Cell(board, CellState.EMPTY, originCoord);
+		upLeft = new Cell(board, CellState.EMPTY, upLeftCoord);
+		setUpBoard();
+		assertEquals(1, board.redChipCount());
+		assertEquals(0, board.blackChipCount());
+		origin = new Cell(board, CellState.BLACK_KING, originCoord);
+		upLeft = new Cell(board, CellState.BLACK_KING, upLeftCoord);
+		setUpBoard();
+		assertEquals(1, board.redChipCount());
+		assertEquals(2, board.blackChipCount());
+	}
+	
 	public void setUpBoard(){
 		board.cells = new ArrayList<Cell>();
 		board.cells.clear();
@@ -61,5 +84,7 @@ public class BoardTest {
 		board.cells.add(straightLeft);
 		board.cells.add(downStrLeft);
 	}
+	
+	
 
 }
