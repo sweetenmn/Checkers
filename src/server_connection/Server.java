@@ -45,7 +45,7 @@ public class Server {
 	    	try {
 	    		PrintWriter writer = new PrintWriter(socket.getOutputStream());
 	    		String msg = getMessage();
-	    		if (!host.equals("localhost")){
+	    		if (!host.equals("localhost") && !host.equals("")){
 		    		Platform.runLater(() -> messageHandler.handleMessage(msg));
 	    		}
 	    		echoAndClose(writer, msg);

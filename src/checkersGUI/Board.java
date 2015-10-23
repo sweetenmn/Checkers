@@ -5,21 +5,24 @@ import java.util.ArrayList;
 import game.Cell;
 import game.Player;
 import game.Rules;
+import helpers.ImageHashMap;
 import helpers.TurnCounter;
 import helpers.CellState;
 import helpers.Coordinate;
 import helpers.PlayerID;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 
 public class Board {
 	private TurnCounter counter = new TurnCounter();
 	private GridPane checkerboard;
 	public ArrayList<Cell> cells;
-	private Cell lastPieceClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
-	private Cell lastSquareClicked = new Cell(this, CellState.EMPTY, new Coordinate(0,0));
+	private Cell lastPieceClicked = null;
+	private Cell lastSquareClicked = null;
 	private Player thisPlayer;
 	private String playerName;
 	private Rules rules;
+	private ImageHashMap images;
 	
 	public Board(GridPane grid, String player){
 		playerName = player;
@@ -32,19 +35,23 @@ public class Board {
 	
 	public String getName(){return playerName;}
 	
-	public void createPlayer(PlayerID playerState){thisPlayer = new Player(playerState);}
+	public void createPlayer(PlayerID playerState){thisPlayer = new Player(playerState, counter);}
 	
 	public void setUp(){
+		images = new ImageHashMap();
 		addChips(CellState.EMPTY, 0, 8);
 		addChips(CellState.RED, 0, 3);
 		addChips(CellState.BLACK, 5, 8);
 	}
 	
+	public Image getImageFor(CellState state){
+		return images.getImageFor(state);
+	}
+	
 	public int redChipCount(){
 		int red = 0;
 		for(Cell c:cells){
-			if(rules.isRedChip(c) || rules.isRedKing(c)){red++;}
-			
+			if(c.isRedChip() || c.isRedKing()){red++;}
 		}
 		return red;
 	}
@@ -52,7 +59,7 @@ public class Board {
 	public int blackChipCount(){
 		int black = 0;
 		for(Cell c:cells){
-			if(rules.isBlackChip(c) || rules.isBlackKing(c)){black++;}
+			if(c.isBlackChip()|| c.isBlackKing()){black++;}
 		}
 		return black;
 	}
@@ -74,6 +81,7 @@ public class Board {
 		}
 	}
 	private void addCell(Cell cell){
+		cell.createClickableChip();
 		cell.addTo(checkerboard);
 		cells.add(cell);
 	}

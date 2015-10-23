@@ -9,6 +9,8 @@ import checkersGUI.Board;
 public class JumpRules {
 	Board board;
 	Rules rules;
+	static final int JUMP_RANGE = 2;
+
 	
 	public JumpRules(Board board, Rules rules){
 		this.board = board;
@@ -17,9 +19,7 @@ public class JumpRules {
 	public boolean playerCanJump(Player player){
 		for (Cell c: board.cells){
 			if (player.isPlayerChip(c.getState())){
-				if(hasJump(c)){
-					return true;
-				}
+				return hasJump(c);
 			}
 		}
 		return false;
@@ -29,29 +29,62 @@ public class JumpRules {
 		ArrayList<Cell> possibleEnemies = getPossibleEnemies(origin);
 		if (!possibleEnemies.isEmpty()){
 			for(Cell enemy : possibleEnemies){
-				if (hasPossibleDestination(origin, enemy)){
-					return true;
-				}
+				return hasPossibleDestination(origin, enemy);
 			}
 		}
 		return false;
 	}
-	private ArrayList<Cell> getPossibleEnemies(Cell origin){
+	
+	public boolean isJump(Cell origin, Cell destination){
+		switch(origin.getState()){
+		case RED:
+			return origin.isColumnsAway(destination, JUMP_RANGE) &&
+					destination.isRowsOneWay(origin, JUMP_RANGE);
+		case BLACK:
+			return origin.isColumnsAway(destination, JUMP_RANGE) && 
+					origin.isRowsOneWay(destination, JUMP_RANGE);
+		case RED_KING: case BLACK_KING:
+			return origin.isColumnsAway(destination, JUMP_RANGE) && 
+					destination.isRowsAway(origin, JUMP_RANGE);
+		case EMPTY:
+			break;
+		}
+		return false;
+	}
+	
+	public Cell getMiddleChip(Cell origin, Cell dest){
+		Coordinate originCoord = origin.getCoords();
+		if (dest.getColumn() > origin.getColumn()){
+			if (dest.getRow() > origin.getRow()){
+				return board.getCellAt(originCoord.downRightCoord());
+			} else {
+				return board.getCellAt(originCoord.upRightCoord());
+			}
+		} else {
+			if (dest.getRow() > origin.getRow()){
+				return board.getCellAt(originCoord.downLeftCoord());
+			} else {
+				return board.getCellAt(originCoord.upLeftCoord());
+			}
+		}
+	}
+	public ArrayList<Cell> getPossibleEnemies(Cell origin){
 		ArrayList<Cell> enemies = new ArrayList<Cell>();
+		Coordinate originCoord = origin.getCoords();
 		switch(origin.getState()){
 		case BLACK:
-			addLegalEnemy(origin, rules.upLeftFrom(origin), enemies);
-			addLegalEnemy(origin, rules.upRightFrom(origin), enemies);
+			addLegalEnemy(origin, originCoord.upLeftCoord(), enemies);
+			addLegalEnemy(origin, originCoord.upRightCoord(), enemies);
 			break;
 		case RED:
-			addLegalEnemy(origin, rules.downLeftFrom(origin), enemies);
-			addLegalEnemy(origin, rules.downRightFrom(origin), enemies);
+			addLegalEnemy(origin, originCoord.downLeftCoord(), enemies);
+			addLegalEnemy(origin, originCoord.downRightCoord(), enemies);
 			break;
 		case BLACK_KING: case RED_KING:
-			addLegalEnemy(origin, rules.upLeftFrom(origin), enemies);
-			addLegalEnemy(origin, rules.upRightFrom(origin), enemies);
-			addLegalEnemy(origin, rules.downLeftFrom(origin), enemies);
-			addLegalEnemy(origin, rules.downRightFrom(origin), enemies);
+			addLegalEnemy(origin, originCoord.upLeftCoord(), enemies);
+			addLegalEnemy(origin, originCoord.upRightCoord(), enemies);
+			addLegalEnemy(origin, originCoord.downLeftCoord(), enemies);
+			addLegalEnemy(origin, originCoord.downRightCoord(), enemies);
 			break;
 		case EMPTY:
 			break;
@@ -63,21 +96,20 @@ public class JumpRules {
 			enemies.add(board.getCellAt(enemyCoord)); 
 		}
 	}
-	private boolean validEnemy(Cell origin, Coordinate coord){
+	
+	public boolean validEnemy(Cell origin, Coordinate coord){
 		if (cellInRange(coord)){ 
-			if (isEnemy(origin, board.getCellAt(coord))){
-				return true;
-			}
+			return isEnemy(origin, board.getCellAt(coord));
 		}
 		return false;
 	}
 	
-	private boolean isEnemy(Cell origin, Cell enemy){
+	public boolean isEnemy(Cell origin, Cell enemy){
 		 switch(origin.getState()){
 		 case BLACK: case BLACK_KING:
-			 return rules.isRedChip(enemy) || rules.isRedKing(enemy);
+			 return enemy.isRedChip() || enemy.isRedKing();
 		 case RED: case RED_KING:
-			 return rules.isBlackChip(enemy) || rules.isBlackKing(enemy);
+			 return enemy.isBlackChip() || enemy.isBlackKing();
 		 case EMPTY:
 			 break;
 		 }
@@ -88,63 +120,30 @@ public class JumpRules {
 		return rangeCheck(coord.column()) && rangeCheck(coord.row());
 	}
 	
-	private boolean rangeCheck(int index){return index >= 0 && index <= 7;}
-	private boolean hasPossibleDestination(Cell origin, Cell enemy){
-		String location = origin.compareCoords(enemy.getCoords());
+	private boolean rangeCheck(int index){
+		return index >= Cell.TOP_ROW && index <= Cell.BOTTOM_ROW;}
+	
+	public boolean hasPossibleDestination(Cell origin, Cell enemy){
+		Coordinate enemyCoord = enemy.getCoords();
+		String location = origin.compareCoords(enemyCoord);
+		
 		if (location.equals("UL")){
-			return validDestination(rules.upLeftFrom(enemy));
+			return validDestination(enemyCoord.upLeftCoord());
 		} else if (location.equals("UR")){
-			return validDestination(rules.upRightFrom(enemy));
+			return validDestination(enemyCoord.upRightCoord());
 		} else if (location.equals("DL")){
-			return validDestination(rules.downLeftFrom(enemy));
+			return validDestination(enemyCoord.downLeftCoord());
 		} else if (location.equals("DR")){
-			return validDestination(rules.downRightFrom(enemy));
+			return validDestination(enemyCoord.downRightCoord());
 		}
 		return false;
 	}
 	
-	private boolean validDestination(Coordinate coord){
+	public boolean validDestination(Coordinate coord){
 		if (cellInRange(coord)){
-			if (rules.isEmpty(board.getCellAt(coord))){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean isJump(Cell origin, Cell destination){
-		switch(origin.getState()){
-		case RED:
-			return rules.isColumnsAway(origin, destination, 2) &&
-					rules.isRowsOneWay(destination, origin, 2);
-		case BLACK:
-			return rules.isColumnsAway(origin, destination, 2) && 
-					rules.isRowsOneWay(origin, destination, 2);
-		case RED_KING: case BLACK_KING:
-			return rules.isColumnsAway(origin, destination, 2) && 
-					rules.isRowsAway(destination, origin, 2);
-		case EMPTY:
-			break;
-		}
-		return false;
-	}
-	
-	public Cell getMiddleChip(Cell origin, Cell dest){
-		if (dest.getColumn() > origin.getColumn()){
-			if (dest.getRow() > origin.getRow()){
-				return board.getCellAt(rules.downRightFrom(origin));
-			} else {
-				return board.getCellAt(rules.upRightFrom(origin));
-			}
+			return board.getCellAt(coord).isEmpty();	
 		} else {
-			if (dest.getRow() > origin.getRow()){
-				return board.getCellAt(rules.downLeftFrom(origin));
-			} else {
-				return board.getCellAt(rules.upLeftFrom(origin));
-			}
+			return false;
 		}
 	}
-
-	
-
 }
