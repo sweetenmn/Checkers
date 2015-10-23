@@ -32,7 +32,7 @@ public class JumpRulesTest {
 	Cell upUpLeft = new Cell(board, CellState.RED, upLeftCoord.upLeftCoord());
 	Cell upUpRight = new Cell(board, CellState.RED_KING, upRightCoord.upRightCoord());
 	Cell downRight = new Cell(board, CellState.EMPTY, downRightCoord);
-	Cell upRight = new Cell(board, CellState.EMPTY, upRightCoord);
+	Cell upRight = new Cell(board, CellState.RED, upRightCoord);
 	Cell downLeft = new Cell(board, CellState.BLACK_KING, downLeftCoord);
 	Cell upLeftRight = new Cell(board, CellState.RED, upLeftCoord.upRightCoord());
 	Cell straightLeft = new Cell(board, CellState.EMPTY, 
@@ -96,6 +96,13 @@ public class JumpRulesTest {
 		assertTrue(jump.playerCanJump(player2));
 		assertTrue(jump.hasJump(upLeft));
 		assertTrue(jump.isJump(upLeft, downRight));
+		assertTrue(jump.isJump(upRight, downLeft));
+		assertFalse(jump.isJump(origin, upLeft));
+		assertFalse(jump.hasJump(upLeftRight));
+		assertFalse(jump.validEnemy(downLeft, originCoord));
+		//checks corrd out of bounds.
+		assertFalse(jump.validEnemy(downLeft, 
+				upRightCoord.upRightCoord().upRightCoord()));
 	}
 	
 	@Test
