@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import game.Cell;
 import game.Player;
 import game.Rules;
+import helpers.ImageHashMap;
 import helpers.TurnCounter;
 import helpers.CellState;
 import helpers.Coordinate;
 import helpers.PlayerID;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 
 public class Board {
@@ -20,6 +22,7 @@ public class Board {
 	private Player thisPlayer;
 	private String playerName;
 	private Rules rules;
+	private ImageHashMap images;
 	
 	public Board(GridPane grid, String player){
 		playerName = player;
@@ -35,16 +38,20 @@ public class Board {
 	public void createPlayer(PlayerID playerState){thisPlayer = new Player(playerState, counter);}
 	
 	public void setUp(){
+		images = new ImageHashMap();
 		addChips(CellState.EMPTY, 0, 8);
 		addChips(CellState.RED, 0, 3);
 		addChips(CellState.BLACK, 5, 8);
+	}
+	
+	public Image getImageFor(CellState state){
+		return images.getImageFor(state);
 	}
 	
 	public int redChipCount(){
 		int red = 0;
 		for(Cell c:cells){
 			if(c.isRedChip() || c.isRedKing()){red++;}
-			
 		}
 		return red;
 	}
