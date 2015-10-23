@@ -18,26 +18,18 @@ public class JumpRules {
 	public boolean playerCanJump(Player player){
 		for (Cell c: board.cells){
 			if (player.isPlayerChip(c.getState())){
-				if(hasJump(c)){
-					return true;
-				}
+				return hasJump(c);
 			}
 		}
 		return false;
 	}
 	
-	public boolean hasJumpHelper(ArrayList<Cell> possibleEnemies, Cell origin){
-		for(Cell enemy : possibleEnemies){
-			if (hasPossibleDestination(origin, enemy)){
-				return true;
-			}
-		}
-		return false;
-	}
 	public boolean hasJump(Cell origin){
 		ArrayList<Cell> possibleEnemies = getPossibleEnemies(origin);
 		if (!possibleEnemies.isEmpty()){
-			return hasJumpHelper(possibleEnemies, origin);
+			for(Cell enemy : possibleEnemies){
+				return hasPossibleDestination(origin, enemy);
+			}
 		}
 		return false;
 	}
