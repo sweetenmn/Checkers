@@ -1,9 +1,9 @@
 package game;
 
 import static org.junit.Assert.*;
-import helpers.CellState;
-import helpers.Coordinate;
 import javafx.scene.layout.GridPane;
+import helpers.PlayerID;
+import helpers.TurnCounter;
 
 import org.junit.Test;
 
@@ -14,13 +14,23 @@ public class JumpRulesTest {
 	Board board = new Board(grid, "name");
 	Rules rules = new Rules(board);
 	JumpRules jump = new JumpRules(board, rules);
-	Coordinate coord = new Coordinate(2, 6);
-	Cell origin = new Cell(board, CellState.BLACK, coord);
+	TurnCounter count = new TurnCounter();
+	Player player = new Player(PlayerID.BLACK, count);
+	
 	
 	
 	@Test
 	public void test() {
-		assertFalse(jump.hasJump(origin));
+		assertFalse(jump.playerCanJump(player));
+		for(int i = 0; i < board.cells.size() ; i ++){
+			assertFalse(jump.hasJump(board.cells.get(i)));
+		}
 	}
-
+	
+	@Test
+	public void test2(){
+		for(int i = 0; i < board.cells.size(); i ++){
+			assertTrue(jump.getPossibleEnemies(board.cells.get(i)) == null);
+		}
+	}
 }

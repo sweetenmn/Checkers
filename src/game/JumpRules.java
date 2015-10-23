@@ -10,6 +10,7 @@ public class JumpRules {
 	Board board;
 	Rules rules;
 	static final int JUMP_RANGE = 2;
+
 	
 	public JumpRules(Board board, Rules rules){
 		this.board = board;
@@ -67,7 +68,7 @@ public class JumpRules {
 			}
 		}
 	}
-	private ArrayList<Cell> getPossibleEnemies(Cell origin){
+	public ArrayList<Cell> getPossibleEnemies(Cell origin){
 		ArrayList<Cell> enemies = new ArrayList<Cell>();
 		Coordinate originCoord = origin.getCoords();
 		switch(origin.getState()){
@@ -145,5 +146,4 @@ public class JumpRules {
 			return false;
 		}
 	}
-	
 }
