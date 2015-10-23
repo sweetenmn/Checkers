@@ -2,6 +2,7 @@ package game;
 
 import static org.junit.Assert.*;
 import javafx.scene.layout.GridPane;
+import helpers.Coordinate;
 import helpers.PlayerID;
 import helpers.TurnCounter;
 
@@ -29,8 +30,25 @@ public class JumpRulesTest {
 	
 	@Test
 	public void test2(){
+		Coordinate coord = new Coordinate(11,5);
+		Coordinate coord2 = new Coordinate(5, 11);
 		for(int i = 0; i < board.cells.size(); i ++){
 			assertTrue(jump.getPossibleEnemies(board.cells.get(i)) == null);
 		}
+		assertFalse(jump.validDestination(coord));
+		assertFalse(jump.validDestination(coord2));
+		for(int i = 0; i < board.cells.size(); i ++){
+			Coordinate coord3 = new Coordinate((board.cells.get(i).getColumn() - 1), 
+					(board.cells.get(i).getRow() - 1));
+			if((board.cells.get(i).getColumn()!=0)&&(board.cells.get(i).getRow()!=0)){
+				assertTrue(jump.hasPossibleDestination(board.cells.get(i), 
+						board.getCellAt(coord3)));
+				
+			}else{
+				assertFalse(jump.hasPossibleDestination(board.cells.get(i), 
+						board.getCellAt(coord3)));
+			}
+			assertFalse(jump.isEnemy(board.cells.get(i), board.getCellAt(coord3)));
+		}	
 	}
 }

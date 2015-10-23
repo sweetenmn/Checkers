@@ -104,7 +104,7 @@ public class JumpRules {
 		return false;
 	}
 	
-	private boolean isEnemy(Cell origin, Cell enemy){
+	public boolean isEnemy(Cell origin, Cell enemy){
 		 switch(origin.getState()){
 		 case BLACK: case BLACK_KING:
 			 return enemy.isRedChip() || enemy.isRedKing();
@@ -123,7 +123,7 @@ public class JumpRules {
 	private boolean rangeCheck(int index){
 		return index >= Cell.TOP_ROW && index <= Cell.BOTTOM_ROW;}
 	
-	private boolean hasPossibleDestination(Cell origin, Cell enemy){
+	public boolean hasPossibleDestination(Cell origin, Cell enemy){
 		Coordinate enemyCoord = enemy.getCoords();
 		String location = origin.compareCoords(enemyCoord);
 		
@@ -139,7 +139,7 @@ public class JumpRules {
 		return false;
 	}
 	
-	private boolean validDestination(Coordinate coord){
+	public boolean validDestination(Coordinate coord){
 		if (cellInRange(coord)){
 			return board.getCellAt(coord).isEmpty();	
 		} else {
