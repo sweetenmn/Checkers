@@ -1,29 +1,18 @@
 package game;
 
-import helpers.PlayerID;
-import helpers.TurnCounter;
 import checkersGUI.Board;
 
 public class Rules {
-	private TurnCounter counter;
 	private JumpRules jumpRules;
 	public static final int NORM_RANGE = 1;
 
 	public Rules(Board board){
 		//remove counter for final
-		this.counter = board.getCounter();
 		jumpRules = new JumpRules(board, this);
 	}
 	
 	public boolean isLegal(Cell origin, Cell destination, Player player){
-		/////TESTING BLOCK -- remove for final
-		if (origin.isBlackChip() || origin.isBlackKing()){
-			player = new Player(PlayerID.BLACK, counter);
-			} else if (origin.isRedChip() || origin.isRedKing()){
-				player = new Player(PlayerID.RED, counter);
-			}
-		///END TESTING BLOCK. REPLACE BELOW W/: if (player.isPlayerMove(origin.getState())) {
-		if (player.isPlayerTurn(origin.getState())) {
+		if (player.isPlayerMove(origin.getState())) {
 			if (jumpRules.playerCanJump(player)){
 				return (isJump(origin, destination) &&
 						!jumpRules.getMiddleChip(origin, destination).isEmpty());
